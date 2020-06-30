@@ -158,7 +158,7 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
       controller: pageController,
       children: <Widget>[
         pageItem( Text("page 1"),),
-        pageItem( Center(child: Text("page 2"),) ),
+        pageItem( Center(child: Text("page 2\n\n두번재\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게", style: TextStyle(fontSize: 50),),) ),
         pageItem( Center(child: Text("page 3"),) ),
         pageItem( Center(child: Text("page 4"),) ),
       ],

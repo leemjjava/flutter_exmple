@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/week_of_widget/16_Nested_scroll_view.dart';
+import 'animation/01_animated_container.dart';
+import 'animation/02_page_route_builder.dart';
+import 'animation/03_animation_controller.dart';
+import 'animation/04_tweens.dart';
+import 'animation/05_animated_builder.dart';
+import 'animation/06_custom_tween.dart';
+import 'animation/07_tween_sequence.dart';
+import 'animation/08_tween_builder.dart';
+import 'animation/09_time_machine.dart';
+import 'animation/10_animated_widget_with_clipper.dart';
+import 'animation/11_basic_animation_controller.dart';
+import 'animation/12_fade_transition.dart';
+import 'animation/13_expand_card.dart';
+import 'animation/14_carousel.dart';
+import 'animation/15_focus_image.dart';
+import 'animation/16_card_swipe.dart';
+import 'animation/17_repeating_animation.dart';
+import 'animation/19_physics_card_drag.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -53,6 +71,82 @@ class MyRouts {
 
   const MyRouts({this.name, this.route, this.builder});
 }
+
+final animation = [
+  MyRouts(
+      name: 'AnimatedContainer',
+      route: AnimatedContainerDemo.routeName,
+      builder: (context) => AnimatedContainerDemo()),
+  MyRouts(
+      name: 'PageRouteBuilder',
+      route: PageRouteBuilderDemo.routeName,
+      builder: (context) => PageRouteBuilderDemo()),
+  MyRouts(
+      name: 'Animation Controller',
+      route: AnimationControllerDemo.routeName,
+      builder: (context) => AnimationControllerDemo()),
+  MyRouts(
+      name: 'Tweens',
+      route: TweenDemo.routeName,
+      builder: (context) => TweenDemo()),
+  MyRouts(
+      name: 'AnimatedBuilder',
+      route: AnimatedBuilderDemo.routeName,
+      builder: (context) => AnimatedBuilderDemo()),
+  MyRouts(
+      name: 'Custom Tween',
+      route: CustomTweenDemo.routeName,
+      builder: (context) => CustomTweenDemo()),
+  MyRouts(
+      name: 'Tween Sequences',
+      route: TweenSequenceDemo.routeName,
+      builder: (context) => TweenSequenceDemo()),
+  MyRouts(
+      name: 'Tween builder',
+      route: TweenBuilderDemo.routeName,
+      builder: (context) => TweenBuilderDemo()),
+  MyRouts(
+      name: 'Rotation Transition',
+      route: TimeMachineDemo.routeName,
+      builder: (context) => TimeMachineDemo()),
+  MyRouts(
+      name: 'Animated Widget',
+      route: MyHomePage.routeName,
+      builder: (context) => MyHomePage()),
+  MyRouts(
+      name: 'Basic Animation',
+      route: BasicAnimationDemo.routeName,
+      builder: (context) => BasicAnimationDemo()),
+  MyRouts(
+      name: 'Fade Transition',
+      route: FadeTransitionDemo.routeName,
+      builder: (context) => FadeTransitionDemo()),
+  MyRouts(
+      name: 'Expandable Card',
+      route: ExpandCardDemo.routeName,
+      builder: (context) => ExpandCardDemo()),
+  MyRouts(
+      name: 'Carousel',
+      route: CarouselDemo.routeName,
+      builder: (context) => CarouselDemo()),
+  MyRouts(
+      name: 'Focus Image',
+      route: FocusImageDemo.routeName,
+      builder: (context) => FocusImageDemo()),
+  MyRouts(
+      name: 'Card Swipe',
+      route: CardSwipeDemo.routeName,
+      builder: (context) => CardSwipeDemo()),
+  MyRouts(
+      name: 'Repeating Animation',
+      route: RepeatingAnimationDemo.routeName,
+      builder: (context) => RepeatingAnimationDemo()),
+  MyRouts(
+      name: 'Spring Physics',
+      route: PhysicsCardDragDemo.routeName,
+      builder: (context) => PhysicsCardDragDemo()),
+
+];
 
 final navigators = [
   MyRouts(
@@ -193,6 +287,9 @@ final boxConstraints = [
   ),
 ];
 
+final animationMap =
+Map.fromEntries(animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
+
 final navigatorsMap =
   Map.fromEntries(navigators.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
@@ -206,6 +303,7 @@ final allRoutes = <String, WidgetBuilder>{
   ...navigatorsMap,
   ...weekOfWidgetMap,
   ...boxConstraintMap,
+  ...animationMap,
 };
 
 class MyApp extends StatelessWidget {
@@ -243,7 +341,7 @@ class HomePage extends StatelessWidget {
     final headerStyle = Theme.of(context).textTheme.title;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Animation Samples'),
+        title: Text('My Example'),
       ),
       body: ListView(
         children: [
@@ -253,6 +351,8 @@ class HomePage extends StatelessWidget {
           ...weekOfWidgets.map((d) => DemoTile(d)),
           ListTile(title: Text('BoxConstraint', style: headerStyle)),
           ...boxConstraints.map((d) => DemoTile(d)),
+          ListTile(title: Text('Animation', style: headerStyle)),
+          ...animation.map((d) => DemoTile(d)),
         ],
       ),
     );
