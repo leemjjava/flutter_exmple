@@ -6,17 +6,17 @@ class BoxConstraintEx extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    debugPaintSizeEnabled = false;
+    debugPaintSizeEnabled = true;
 
     return Scaffold(
         appBar: AppBar(title: Text('Box Constraint TEST'),),
 //        body: getContainer(),
 //        body: getColumn(),
 //        body: getRow(),
-//        body: getContainerWithSizeBox(),
+        body: getContainerWithSizeBox(),
 //        body: getListView(),
 //        body: getListViewInnerListView(),
-        body: getButtons(context),
+//        body: getButtons(context),
     );
   }
 
@@ -75,14 +75,28 @@ class BoxConstraintEx extends StatelessWidget{
   Widget getListView(){
     return Container(
         constraints: BoxConstraints(
-            maxHeight: 50,
             maxWidth: 200,
         ),
         color:Colors.yellow,
         child:ListView(
           children: <Widget>[
             Card(child: Text('Hello everyone~')),
-            ListTile(title: Text('Nice to see you'))
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
+            ListTile(title: Text('Nice to see you')),
           ],
         )
     );
@@ -167,19 +181,19 @@ class BoxConstraintEx extends StatelessWidget{
       getContainerText('11번'),
       getContainerText('12번'),
       getContainerText('13번'),
-      getContainerText('1번'),
-      getContainerText('2번'),
-      getContainerText('3번'),
-      getContainerText('4번'),
-      getContainerText('5번'),
-      getContainerText('6번'),
-      getContainerText('7번'),
-      getContainerText('8번'),
-      getContainerText('9번'),
-      getContainerText('10번'),
-      getContainerText('11번'),
-      getContainerText('12번'),
-      getContainerText('13번'),
+      getContainerText('14번'),
+      getContainerText('15번'),
+      getContainerText('16번'),
+      getContainerText('17번'),
+      getContainerText('18번'),
+      getContainerText('19번'),
+      getContainerText('20번'),
+      getContainerText('21번'),
+      getContainerText('22번'),
+      getContainerText('23번'),
+      getContainerText('24번'),
+      getContainerText('25번'),
+      getContainerText('26번'),
     ];
   }
 
@@ -203,6 +217,8 @@ class BoxConstraintEx extends StatelessWidget{
 
   Widget getButtons(BuildContext context){
     return Container(
+      alignment: Alignment.bottomCenter,
+      height: double.infinity,
       constraints: BoxConstraints(
         maxWidth: double.infinity,
       ),

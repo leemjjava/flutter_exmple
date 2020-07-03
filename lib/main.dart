@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/week_of_widget/16_Nested_scroll_view.dart';
+import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'animation/01_animated_container.dart';
 import 'animation/02_page_route_builder.dart';
 import 'animation/03_animation_controller.dart';
@@ -276,6 +277,11 @@ final weekOfWidgets = [
       name: 'nested_scroll_view',
       route: NestedScrollViewExample.routeName,
       builder: (BuildContext context) => NestedScrollViewExample()
+  ),
+  MyRouts(
+      name: 'layout_example',
+      route: LayoutExample.routeName,
+      builder: (BuildContext context) => LayoutExample()
   ),
 ];
 
