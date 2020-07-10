@@ -6,14 +6,14 @@ class BoxConstraintEx extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    debugPaintSizeEnabled = true;
+    debugPaintSizeEnabled = false;
 
     return Scaffold(
         appBar: AppBar(title: Text('Box Constraint TEST'),),
 //        body: getContainer(),
-//        body: getColumn(),
+        body: getColumn(),
 //        body: getRow(),
-        body: getContainerWithSizeBox(),
+//        body: getContainerWithSizeBox(),
 //        body: getListView(),
 //        body: getListViewInnerListView(),
 //        body: getButtons(context),
@@ -51,8 +51,8 @@ class BoxConstraintEx extends StatelessWidget{
   }
 
   Widget getColumn(){
-    return Container(
-      color: Colors.green,
+    return SizedBox(
+      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: getTextList(),

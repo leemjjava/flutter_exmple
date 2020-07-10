@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/week_of_widget/16_Nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
+import 'package:navigator/week_of_widget/18_Asynchronous.dart';
 import 'animation/01_animated_container.dart';
 import 'animation/02_page_route_builder.dart';
 import 'animation/03_animation_controller.dart';
@@ -282,6 +283,11 @@ final weekOfWidgets = [
       name: 'layout_example',
       route: LayoutExample.routeName,
       builder: (BuildContext context) => LayoutExample()
+  ),
+  MyRouts(
+      name: 'async_example',
+      route: AsyncExample.routeName,
+      builder: (BuildContext context) => AsyncExample()
   ),
 ];
 
