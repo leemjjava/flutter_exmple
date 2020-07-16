@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:navigator/week_of_widget/16_Nested_scroll_view.dart';
+import 'package:navigator/animation/20_page_view_fade.dart';
+import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
 import 'animation/01_animated_container.dart';
@@ -147,6 +148,10 @@ final animation = [
       name: 'Spring Physics',
       route: PhysicsCardDragDemo.routeName,
       builder: (context) => PhysicsCardDragDemo()),
+  MyRouts(
+      name: 'Page View Fade',
+      route: PageViewFade.routeName,
+      builder: (context) => PageViewFade()),
 
 ];
 

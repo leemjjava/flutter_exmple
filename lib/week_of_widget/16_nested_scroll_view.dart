@@ -16,6 +16,18 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
   final double sliverMinHeight = 80.0, sliverMaxHeight = 140.0;
   int pageIndex = 0;
 
+  final colors = [
+    Colors.red,
+    Colors.purple,
+    Colors.green,
+    Colors.orange,
+    Colors.yellow,
+    Colors.pink,
+    Colors.cyan,
+    Colors.indigo,
+    Colors.blue,
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -158,8 +170,8 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
       controller: pageController,
       children: <Widget>[
         pageItem( Text("page 1"),),
-        pageItem( Center(child: Text("page 2\n\n두번재\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게", style: TextStyle(fontSize: 50),),) ),
-        pageItem( Center(child: Text("page 3"),) ),
+        pageItem( Center(child: Text("page 2\n\n두번째\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게", style: TextStyle(fontSize: 100),),) ),
+        pageListView(),
         pageItem( Center(child: Text("page 4"),) ),
       ],
       onPageChanged: (index)=> setState(() => pageIndex = index),
@@ -177,6 +189,15 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
         constraints: BoxConstraints(minHeight: minHeight),
         child: child,
       ),
+    );
+  }
+
+  Widget pageListView(){
+    return  ListView.builder(
+      itemCount: colors.length,
+      itemBuilder: (BuildContext context, int index){
+        return Container(color: colors[index], height: 150,);
+      },
     );
   }
 }

@@ -34,9 +34,7 @@ class Grid extends StatelessWidget {
 
 Route _createRoute(BuildContext parentContext, String image) {
   return PageRouteBuilder<void>(
-    pageBuilder: (context, animation, secondaryAnimation) {
-      return _SecondPage(image);
-    },
+    pageBuilder: (context, animation, secondaryAnimation) => _SecondPage(image),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var rectAnimation = _createTween(parentContext)
           .chain(CurveTween(curve: Curves.ease))
@@ -54,7 +52,7 @@ Route _createRoute(BuildContext parentContext, String image) {
 Tween<RelativeRect> _createTween(BuildContext context) {
   var windowSize = MediaQuery.of(context).size;
   var box = context.findRenderObject() as RenderBox;
-  var rect = box.localToGlobal(Offset.zero) & box.size;
+  Rect rect = box.localToGlobal(Offset.zero) & box.size;
   var relativeRect = RelativeRect.fromSize(rect, windowSize);
 
   return RelativeRectTween(
