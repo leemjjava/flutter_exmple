@@ -10,12 +10,6 @@ class PageViewFadeState extends State<PageViewFade> {
   PageController pageController;
   double pageScrollPosition = 1;
 
-  void updatePageState() {
-    setState(() {
-      pageScrollPosition = pageController.position.pixels.abs();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -23,6 +17,12 @@ class PageViewFadeState extends State<PageViewFade> {
       keepPage: true,
     );
     pageController.addListener(updatePageState);
+  }
+
+  void updatePageState() {
+    setState(() {
+      pageScrollPosition = pageController.position.pixels.abs();
+    });
   }
 
   @override
@@ -37,17 +37,17 @@ class PageViewFadeState extends State<PageViewFade> {
           controller: pageController,
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            FadePageItem(
+            FadePageItemCS(
               pageScrollPosition: pageScrollPosition,
               pageNumber: 0,
               child: pageChildPhoto(),
             ),
-            FadePageItem(
+            FadePageItemCS(
               pageScrollPosition: pageScrollPosition,
               pageNumber: 1,
               child: pageChildColor(),
             ),
-            FadePageItem(
+            FadePageItemCS(
               pageScrollPosition: pageScrollPosition,
               pageNumber: 2,
               child: pageChild("3번째 페이지"),
@@ -140,12 +140,11 @@ class PageViewFadeState extends State<PageViewFade> {
       ),
     );
   }
-
 }
 
 // ignore: must_be_immutable
-class FadePageItem extends StatelessWidget {
-  FadePageItem({
+class FadePageItemCS extends StatelessWidget {
+  FadePageItemCS({
     Key key,
     @required this.pageScrollPosition,
     @required this.pageNumber,
@@ -194,13 +193,15 @@ class FadePageItem extends StatelessWidget {
   }
 
   double getRectWidth(){
-    double minRectWidth = deviceWidth * 0.80;
+    double minWidthRatio = 0.80;
+    double minRectWidth = deviceWidth * minWidthRatio;
     double rectWidthOffset = (deviceWidth - minRectWidth) * getScrollRatio();
     return minRectWidth + rectWidthOffset;
   }
 
   double getRectHeight(){
-    double minRectHeight = deviceHeight * 0.85;
+    double minHeightRatio = 0.85;
+    double minRectHeight = deviceHeight * minHeightRatio;
     double rectHeightOffset = (deviceHeight - minRectHeight) * getScrollRatio();
     return minRectHeight + rectHeightOffset;
   }
