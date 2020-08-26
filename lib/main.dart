@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
+import 'package:navigator/navigator/09_webSocket.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -200,6 +201,11 @@ final navigators = [
       name: 'CustomBarWidget',
       route: CustomBarWidget.routeName,
       builder: (BuildContext context) => CustomBarWidget()
+  ), 
+  MyRouts(
+      name: 'WebSocketView',
+      route: WebSocketView.routeName,
+      builder: (BuildContext context) => WebSocketView()
   ),
 ];
 
