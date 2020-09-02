@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
+import 'package:navigator/http/models/address.dart';
 import 'package:navigator/navigator/09_webSocket.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
@@ -31,6 +32,7 @@ import 'navigator/06_login_test_two.dart';
 import 'navigator/07_input_user.dart';
 import 'navigator/08_custom_bar.dart';
 
+import 'navigator/10_address_search.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -206,6 +208,11 @@ final navigators = [
       name: 'WebSocketView',
       route: WebSocketView.routeName,
       builder: (BuildContext context) => WebSocketView()
+  ),
+  MyRouts(
+      name: 'AddressSearch',
+      route: SearchAddress.routeName,
+      builder: (BuildContext context) => SearchAddress()
   ),
 ];
 
