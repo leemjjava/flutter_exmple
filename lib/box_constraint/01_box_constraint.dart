@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class BoxConstraintEx extends StatelessWidget{
+class BoxConstraintEx extends StatelessWidget {
   static const String routeName = '/box_constraint/dismissible';
 
   @override
@@ -9,9 +9,11 @@ class BoxConstraintEx extends StatelessWidget{
     debugPaintSizeEnabled = false;
 
     return Scaffold(
-        appBar: AppBar(title: Text('Box Constraint TEST'),),
+      appBar: AppBar(
+        title: Text('Box Constraint TEST'),
+      ),
 //        body: getContainer(),
-        body: getColumn(),
+      body: getColumn(),
 //        body: getRow(),
 //        body: getContainerWithSizeBox(),
 //        body: getListView(),
@@ -20,7 +22,7 @@ class BoxConstraintEx extends StatelessWidget{
     );
   }
 
-  Widget getContainerWithSizeBox(){
+  Widget getContainerWithSizeBox() {
     return Container(
       color: Colors.green,
       child: SizedBox(
@@ -30,27 +32,20 @@ class BoxConstraintEx extends StatelessWidget{
     );
   }
 
-  Widget getContainer(){
+  Widget getContainer() {
     return Container(
-            constraints: BoxConstraints(
-                maxHeight: 400,
-                maxWidth: 400,
-                minWidth: 300,
-                minHeight: 300
-            ),
-        color:Colors.yellow,
-        child:Center(
-
-            child:Container(
-              width:100,
-              height:100,
-              color:Colors.blue,
-            )
-        )
-    );
+        constraints:
+            BoxConstraints(maxHeight: 400, maxWidth: 400, minWidth: 300, minHeight: 300),
+        color: Colors.yellow,
+        child: Center(
+            child: Container(
+          width: 100,
+          height: 100,
+          color: Colors.blue,
+        )));
   }
 
-  Widget getColumn(){
+  Widget getColumn() {
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -60,7 +55,7 @@ class BoxConstraintEx extends StatelessWidget{
     );
   }
 
-  Widget getRow(){
+  Widget getRow() {
     return Container(
       color: Colors.green,
       padding: EdgeInsets.only(left: 20, right: 20),
@@ -71,14 +66,13 @@ class BoxConstraintEx extends StatelessWidget{
     );
   }
 
-
-  Widget getListView(){
+  Widget getListView() {
     return Container(
         constraints: BoxConstraints(
-            maxWidth: 200,
+          maxWidth: 200,
         ),
-        color:Colors.yellow,
-        child:ListView(
+        color: Colors.yellow,
+        child: ListView(
           children: <Widget>[
             Card(child: Text('Hello everyone~')),
             ListTile(title: Text('Nice to see you')),
@@ -98,17 +92,14 @@ class BoxConstraintEx extends StatelessWidget{
             ListTile(title: Text('Nice to see you')),
             ListTile(title: Text('Nice to see you')),
           ],
-        )
-    );
+        ));
   }
 
-  Widget getListViewInnerListView(){
+  Widget getListViewInnerListView() {
     return Container(
-        constraints: BoxConstraints(
-            maxHeight: double.infinity,
-            maxWidth: double.infinity
-        ),
-        color:Colors.yellow,
+        constraints:
+            BoxConstraints(maxHeight: double.infinity, maxWidth: double.infinity),
+        color: Colors.yellow,
         child: ListView(
           // 스크롤 방향 설정. 수평적으로 스크롤되도록 설정
           scrollDirection: Axis.horizontal,
@@ -117,7 +108,8 @@ class BoxConstraintEx extends StatelessWidget{
               width: 160.0,
               color: Colors.red,
             ),
-            Container(//Container없이 ListView를 바로 사용하면 에러 발생 함.
+            Container(
+              //Container없이 ListView를 바로 사용하면 에러 발생 함.
               width: 160.0,
               color: Colors.blue,
               child: ListView(
@@ -138,35 +130,35 @@ class BoxConstraintEx extends StatelessWidget{
               color: Colors.orange,
             )
           ],
-        )
-    );
+        ));
   }
 
-  List<Widget> getTextList(){
+  List<Widget> getTextList() {
     return <Widget>[
-        Container(
+      Container(
         child: getTestText('1번'),
         color: Colors.lightBlue,
-        ),
-        Container(
+      ),
+      Container(
         child: getTestText('2번'),
         color: Colors.lightBlue,
-        ),
-        Container(
+      ),
+      Container(
         child: getTestText('3번'),
         color: Colors.lightBlue,
-        ),
-        Container(
+      ),
+      Container(
         child: getTestText('4번'),
         color: Colors.lightBlue,
-        ),
-        Container(
+      ),
+      Container(
         child: getTestText('5번'),
         color: Colors.lightBlue,
-        ),
+      ),
     ];
   }
-  List<Widget> getListList(){
+
+  List<Widget> getListList() {
     return <Widget>[
       getContainerText('1번'),
       getContainerText('2번'),
@@ -197,7 +189,7 @@ class BoxConstraintEx extends StatelessWidget{
     ];
   }
 
-  Widget getContainerText(String data){
+  Widget getContainerText(String data) {
     return Container(
       alignment: Alignment.center,
       height: 50,
@@ -206,16 +198,14 @@ class BoxConstraintEx extends StatelessWidget{
     );
   }
 
-  Widget getTestText(String showData){
+  Widget getTestText(String showData) {
     return Text(
       showData,
-      style: TextStyle(
-          fontSize: 26
-      ),
+      style: TextStyle(fontSize: 26),
     );
   }
 
-  Widget getButtons(BuildContext context){
+  Widget getButtons(BuildContext context) {
     return Container(
       alignment: Alignment.bottomCenter,
       height: double.infinity,
@@ -228,16 +218,16 @@ class BoxConstraintEx extends StatelessWidget{
           Expanded(
             child: RaisedButton(
               child: Text('버튼이유'),
-              onPressed: () =>showAlertDialog(context),
+              onPressed: () => showAlertDialog(context),
             ),
           ),
           SizedBox(
             width: 20,
           ),
           Expanded(
-            child:RaisedButton(
+            child: RaisedButton(
               child: Text('버튼이유2'),
-              onPressed: () =>showAlertDialog(context),
+              onPressed: () => showAlertDialog(context),
             ),
           ),
         ],
@@ -246,7 +236,7 @@ class BoxConstraintEx extends StatelessWidget{
   }
 
   void showAlertDialog(BuildContext context) async {
-    String result = await showDialog(
+    await showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
@@ -271,5 +261,4 @@ class BoxConstraintEx extends StatelessWidget{
       },
     );
   }
-
 }

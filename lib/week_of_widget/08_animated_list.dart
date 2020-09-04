@@ -27,8 +27,8 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     _nextItem = 3;
   }
 
-  void printAnimation(AnimationStatus status){
-    switch(status){
+  void printAnimation(AnimationStatus status) {
+    switch (status) {
       case AnimationStatus.forward:
         print('forward');
         break;
@@ -76,13 +76,10 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     _list.insert(index, _nextItem++);
   }
 
-  void scrollEnd(){
-    WidgetsBinding.instance.addPostFrameCallback( (_){
-      _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut
-      );
+  void scrollEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
     });
   }
 
@@ -93,7 +90,7 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
         _selectedItem = null;
       });
     }
-    if(_list.length > 0){
+    if (_list.length > 0) {
       _list.removeAt(_list.length - 1);
     }
   }
@@ -146,16 +143,16 @@ class ListModel<E> {
 
   void insert(int index, E item) {
     _items.insert(index, item);
-    _animatedList.insertItem(index,duration: Duration(milliseconds: 400));
+    _animatedList.insertItem(index, duration: Duration(milliseconds: 400));
   }
 
   E removeAt(int index) {
     final E removedItem = _items.removeAt(index);
     if (removedItem != null) {
-      _animatedList.removeItem(index, (BuildContext context, Animation<double> animation) {
-            return removedItemBuilder(context, removedItem,  animation);
-          },
-          duration: Duration(milliseconds: 400));
+      _animatedList.removeItem(index,
+          (BuildContext context, Animation<double> animation) {
+        return removedItemBuilder(context, removedItem, animation);
+      }, duration: Duration(milliseconds: 400));
     }
     return removedItem;
   }
@@ -170,10 +167,10 @@ class ListModel<E> {
 class CardItem extends StatelessWidget {
   const CardItem(
       {Key key,
-        @required this.animation,
-        this.onTap,
-        @required this.item,
-        this.selected: false})
+      @required this.animation,
+      this.onTap,
+      @required this.item,
+      this.selected: false})
       : assert(animation != null),
         assert(item != null && item >= 0),
         assert(selected != null),
@@ -186,8 +183,7 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle textStyle = Theme.of(context).textTheme.display1;
+    TextStyle textStyle = Theme.of(context).textTheme.headline4;
     if (selected) textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -196,7 +192,7 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getCardBody({TextStyle textStyle}){
+  Widget getCardBody({TextStyle textStyle}) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -212,7 +208,7 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getSizeTransition({Widget child}){
+  Widget getSizeTransition({Widget child}) {
     return SizeTransition(
       axis: Axis.vertical,
       sizeFactor: animation,
@@ -220,9 +216,10 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getSlideTransition({Widget child}){
+  Widget getSlideTransition({Widget child}) {
     return SlideTransition(
-      position: animation.drive(Tween(begin: Offset(1, 0), end: Offset(0.0, 0)).chain(CurveTween(curve: Curves.elasticInOut))),
+      position: animation.drive(Tween(begin: Offset(1, 0), end: Offset(0.0, 0))
+          .chain(CurveTween(curve: Curves.elasticInOut))),
       child: child,
     );
   }

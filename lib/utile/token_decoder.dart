@@ -36,11 +36,10 @@ String _decodeBase64(String str) {
 }
 
 Future<String> getLocalToken() async {
-
-  final TOKEN_KEY = "Authorization";
+  final tokenKey = "Authorization";
   final storage = new FlutterSecureStorage();
 
-  String token = await storage.read(key: TOKEN_KEY);
-  print("$TOKEN_KEY $token");
+  String token = await storage.read(key: tokenKey);
+  print("$tokenKey $token");
   return token;
 }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../http/http_repository.dart';
-import 'package:navigator/http/models/token.dart';
 import 'package:navigator/http/models/auth_token.dart';
 import 'package:navigator/http/models/member.dart';
 import '../utile/token_decoder.dart';
 
-class LoginEx extends StatefulWidget{
+class LoginEx extends StatefulWidget {
   static const String routeName = '/transparent_image/LoginEx';
   LoginEx({Key key}) : super(key: key);
 
@@ -14,7 +12,7 @@ class LoginEx extends StatefulWidget{
   State<StatefulWidget> createState() => LoginExState();
 }
 
-class LoginExState extends State<LoginEx>{
+class LoginExState extends State<LoginEx> {
   final HttpRepository httpService = HttpRepository();
   TextEditingController _tec = TextEditingController();
   TextEditingController _tec2 = TextEditingController();
@@ -22,8 +20,10 @@ class LoginExState extends State<LoginEx>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('로그인 테스트'),),
-      body:getInputField(),
+      appBar: AppBar(
+        title: Text('로그인 테스트'),
+      ),
+      body: getInputField(),
     );
   }
 
@@ -35,8 +35,7 @@ class LoginExState extends State<LoginEx>{
     super.dispose();
   }
 
-
-  Widget getInputField(){
+  Widget getInputField() {
     return Container(
       color: Colors.white,
       child: Column(
@@ -54,8 +53,7 @@ class LoginExState extends State<LoginEx>{
               child: Row(children: <Widget>[
                 Container(
                   width: 60,
-                  child: Text("ID",
-                      style: TextStyle(fontSize: 16, color: Colors.black)),
+                  child: Text("ID", style: TextStyle(fontSize: 16, color: Colors.black)),
                 ),
                 Flexible(
                   child: Container(
@@ -108,16 +106,19 @@ class LoginExState extends State<LoginEx>{
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 20),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 20),
             child: SizedBox(
               width: double.infinity,
-              child:  RaisedButton(
-                onPressed: (){
-                  FutureBuilder(
-                      future: httpService.getAuthToken(_tec.text, _tec2.text),
-                      builder: (context, snapshot){
+              child: RaisedButton(
+                onPressed: () {
+                  FutureBuilder<AuthToken>(
+                    future: httpService.getAuthToken(_tec.text, _tec2.text),
+                    builder: (context, snapshot) {
+                      final token = snapshot.data;
+                      final content = token?.accessToken ?? 'No Token';
 
-                      }
+                      return Text(content);
+                    },
                   );
                 },
                 child: Text('로그인'),
@@ -125,64 +126,68 @@ class LoginExState extends State<LoginEx>{
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: SizedBox(
               width: double.infinity,
-              child:  RaisedButton(
+              child: RaisedButton(
                 child: Text('Account 가져오기'),
-                onPressed: (){
-                  FutureBuilder(
-                      future: httpService.getMembers(),
-                      builder: (BuildContext context, AsyncSnapshot<List<Member>> snapshot) {
+                onPressed: () {
+                  FutureBuilder<List<Member>>(
+                    future: httpService.getMembers(),
+                    builder: (context, snapshot) {
+                      final listMember = snapshot.data;
+                      final count = listMember?.length.toString() ?? 0;
 
-                      }
+                      return Text(count);
+                    },
                   );
                 },
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: SizedBox(
               width: double.infinity,
-              child:  RaisedButton(
+              child: RaisedButton(
                 child: Text('Token 디코딩'),
-                onPressed: (){
+                onPressed: () {
                   return FutureBuilder(
                       future: getLocalToken(),
                       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                         print('token 디코딩\n');
 
-                        if(snapshot.hasData){
+                        if (snapshot.hasData) {
                           final jwtMap = parseJwt(snapshot.data);
                           print(jwtMap);
                         }
 
                         return Text('');
-                      }
-                  );
+                      });
                 },
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left:20, right: 20, top: 10),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: SizedBox(
               width: double.infinity,
-              child:  RaisedButton(
+              child: RaisedButton(
                 child: Text('rtoken 전송'),
-                onPressed: (){
-                  return FutureBuilder(
-                      future: httpService.getReToken(),
-                      builder: (BuildContext context, AsyncSnapshot<AuthToken> snapshot) {
+                onPressed: () {
+                  return FutureBuilder<AuthToken>(
+                    future: httpService.getReToken(),
+                    builder: (context, snapshot) {
+                      final token = snapshot.data;
+                      final content = token?.accessToken ?? 'No Token';
 
-                      }
+                      return Text(content);
+                    },
                   );
                 },
               ),
             ),
           ),
-
           Container(
             child: FutureBuilder<String>(
                 future: getLocalToken(),
@@ -196,13 +201,10 @@ class LoginExState extends State<LoginEx>{
                   }
                   // By default, show a loading spinner
                   return CircularProgressIndicator();
-                }
-            ),
+                }),
           ),
         ],
       ),
     );
   }
-
-
 }

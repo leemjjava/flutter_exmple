@@ -10,9 +10,9 @@ import '../utile/utile.dart';
 import '../utile/ui.dart';
 import 'package:provider/provider.dart';
 
-enum ButtonType {NONE, LOGIN, RE_TOKEN, TOKEN_DECODE, ACCOUNT}
+enum ButtonType { NONE, LOGIN, RE_TOKEN, TOKEN_DECODE, ACCOUNT }
 
-class LoginExTwo extends StatefulWidget{
+class LoginExTwo extends StatefulWidget {
   static const String routeName = '/transparent_image/LoginExTow';
   LoginExTwo({Key key}) : super(key: key);
 
@@ -20,7 +20,7 @@ class LoginExTwo extends StatefulWidget{
   State<StatefulWidget> createState() => LoginExTowState();
 }
 
-class LoginExTowState extends State<LoginExTwo>{
+class LoginExTowState extends State<LoginExTwo> {
   bool networkConnection = false;
   var _memberBloc = MemberBloc();
   var _tokenBloc;
@@ -28,7 +28,6 @@ class LoginExTowState extends State<LoginExTwo>{
   TextEditingController _passwordCon = TextEditingController();
   ButtonType _buttonType = ButtonType.NONE;
   BuildContext context;
-
 
   @override
   void dispose() {
@@ -45,25 +44,24 @@ class LoginExTowState extends State<LoginExTwo>{
 
     debugPaintSizeEnabled = false;
     context = context;
-    AppBar appBar = AppBar(title: Text('로그인 테스트'),);
+    AppBar appBar = AppBar(
+      title: Text('로그인 테스트'),
+    );
 
     double minHeight = MediaQuery.of(context).size.height -
         (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
 
     return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Container(
+        appBar: appBar,
+        body: SingleChildScrollView(
+            child: Container(
           padding: EdgeInsets.all(20),
           constraints: BoxConstraints(minHeight: minHeight),
-          child:getMainColumn(),
-        )
-      )
-    );
+          child: getMainColumn(),
+        )));
   }
 
-
-  Widget getMainColumn(){
+  Widget getMainColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -84,7 +82,7 @@ class LoginExTowState extends State<LoginExTwo>{
     );
   }
 
-  Widget loginLogo(){
+  Widget loginLogo() {
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10),
       child: Icon(
@@ -95,47 +93,53 @@ class LoginExTowState extends State<LoginExTwo>{
     );
   }
 
-  Widget inputColum(){
+  Widget inputColum() {
     return Column(
       children: <Widget>[
         getTextField(_idCon, 'eamil', '이메일 입력', false),
-        getTextField(_passwordCon, 'passwrod','비밀번호 입력', true),
+        getTextField(_passwordCon, 'passwrod', '비밀번호 입력', true),
       ],
     );
   }
 
-  Widget buttonColum(){
+  Widget buttonColum() {
     return Column(
       children: <Widget>[
         Row(
           children: <Widget>[
             Expanded(child: getExpandedButton('로그인', onPress(ButtonType.LOGIN))),
-            SizedBox(width: 10,),
-            Expanded(child: getExpandedButton('토큰 decode', onPress(ButtonType.TOKEN_DECODE))),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                child: getExpandedButton('토큰 decode', onPress(ButtonType.TOKEN_DECODE))),
           ],
         ),
         Row(
           children: <Widget>[
             Expanded(child: getExpandedButton('get Member', onPress(ButtonType.ACCOUNT))),
-            SizedBox(width: 10,),
-            Expanded(child: getExpandedButton('토큰 refresh', onPress(ButtonType.RE_TOKEN))),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                child: getExpandedButton('토큰 refresh', onPress(ButtonType.RE_TOKEN))),
           ],
         ),
       ],
     );
   }
 
-  VoidCallback onPress(ButtonType type){
-    return (){
-      if(networkConnection == true) return;
+  VoidCallback onPress(ButtonType type) {
+    return () {
+      if (networkConnection == true) return;
       networkConnection = true;
       _buttonType = type;
       blocControl();
     };
   }
 
-  void blocControl(){
-    switch(_buttonType){
+  void blocControl() {
+    switch (_buttonType) {
       case ButtonType.LOGIN:
         _tokenBloc.fetchAuthToken(_idCon.text, _passwordCon.text);
         break;
@@ -148,11 +152,11 @@ class LoginExTowState extends State<LoginExTwo>{
       case ButtonType.ACCOUNT:
         _memberBloc.fetchMembers();
         break;
-      default: ;
+      default:
     }
   }
 
-  Widget getDecodeTokenText(){
+  Widget getDecodeTokenText() {
     return Container(
       decoration: getBorderBox(),
       width: double.infinity,
@@ -161,7 +165,7 @@ class LoginExTowState extends State<LoginExTwo>{
       child: StreamBuilder<String>(
           stream: _tokenBloc.localToken,
           builder: (context, snapshot) {
-            if(networkConnection == false) return Text("decodeToken no Data");
+            if (networkConnection == false) return Text("decodeToken no Data");
 
             networkConnection = false;
             if (snapshot.hasData) {
@@ -172,20 +176,20 @@ class LoginExTowState extends State<LoginExTwo>{
               DateTime now = DateTime.now();
               DateTime exp = DateTime.fromMillisecondsSinceEpoch(expTimestamp * 1000);
 
-              String compare = now.compareTo(exp) > 0 ? '토큰 만료': '토큰 만료되지 않음';
+              String compare = now.compareTo(exp) > 0 ? '토큰 만료' : '토큰 만료되지 않음';
 
-              return Text("현재 시각: $now\n만료 시각: $exp\n만료 여부: $compare\n\ndecodeToken: ${jwtMap.toString()}");
+              return Text(
+                  "현재 시각: $now\n만료 시각: $exp\n만료 여부: $compare\n\ndecodeToken: ${jwtMap.toString()}");
             } else if (snapshot.hasError) {
               return Text("decodeToken error: ${snapshot.error}");
             }
             // By default, show a loading spinner
             return Text("decodeToken no Data");
-          }
-      ),
+          }),
     );
   }
 
-  Widget getAuthTokenText(){
+  Widget getAuthTokenText() {
     return Container(
       decoration: getBorderBox(),
       width: double.infinity,
@@ -194,28 +198,27 @@ class LoginExTowState extends State<LoginExTwo>{
       child: StreamBuilder<AuthToken>(
           stream: _tokenBloc.authToken,
           builder: (context, snapshot) {
-            if(networkConnection == false) return Text("token no Data");
+            if (networkConnection == false) return Text("token no Data");
             networkConnection = false;
             if (snapshot.hasData) {
               String accessToken = snapshot.data.accessToken;
               String refreshToken = snapshot.data.refreshToken;
               return Text('accessToken: $accessToken\refreshToken: $refreshToken');
-
             } else if (snapshot.hasError) {
               ResultBody resultBody = snapshot.error;
 
-              WidgetsBinding.instance.addPostFrameCallback( (_) => showAlertDialog(context, resultBody.message));
+              WidgetsBinding.instance.addPostFrameCallback(
+                  (_) => showAlertDialog(context, resultBody.message));
 
               return Text("token error ${resultBody.statusCdoe} : ${resultBody.message}");
             }
             // By default, show a loading spinner
             return Text("token no Data");
-          }
-      ),
+          }),
     );
   }
 
-  Widget getMember(){
+  Widget getMember() {
     return Container(
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.all(5),
@@ -224,53 +227,49 @@ class LoginExTowState extends State<LoginExTwo>{
       child: StreamBuilder<List<Member>>(
           stream: _memberBloc.members,
           builder: (context, snapshot) {
-            if(networkConnection == false) return Text("member no Data");
+            if (networkConnection == false) return Text("member no Data");
             networkConnection = false;
             if (snapshot.hasData) {
               return Container(
-                width: double.infinity,
-                child: AbsorbPointer(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return _buildListTile(snapshot, index);
-                    },
-                  ),
-                )
-              );
+                  width: double.infinity,
+                  child: AbsorbPointer(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildListTile(snapshot, index);
+                      },
+                    ),
+                  ));
             } else if (snapshot.hasError) {
               ResultBody resultBody = snapshot.error;
 
-              return Text("member error ${resultBody.statusCdoe} : ${resultBody.message}");
+              return Text(
+                  "member error ${resultBody.statusCdoe} : ${resultBody.message}");
             }
             // By default, show a loading spinner
             return Text("member no Data");
-          }
-      ),
+          }),
     );
   }
 
-  Widget _buildListTile (AsyncSnapshot<List<Member>> snapshot, int index){
-
-    var id = snapshot.data[index].email_Address;
-    var title = snapshot.data[index].user_Name;
-    var completed = snapshot.data[index].allow_Mailing;
+  Widget _buildListTile(AsyncSnapshot<List<Member>> snapshot, int index) {
+    var id = snapshot.data[index].emailAddress;
+    var title = snapshot.data[index].userName;
+    var completed = snapshot.data[index].allowMailing;
 
     return ListTile(
       leading: Text("$id"),
       title: Text("$title"),
-      subtitle: Text("Mailing",
-        style: TextStyle(
-            color: completed == 'Y' ? Colors.lightBlue : Colors.red
-        ),
+      subtitle: Text(
+        "Mailing",
+        style: TextStyle(color: completed == 'Y' ? Colors.lightBlue : Colors.red),
       ),
     );
   }
 
-  BoxDecoration getBorderBox(){
+  BoxDecoration getBorderBox() {
     return new BoxDecoration(
-        color: Color(0xFFE8F5E9),
-        border: Border.all(width: 1, color: Colors.black12));
+        color: Color(0xFFE8F5E9), border: Border.all(width: 1, color: Colors.black12));
   }
 }

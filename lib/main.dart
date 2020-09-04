@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
-import 'package:navigator/http/models/address.dart';
 import 'package:navigator/navigator/09_webSocket.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
@@ -54,20 +53,15 @@ import 'package:provider/provider.dart';
 import 'http/blocs/token_bloc.dart';
 
 void main() {
-  return runApp(
-      MultiProvider(
-        providers: [
-
-          Provider<TokenBloc>(
-            create:(context) => TokenBloc(),
-            dispose:(context, TokenBloc value) => value.dispose(),
-          ),
-
-        ],
-
-        child: MyApp(),
-      )
-  );
+  return runApp(MultiProvider(
+    providers: [
+      Provider<TokenBloc>(
+        create: (context) => TokenBloc(),
+        dispose: (context, TokenBloc value) => value.dispose(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyRouts {
@@ -91,10 +85,7 @@ final animation = [
       name: 'Animation Controller',
       route: AnimationControllerDemo.routeName,
       builder: (context) => AnimationControllerDemo()),
-  MyRouts(
-      name: 'Tweens',
-      route: TweenDemo.routeName,
-      builder: (context) => TweenDemo()),
+  MyRouts(name: 'Tweens', route: TweenDemo.routeName, builder: (context) => TweenDemo()),
   MyRouts(
       name: 'AnimatedBuilder',
       route: AnimatedBuilderDemo.routeName,
@@ -155,179 +146,150 @@ final animation = [
       name: 'Page View Fade',
       route: PageViewFade.routeName,
       builder: (context) => PageViewFade()),
-
 ];
 
 final navigators = [
   MyRouts(
-    name: 'Named Routs Arguments',
-    route: ArgumentsDemo.routeName,
-    builder: (BuildContext context) => ArgumentsDemo()
-  ),
+      name: 'Named Routs Arguments',
+      route: ArgumentsDemo.routeName,
+      builder: (BuildContext context) => ArgumentsDemo()),
   MyRouts(
       name: 'Returning Data',
       route: ReturningDataDemo.routeName,
-      builder: (BuildContext context) => ReturningDataDemo()
-  ),
+      builder: (BuildContext context) => ReturningDataDemo()),
   MyRouts(
       name: 'Todo List',
       route: TodoScreen.routeName,
-      builder: (BuildContext context) => TodoScreen(todos :
-        List.generate(20, (i) => Todo(
-            'Todo $i',
-            'a description of what needs to be done for Todo $i'
-        ))
-      )
-  ),
+      builder: (BuildContext context) => TodoScreen(
+          todos: List.generate(
+              20,
+              (i) => Todo(
+                  'Todo $i', 'a description of what needs to be done for Todo $i')))),
   MyRouts(
       name: 'Hero',
       route: MainScreen.routeName,
-      builder: (BuildContext context) => MainScreen()
-  ),
+      builder: (BuildContext context) => MainScreen()),
   MyRouts(
       name: 'Login',
       route: LoginEx.routeName,
-      builder: (BuildContext context) => LoginEx()
-  ),
+      builder: (BuildContext context) => LoginEx()),
   MyRouts(
       name: 'LoginExTwo',
       route: LoginExTwo.routeName,
-      builder: (BuildContext context) => LoginExTwo()
-  ),
+      builder: (BuildContext context) => LoginExTwo()),
   MyRouts(
       name: 'UserInputEx',
       route: UserInputEx.routeName,
-      builder: (BuildContext context) => UserInputEx()
-  ),
+      builder: (BuildContext context) => UserInputEx()),
   MyRouts(
       name: 'CustomBarWidget',
       route: CustomBarWidget.routeName,
-      builder: (BuildContext context) => CustomBarWidget()
-  ), 
+      builder: (BuildContext context) => CustomBarWidget()),
   MyRouts(
       name: 'WebSocketView',
       route: WebSocketView.routeName,
-      builder: (BuildContext context) => WebSocketView()
-  ),
+      builder: (BuildContext context) => WebSocketView()),
   MyRouts(
       name: 'AddressSearch',
       route: SearchAddress.routeName,
-      builder: (BuildContext context) => SearchAddress()
-  ),
+      builder: (BuildContext context) => SearchAddress()),
 ];
 
 final weekOfWidgets = [
   MyRouts(
       name: 'Custom Paint',
       route: CustomPaintEx.routeName,
-      builder: (BuildContext context) => CustomPaintEx()
-  ),
+      builder: (BuildContext context) => CustomPaintEx()),
   MyRouts(
       name: 'Backdrop Filter',
       route: BackdropFilterEx.routeName,
-      builder: (BuildContext context) => BackdropFilterEx()
-  ),
+      builder: (BuildContext context) => BackdropFilterEx()),
   MyRouts(
       name: 'Dismissible',
       route: DismissibleEx.routeName,
-      builder: (BuildContext context) => DismissibleEx()
-  ),
+      builder: (BuildContext context) => DismissibleEx()),
   MyRouts(
       name: 'Value Listenable Builder',
       route: ValueListenableBuilderEx.routeName,
-      builder: (BuildContext context) => ValueListenableBuilderEx(title: 'Value Listen',)
-  ),
+      builder: (BuildContext context) => ValueListenableBuilderEx(
+            title: 'Value Listen',
+          )),
   MyRouts(
       name: 'SliverEx',
       route: SliverEx.routeName,
-      builder: (BuildContext context) => SliverEx()
-  ),
+      builder: (BuildContext context) => SliverEx()),
   MyRouts(
       name: 'SliverListGridEx',
       route: SliverListGridEx.routeName,
-      builder: (BuildContext context) => SliverListGridEx()
-  ),
+      builder: (BuildContext context) => SliverListGridEx()),
   MyRouts(
       name: 'DraggableEx',
       route: DraggableEx.routeName,
-      builder: (BuildContext context) => DraggableEx()
-  ),
+      builder: (BuildContext context) => DraggableEx()),
   MyRouts(
       name: 'AnimatedListSample',
       route: AnimatedListSample.routeName,
-      builder: (BuildContext context) => AnimatedListSample()
-  ),
+      builder: (BuildContext context) => AnimatedListSample()),
   MyRouts(
       name: 'AnimatedIconEx',
       route: AnimatedIconEx.routeName,
-      builder: (BuildContext context) => AnimatedIconEx()
-  ),
+      builder: (BuildContext context) => AnimatedIconEx()),
   MyRouts(
       name: 'ReorderListViewEx',
       route: ReorderListViewEx.routeName,
-      builder: (BuildContext context) => ReorderListViewEx()
-  ),
+      builder: (BuildContext context) => ReorderListViewEx()),
   MyRouts(
       name: 'AnimatedSwitcher',
       route: AnimatedSwitcherEx.routeName,
-      builder: (BuildContext context) => AnimatedSwitcherEx()
-  ),
+      builder: (BuildContext context) => AnimatedSwitcherEx()),
   MyRouts(
       name: 'IndexStack',
       route: IndexStackEx.routeName,
-      builder: (BuildContext context) => IndexStackEx()
-  ),
+      builder: (BuildContext context) => IndexStackEx()),
   MyRouts(
       name: 'Stack',
       route: StackEx.routeName,
-      builder: (BuildContext context) => StackEx()
-  ),
+      builder: (BuildContext context) => StackEx()),
   MyRouts(
       name: 'DraggableScrollableSheet',
       route: DraggableScrollableSheetEx.routeName,
-      builder: (BuildContext context) => DraggableScrollableSheetEx()
-  ),
+      builder: (BuildContext context) => DraggableScrollableSheetEx()),
   MyRouts(
       name: 'animated_list_example',
       route: AnimatedListExample.routeName,
-      builder: (BuildContext context) => AnimatedListExample()
-  ),
+      builder: (BuildContext context) => AnimatedListExample()),
   MyRouts(
       name: 'nested_scroll_view',
       route: NestedScrollViewExample.routeName,
-      builder: (BuildContext context) => NestedScrollViewExample()
-  ),
+      builder: (BuildContext context) => NestedScrollViewExample()),
   MyRouts(
       name: 'layout_example',
       route: LayoutExample.routeName,
-      builder: (BuildContext context) => LayoutExample()
-  ),
+      builder: (BuildContext context) => LayoutExample()),
   MyRouts(
       name: 'async_example',
       route: AsyncExample.routeName,
-      builder: (BuildContext context) => AsyncExample()
-  ),
+      builder: (BuildContext context) => AsyncExample()),
 ];
 
 final boxConstraints = [
   MyRouts(
       name: 'Box Constraint',
       route: BoxConstraintEx.routeName,
-      builder: (BuildContext context) => BoxConstraintEx()
-  ),
+      builder: (BuildContext context) => BoxConstraintEx()),
 ];
 
 final animationMap =
-Map.fromEntries(animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
+    Map.fromEntries(animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
 final navigatorsMap =
-  Map.fromEntries(navigators.map((MyRouts item) => MapEntry(item.route, item.builder)));
+    Map.fromEntries(navigators.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
-final weekOfWidgetMap =
-  Map.fromEntries(weekOfWidgets.map((MyRouts item) => MapEntry(item.route, item.builder)));
+final weekOfWidgetMap = Map.fromEntries(
+    weekOfWidgets.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
-final boxConstraintMap =
-Map.fromEntries(boxConstraints.map((MyRouts item) => MapEntry(item.route, item.builder)));
+final boxConstraintMap = Map.fromEntries(
+    boxConstraints.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
 final allRoutes = <String, WidgetBuilder>{
   ...navigatorsMap,
@@ -346,18 +308,13 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(),
       routes: allRoutes,
-      onGenerateRoute: (RouteSettings settings){
-        if(settings.name == PassArgumentsScreen.routeName){
+      onGenerateRoute: (RouteSettings settings) {
+        if (settings.name == PassArgumentsScreen.routeName) {
           final ScreenArguments args = settings.arguments;
 
-          return MaterialPageRoute(
-              builder: (BuildContext context){
-                return PassArgumentsScreen(
-                    title: args.title,
-                    message: args.messgae
-                );
-              }
-          );
+          return MaterialPageRoute(builder: (BuildContext context) {
+            return PassArgumentsScreen(title: args.title, message: args.messgae);
+          });
         }
 
         return null;
@@ -368,7 +325,7 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
-    final headerStyle = Theme.of(context).textTheme.title;
+    final headerStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
       appBar: AppBar(
         title: Text('My Example'),

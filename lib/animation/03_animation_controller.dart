@@ -8,8 +8,7 @@ class AnimationControllerDemo extends StatefulWidget {
   static const String routeName = '/basics/animation_controller';
 
   @override
-  _AnimationControllerDemoState createState() =>
-      _AnimationControllerDemoState();
+  _AnimationControllerDemoState createState() => _AnimationControllerDemoState();
 }
 
 class _AnimationControllerDemoState extends State<AnimationControllerDemo>
@@ -45,7 +44,6 @@ class _AnimationControllerDemoState extends State<AnimationControllerDemo>
               constraints: BoxConstraints(maxWidth: 200),
               child: Text(
                 '${controller.value.toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.display2,
                 textScaleFactor: 1 + controller.value,
               ),
             ),

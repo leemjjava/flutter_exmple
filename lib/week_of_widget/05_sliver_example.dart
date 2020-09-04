@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SliverEx extends StatelessWidget {
   static const String routeName = '/week_of_widget/sliver_app_bar';
 
@@ -36,7 +37,9 @@ class SliverEx extends StatelessWidget {
           ),
           SliverFixedExtentList(
             itemExtent: 150.0,
-            delegate: SliverChildListDelegate(containerList,),
+            delegate: SliverChildListDelegate(
+              containerList,
+            ),
           ),
         ],
       ),

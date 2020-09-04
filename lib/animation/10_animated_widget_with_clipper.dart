@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class MyHomePage extends StatefulWidget {
   static const String routeName = '/basics/chaining_animated_widget';
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
-
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
 //  final Image starsBackground = Image.asset(
 //    'assets/space.png',
 //    fit: BoxFit.fitHeight,
@@ -32,31 +28,26 @@ class _MyHomePageState extends State<MyHomePage>
       duration: const Duration(seconds: 5),
       vsync: this,
     )..repeat();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/space.png"),
-                  fit: BoxFit.cover
-                  
-                ),
-              ),
+      appBar: AppBar(),
+      body: Stack(
+        alignment: AlignmentDirectional.center,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/space.png"), fit: BoxFit.cover),
             ),
-            BeamTransition(animation: _animation),
-            ufo,
-          ],
-        ),
+          ),
+          BeamTransition(animation: _animation),
+          ufo,
+        ],
+      ),
     );
-
   }
 
   @override

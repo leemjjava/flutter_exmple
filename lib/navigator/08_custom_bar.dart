@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomBarWidget extends StatelessWidget {
   static const String routeName = '/navigator/custom_bar';
 
@@ -35,8 +36,7 @@ class CustomBarWidget extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(1.0),
-                      border: Border.all(
-                          color: Colors.grey.withOpacity(0.5), width: 1.0),
+                      border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
                       color: Colors.white),
                   child: Row(
                     children: [

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_socket_io/flutter_socket_io.dart';
 import 'package:flutter_socket_io/socket_io_manager.dart';
@@ -14,7 +13,7 @@ class _WebSocketViewState extends State<WebSocketView> {
   TextEditingController _controller = TextEditingController();
 
   final String title = "채팅 테스트";
-  SocketIO socketIO ;
+  SocketIO socketIO;
 
   @override
   void initState() {
@@ -54,7 +53,8 @@ class _WebSocketViewState extends State<WebSocketView> {
   void _sendChatMessage() async {
     String msg = _controller.text;
     if (socketIO != null) {
-      String jsonData = '{"message":{"type":"Text","content": ${(msg != null && msg.isNotEmpty) ? '"${msg}"' : '"Hello SOCKET IO PLUGIN :))"'},"owner":"589f10b9bbcd694aa570988d","avatar":"img/avatar-default.png"},"sender":{"userId":"589f10b9bbcd694aa570988d","first":"Ha","last":"Test 2","location":{"lat":10.792273999999999,"long":106.6430356,"accuracy":38,"regionId":null,"vendor":"gps","verticalAccuracy":null},"name":"Ha Test 2"},"receivers":["587e1147744c6260e2d3a4af"],"conversationId":"589f116612aa254aa4fef79f","name":null,"isAnonymous":null}';
+      String jsonData =
+          '{"message":{"type":"Text","content": ${(msg != null && msg.isNotEmpty) ? '"$msg"' : '"Hello SOCKET IO PLUGIN :))"'},"owner":"589f10b9bbcd694aa570988d","avatar":"img/avatar-default.png"},"sender":{"userId":"589f10b9bbcd694aa570988d","first":"Ha","last":"Test 2","location":{"lat":10.792273999999999,"long":106.6430356,"accuracy":38,"regionId":null,"vendor":"gps","verticalAccuracy":null},"name":"Ha Test 2"},"receivers":["587e1147744c6260e2d3a4af"],"conversationId":"589f116612aa254aa4fef79f","name":null,"isAnonymous":null}';
       socketIO.sendMessage("chat_direct", jsonData, _onReceiveChatMessage);
     }
   }
@@ -88,7 +88,7 @@ class _WebSocketViewState extends State<WebSocketView> {
     );
   }
 
-  Widget getMainView(){
+  Widget getMainView() {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(100),
@@ -99,7 +99,6 @@ class _WebSocketViewState extends State<WebSocketView> {
       ),
     );
   }
-
 
   @override
   void dispose() {

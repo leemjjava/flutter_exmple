@@ -50,7 +50,7 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
     );
   }
 
-  Widget _listItemBuilder(BuildContext context, int index, Animation<double> animation){
+  Widget _listItemBuilder(BuildContext context, int index, Animation<double> animation) {
     return CardItem(
       animation: animation,
       item: items[index],
@@ -63,37 +63,31 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
     );
   }
 
-  void _scrollEnd(){
-    WidgetsBinding.instance.addPostFrameCallback( (_){
-      _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut
-      );
+  void _scrollEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
     });
   }
 
   void _insert() {
     int index = _selectedItem == -1 ? items.length : items.indexOf(_selectedItem);
-    if(index == items.length) _scrollEnd();
+    if (index == items.length) _scrollEnd();
 
     items.insert(index, _nextItem);
     ++_nextItem;
 
-    _listKey.currentState.insertItem(index,duration: Duration(milliseconds: 300));
-
+    _listKey.currentState.insertItem(index, duration: Duration(milliseconds: 300));
   }
 
   void _remove() {
-    int index = _selectedItem == -1 ? items.length -1 : items.indexOf(_selectedItem);
-    if(index < 0) return;
+    int index = _selectedItem == -1 ? items.length - 1 : items.indexOf(_selectedItem);
+    if (index < 0) return;
 
     int item = items[index];
     _listKey.currentState.removeItem(
-        index,
-        (context, animation) => _buildRemovedItem(context, item, animation),
-        duration: Duration(milliseconds: 300)
-    );
+        index, (context, animation) => _buildRemovedItem(context, item, animation),
+        duration: Duration(milliseconds: 300));
     items.removeAt(index);
 
     _selectedItem = -1;
@@ -109,15 +103,15 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
 }
 
 class CardItem extends StatelessWidget {
-  const CardItem({
-    Key key,
-    @required this.animation,
-    @required this.item,
-    this.onTap,
-    this.selected : false
-  }): assert(animation != null),
-      assert(item != null && item >= 0),
-      super(key: key);
+  const CardItem(
+      {Key key,
+      @required this.animation,
+      @required this.item,
+      this.onTap,
+      this.selected: false})
+      : assert(animation != null),
+        assert(item != null && item >= 0),
+        super(key: key);
 
   final Animation<double> animation;
   final int item;
@@ -126,21 +120,16 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle textStyle = Theme.of(context).textTheme.display1;
+    TextStyle textStyle = Theme.of(context).textTheme.headline4;
     if (selected) textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
-      child: getSlideTransition(
-          child: getCardBody(
-              textStyle: textStyle
-          )
-      ),
+      child: getSlideTransition(child: getCardBody(textStyle: textStyle)),
     );
   }
 
-  Widget getCardBody({TextStyle textStyle}){
+  Widget getCardBody({TextStyle textStyle}) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -156,7 +145,7 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getSizeTransition({Widget child}){
+  Widget getSizeTransition({Widget child}) {
     return SizeTransition(
       axis: Axis.vertical,
       sizeFactor: animation,
@@ -164,11 +153,11 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getSlideTransition({Widget child}){
+  Widget getSlideTransition({Widget child}) {
     return SlideTransition(
-      position: animation.drive(Tween(begin: Offset(1, 0), end: Offset(0.0, 0)).chain(CurveTween(curve: Curves.easeOutExpo))),
+      position: animation.drive(Tween(begin: Offset(1, 0), end: Offset(0.0, 0))
+          .chain(CurveTween(curve: Curves.easeOutExpo))),
       child: child,
     );
   }
-
 }

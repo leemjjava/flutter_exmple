@@ -4,15 +4,14 @@ import 'package:navigator/http/blocs/address_bloc.dart';
 import 'package:navigator/http/models/address.dart';
 import 'package:navigator/http/models/error.dart';
 
-class SearchAddress extends StatefulWidget{
+class SearchAddress extends StatefulWidget {
   static const String routeName = '/navigator/address_search';
 
   @override
-  SearchAddressState createState()=>SearchAddressState();
-
+  SearchAddressState createState() => SearchAddressState();
 }
 
-class SearchAddressState extends State<SearchAddress>{
+class SearchAddressState extends State<SearchAddress> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
   final searchTec = TextEditingController();
   final scrollController = ScrollController();
@@ -29,40 +28,42 @@ class SearchAddressState extends State<SearchAddress>{
     addTextEditListener();
   }
 
-  addAddressStreamListener(){
-    addressBloc.address.listen((list) {
-      addressList = list;
-      setState(() {});
-    },onError:(error, stacktrace){
-      print("onError: $error");
-      print(stacktrace.toString());
+  addAddressStreamListener() {
+    addressBloc.address.listen(
+      (list) {
+        addressList = list;
+        setState(() {});
+      },
+      onError: (error, stacktrace) {
+        print("onError: $error");
+        print(stacktrace.toString());
 
-      if(error is ErrorModel == false) return;
+        if (error is ErrorModel == false) return;
 
-      ErrorModel errorModel = error;
-      if(page == 1) addressList = [];
-      if(errorModel.error == -101) page = -1;
+        ErrorModel errorModel = error;
+        if (page == 1) addressList = [];
+        if (errorModel.error == -101) page = -1;
 
-      errorMessage = errorModel.message;
-      setState(() {});
-    },);
+        errorMessage = errorModel.message;
+        setState(() {});
+      },
+    );
   }
 
-  addScrollListener(){
+  addScrollListener() {
     scrollController.addListener(() {
       FocusScope.of(context).requestFocus(new FocusNode());
     });
   }
 
-  addTextEditListener(){
-    searchTec.addListener(() async{
-      if(keyword == searchTec.text) return;
+  addTextEditListener() {
+    searchTec.addListener(() async {
+      if (keyword == searchTec.text) return;
       keyword = searchTec.text;
       page = 1;
       addressBloc.fetchAddress(keyword, page);
     });
   }
-
 
   @override
   void dispose() {
@@ -76,7 +77,7 @@ class SearchAddressState extends State<SearchAddress>{
       child: Scaffold(
         key: _scaffoldKey,
         body: GestureDetector(
-          onTap:() => FocusScope.of(context).requestFocus(new FocusNode()),
+          onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
           child: Column(
             children: [
               TopBar(
@@ -90,7 +91,9 @@ class SearchAddressState extends State<SearchAddress>{
                     child: searchTextField(),
                   ),
                   cancelWidget(),
-                  SizedBox(width: 10,)
+                  SizedBox(
+                    width: 10,
+                  )
                 ],
               ),
               Expanded(
@@ -103,7 +106,7 @@ class SearchAddressState extends State<SearchAddress>{
     );
   }
 
-  Widget searchTextField(){
+  Widget searchTextField() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(left: 20, right: 20),
@@ -114,57 +117,67 @@ class SearchAddressState extends State<SearchAddress>{
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "주소 입력",
-          hintStyle: TextStyle(color:Color(0xFFA0A0A0)),
+          hintStyle: TextStyle(color: Color(0xFFA0A0A0)),
         ),
       ),
     );
   }
 
-  Widget cancelWidget(){
-    if(keyword == null || keyword.isEmpty) return Container();
+  Widget cancelWidget() {
+    if (keyword == null || keyword.isEmpty) return Container();
 
     return GestureDetector(
-      child: Icon(Icons.cancel, color: Color(0xFFBFBFBF), size: 20,),
-      onTap: ()=>searchTec.clear(),
+      child: Icon(
+        Icons.cancel,
+        color: Color(0xFFBFBFBF),
+        size: 20,
+      ),
+      onTap: () => searchTec.clear(),
     );
   }
 
-  Widget listView(){
-    if(addressList.length == 0){
+  Widget listView() {
+    if (addressList.length == 0) {
       return Container(
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Column(
-          children: [
-            Container(height: 15, color: Color(0xFFEdEdEd),),
-            Expanded(
-                child: Center(child: Text(errorMessage),)
-            )
-          ],
-        )
-      );
+          alignment: Alignment.center,
+          color: Colors.white,
+          child: Column(
+            children: [
+              Container(
+                height: 15,
+                color: Color(0xFFEdEdEd),
+              ),
+              Expanded(
+                  child: Center(
+                child: Text(errorMessage),
+              ))
+            ],
+          ));
     }
 
     return ListView.builder(
-      controller: scrollController,
-      itemCount: addressList.length + 1,
-      itemBuilder: (BuildContext context, int index) {
-        if(index == 0) return Container(height: 15, color: Color(0xFFEdEdEd),);
-        if(index == addressList.length) addAddressList();
+        controller: scrollController,
+        itemCount: addressList.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0)
+            return Container(
+              height: 15,
+              color: Color(0xFFEdEdEd),
+            );
+          if (index == addressList.length) addAddressList();
 
-        final address = addressList[index -1];
-        return Column(
-          children: [
-            listItem(address),
-            Container(height: 1, color:Color(0xFFEdEdEd)),
-          ],
-        );
-      }
-    );
+          final address = addressList[index - 1];
+          return Column(
+            children: [
+              listItem(address),
+              Container(height: 1, color: Color(0xFFEdEdEd)),
+            ],
+          );
+        });
   }
 
-  Widget listItem(Juso address){
-    final roadLast = address.buldSlno == '0' ? '' : '-'+address.buldSlno;
+  Widget listItem(Juso address) {
+    final roadLast = address.buldSlno == '0' ? '' : '-' + address.buldSlno;
     final rodaTitle = '${address.rn} ${address.buldMnnm}$roadLast';
     final title = address.bdNm.isEmpty ? rodaTitle : address.bdNm;
 
@@ -175,31 +188,37 @@ class SearchAddressState extends State<SearchAddress>{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 18),),
-          SizedBox(height: 5,),
-          Text(address.jibunAddr, style: TextStyle(color: Color(0xFFA8A8A8)),),
-          Text('[도로명] '+address.roadAddr, style: TextStyle(color: Color(0xFFA8A8A8)),),
+          Text(
+            title,
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            address.jibunAddr,
+            style: TextStyle(color: Color(0xFFA8A8A8)),
+          ),
+          Text(
+            '[도로명] ' + address.roadAddr,
+            style: TextStyle(color: Color(0xFFA8A8A8)),
+          ),
         ],
       ),
     );
   }
 
-  addAddressList(){
-    if(page == -1) return;
+  addAddressList() {
+    if (page == -1) return;
     ++page;
     addressBloc.fetchAddress(keyword, page);
   }
 }
 
 // ignore: must_be_immutable
-class TopBar extends StatelessWidget{
-  TopBar({
-    Key key,
-    this.title,
-    this.onTap,
-    this.closeIcon,
-    this.height = 60
-  }):super(key:key);
+class TopBar extends StatelessWidget {
+  TopBar({Key key, this.title, this.onTap, this.closeIcon, this.height = 60})
+      : super(key: key);
 
   String title;
   Function onTap;
@@ -220,12 +239,13 @@ class TopBar extends StatelessWidget{
     );
   }
 
-  Widget titleWidget(){
+  Widget titleWidget() {
     return Container(
       alignment: Alignment.center,
       color: Colors.white,
       height: height,
-      child: Text(title,
+      child: Text(
+        title,
         style: TextStyle(
           fontSize: 17,
           fontWeight: FontWeight.w500,
@@ -234,7 +254,7 @@ class TopBar extends StatelessWidget{
     );
   }
 
-  Widget closeWidget(BuildContext context){
+  Widget closeWidget(BuildContext context) {
     return SizedBox(
       height: height,
       width: height,
@@ -242,11 +262,11 @@ class TopBar extends StatelessWidget{
         color: Colors.white,
         child: InkWell(
           splashColor: Color(0xFF757575),
-          onTap: onTap != null ? onTap: ()=> Navigator.pop(context),
+          onTap: onTap != null ? onTap : () => Navigator.pop(context),
           child: Container(
             margin: EdgeInsets.only(left: 10),
             alignment: Alignment.centerLeft,
-            child: closeIcon == null ? Icon(Icons.close): closeIcon,
+            child: closeIcon == null ? Icon(Icons.close) : closeIcon,
           ),
         ),
       ),
