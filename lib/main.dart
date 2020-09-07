@@ -22,6 +22,7 @@ import 'animation/15_focus_image.dart';
 import 'animation/16_card_swipe.dart';
 import 'animation/17_repeating_animation.dart';
 import 'animation/19_physics_card_drag.dart';
+import 'animation/21_fade_out_route.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -32,6 +33,7 @@ import 'navigator/07_input_user.dart';
 import 'navigator/08_custom_bar.dart';
 
 import 'navigator/10_address_search.dart';
+import 'navigator/11_open_container_transform.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -53,15 +55,17 @@ import 'package:provider/provider.dart';
 import 'http/blocs/token_bloc.dart';
 
 void main() {
-  return runApp(MultiProvider(
-    providers: [
-      Provider<TokenBloc>(
-        create: (context) => TokenBloc(),
-        dispose: (context, TokenBloc value) => value.dispose(),
-      ),
-    ],
-    child: MyApp(),
-  ));
+  return runApp(
+    MultiProvider(
+      providers: [
+        Provider<TokenBloc>(
+          create: (context) => TokenBloc(),
+          dispose: (context, TokenBloc value) => value.dispose(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyRouts {
@@ -146,6 +150,10 @@ final animation = [
       name: 'Page View Fade',
       route: PageViewFade.routeName,
       builder: (context) => PageViewFade()),
+  MyRouts(
+      name: 'Fade Out Route',
+      route: FadeOutRoute.routeName,
+      builder: (context) => FadeOutRoute()),
 ];
 
 final navigators = [
@@ -193,6 +201,10 @@ final navigators = [
       name: 'AddressSearch',
       route: SearchAddress.routeName,
       builder: (BuildContext context) => SearchAddress()),
+  MyRouts(
+      name: 'OpenContainerTransformDemo',
+      route: OpenContainerTransformDemo.routeName,
+      builder: (BuildContext context) => OpenContainerTransformDemo()),
 ];
 
 final weekOfWidgets = [
@@ -304,7 +316,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.blueGrey,
       ),
       home: HomePage(),
       routes: allRoutes,
@@ -325,10 +337,17 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
-    final headerStyle = Theme.of(context).textTheme.headline6;
+    final headerStyle = TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Example'),
+        title: Center(
+          child: Text('MJ Example'),
+        ),
+        backgroundColor: Colors.blueGrey,
       ),
       body: ListView(
         children: [

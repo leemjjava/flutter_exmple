@@ -61,21 +61,18 @@ class PageViewFadeState extends State<PageViewFade> {
   Widget pageChildPhoto() {
     return Column(
       children: <Widget>[
-        Expanded(
-            child: imageStack("아름다운 경관을 선사하는\n제주도 삼나무 숲", 'assets/forest02.jpg')
-        ),
-        Expanded(
-            child: imageStack("에메랄드 바다의 몰디브는\n어떤 나라일까?", 'assets/sea.jpg')
-        ),
+        Expanded(child: imageStack("아름다운 경관을 선사하는\n제주도 삼나무 숲", 'assets/forest02.jpg')),
+        Expanded(child: imageStack("에메랄드 바다의 몰디브는\n어떤 나라일까?", 'assets/sea.jpg')),
       ],
     );
   }
 
-  Widget imageStack(String title, String path){
+  Widget imageStack(String title, String path) {
     return Stack(
       children: <Widget>[
         Positioned.fill(
-          child: Image.asset(path,
+          child: Image.asset(
+            path,
             fit: BoxFit.cover,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -123,15 +120,16 @@ class PageViewFadeState extends State<PageViewFade> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           stops: [0.1, 0.5, 1],
-          colors: [Colors.yellowAccent,Colors.orangeAccent,Colors.pinkAccent],
+          colors: [Colors.yellowAccent, Colors.orangeAccent, Colors.pinkAccent],
         ),
       ),
       child: whiteText("3번째 페이지"),
     );
   }
 
-  Widget whiteText(String title){
-    return  Text(title,
+  Widget whiteText(String title) {
+    return Text(
+      title,
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
@@ -149,7 +147,7 @@ class FadePageItemCS extends StatelessWidget {
     @required this.pageScrollPosition,
     @required this.pageNumber,
     @required this.child,
-  }) : super(key : key);
+  }) : super(key: key);
 
   double deviceHeight, deviceWidth;
   final pageScrollPosition;
@@ -170,18 +168,17 @@ class FadePageItemCS extends StatelessWidget {
           child: Opacity(
             opacity: getPageOpacity(),
             child: Scaffold(
-              body: Container(
-                child: child,
-              )
-            ),
+                body: Container(
+              child: child,
+            )),
           ),
         ),
       ],
     );
   }
 
-  Rect getPageRect(){
-    if(checkPageUp()) return Offset(0,0) & Size(deviceWidth, deviceHeight);
+  Rect getPageRect() {
+    if (checkPageUp()) return Offset(0, 0) & Size(deviceWidth, deviceHeight);
 
     double rectWidth = getRectWidth();
     double rectHeight = getRectHeight();
@@ -189,45 +186,42 @@ class FadePageItemCS extends StatelessWidget {
     double x = (deviceWidth - rectWidth) / 2;
     double y = (deviceHeight - rectHeight) + getNowScrollHeight();
 
-    return Offset(x,y) & Size(rectWidth, rectHeight);
+    return Offset(x, y) & Size(rectWidth, rectHeight);
   }
 
-  double getRectWidth(){
+  double getRectWidth() {
     double minWidthRatio = 0.80;
     double minRectWidth = deviceWidth * minWidthRatio;
     double rectWidthOffset = (deviceWidth - minRectWidth) * getScrollRatio();
     return minRectWidth + rectWidthOffset;
   }
 
-  double getRectHeight(){
+  double getRectHeight() {
     double minHeightRatio = 0.85;
     double minRectHeight = deviceHeight * minHeightRatio;
     double rectHeightOffset = (deviceHeight - minRectHeight) * getScrollRatio();
     return minRectHeight + rectHeightOffset;
   }
 
-  double getNowScrollHeight(){
+  double getNowScrollHeight() {
     double startPagePosition = deviceHeight * pageNumber;
     return pageScrollPosition - startPagePosition;
   }
 
-  double getScrollRatio(){
+  double getScrollRatio() {
     double pageViewScrollOffset = deviceHeight - getNowScrollHeight();
     return pageViewScrollOffset / deviceHeight;
   }
 
-  double getPageOpacity(){
-    if(checkPageUp()) return 1;
+  double getPageOpacity() {
+    if (checkPageUp()) return 1;
 
-    return getScrollRatio()
-        .clamp(0, 1)
-        .toDouble();
+    return getScrollRatio().clamp(0, 1).toDouble();
   }
 
-  bool checkPageUp(){
-    if(pageNumber == 0) return false;
-    if(pageScrollPosition < deviceHeight * pageNumber) return true;
+  bool checkPageUp() {
+    if (pageNumber == 0) return false;
+    if (pageScrollPosition < deviceHeight * pageNumber) return true;
     return false;
   }
-
 }
