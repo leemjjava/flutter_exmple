@@ -87,18 +87,12 @@ class SearchAddressState extends State<SearchAddress> {
               ),
               Row(
                 children: [
-                  Expanded(
-                    child: searchTextField(),
-                  ),
+                  Expanded(child: searchTextField()),
                   cancelWidget(),
-                  SizedBox(
-                    width: 10,
-                  )
+                  SizedBox(width: 10)
                 ],
               ),
-              Expanded(
-                child: listView(),
-              ),
+              Expanded(child: listView()),
             ],
           ),
         ),
@@ -139,41 +133,33 @@ class SearchAddressState extends State<SearchAddress> {
   Widget listView() {
     if (addressList.length == 0) {
       return Container(
-          alignment: Alignment.center,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Container(
-                height: 15,
-                color: Color(0xFFEdEdEd),
-              ),
-              Expanded(
-                  child: Center(
-                child: Text(errorMessage),
-              ))
-            ],
-          ));
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(height: 15, color: Color(0xFFEdEdEd)),
+            Expanded(child: Center(child: Text(errorMessage)))
+          ],
+        ),
+      );
     }
 
     return ListView.builder(
-        controller: scrollController,
-        itemCount: addressList.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0)
-            return Container(
-              height: 15,
-              color: Color(0xFFEdEdEd),
-            );
-          if (index == addressList.length) addAddressList();
+      controller: scrollController,
+      itemCount: addressList.length + 1,
+      itemBuilder: (BuildContext context, int index) {
+        if (index == 0) return Container(height: 15, color: Color(0xFFEdEdEd));
+        if (index == addressList.length) addAddressList();
 
-          final address = addressList[index - 1];
-          return Column(
-            children: [
-              listItem(address),
-              Container(height: 1, color: Color(0xFFEdEdEd)),
-            ],
-          );
-        });
+        final address = addressList[index - 1];
+        return Column(
+          children: [
+            listItem(address),
+            Container(height: 1, color: Color(0xFFEdEdEd)),
+          ],
+        );
+      },
+    );
   }
 
   Widget listItem(Juso address) {
@@ -192,9 +178,7 @@ class SearchAddressState extends State<SearchAddress> {
             title,
             style: TextStyle(fontSize: 18),
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Text(
             address.jibunAddr,
             style: TextStyle(color: Color(0xFFA8A8A8)),
@@ -217,8 +201,13 @@ class SearchAddressState extends State<SearchAddress> {
 
 // ignore: must_be_immutable
 class TopBar extends StatelessWidget {
-  TopBar({Key key, this.title, this.onTap, this.closeIcon, this.height = 60})
-      : super(key: key);
+  TopBar({
+    Key key,
+    this.title,
+    this.onTap,
+    this.closeIcon,
+    this.height = 60,
+  }) : super(key: key);
 
   String title;
   Function onTap;

@@ -10,7 +10,7 @@ class FadeOutRoute extends StatefulWidget {
 class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
-  final duration = Duration(milliseconds: 300);
+  final duration = Duration(milliseconds: 500);
   final curve = Curves.ease;
   double textFont = 15;
 
