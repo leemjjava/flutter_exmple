@@ -23,6 +23,7 @@ import 'animation/16_card_swipe.dart';
 import 'animation/17_repeating_animation.dart';
 import 'animation/19_physics_card_drag.dart';
 import 'animation/21_fade_out_route.dart';
+import 'animation/22_backdrop.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -154,6 +155,10 @@ final animation = [
       name: 'Fade Out Route',
       route: FadeOutRoute.routeName,
       builder: (context) => FadeOutRoute()),
+  MyRouts(
+      name: 'Backdrop',
+      route: BackdropExample.routeName,
+      builder: (context) => BackdropExample()),
 ];
 
 final navigators = [
