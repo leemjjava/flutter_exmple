@@ -3,115 +3,118 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-class BackdropExample extends StatelessWidget {
+class BackdropExample extends StatefulWidget {
   static const String routeName = '/misc/backdrop';
+
+  @override
+  BackdropExampleState createState() => BackdropExampleState();
+}
+
+class BackdropExampleState extends State<BackdropExample> {
   final frontPanelVisible = ValueNotifier<bool>(false);
+  double frontPanelHeight = 600;
+  bool panelOpen;
+
+  @override
+  void initState() {
+    super.initState();
+    panelOpen = frontPanelVisible.value;
+    frontPanelVisible.addListener(_subscribeToValueNotifier);
+  }
+
+  void _subscribeToValueNotifier() {
+    panelOpen = frontPanelVisible.value;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Backdrop(
-          frontLayer: FrontPanel(),
-          backLayer: BackPanel(
-            frontPanelOpen: frontPanelVisible,
-          ),
-          frontHeader: FrontPanelTitle(),
+          frontHeader: getHeaderWidget(),
+          frontLayer: getFrontWidget(),
+          backLayer: getBackPanel(),
+          frontPanelHeight: frontPanelHeight,
           panelVisible: frontPanelVisible,
-          frontPanelHeight: 100,
-          frontHeaderHeight: 48.0,
+          frontHeaderHeight: 30.0,
           frontHeaderVisibleClosed: true,
         ),
       ),
     );
   }
-}
 
-class FrontPanelTitle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, left: 16.0),
-      child: Text(
-        'Tap Me',
-        style: Theme.of(context).textTheme.subtitle1,
+  Widget getHeaderWidget() {
+    return Container(
+      alignment: Alignment.center,
+      child: Icon(
+        Icons.keyboard_arrow_down,
+        color: Colors.grey,
+        size: 30,
       ),
     );
   }
-}
 
-class FrontPanel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget getFrontWidget() {
     return Container(
-      height: 100,
+      height: frontPanelHeight,
       color: Theme.of(context).cardColor,
-      child: Center(
-        child: Text('Hello world'),
-      ),
+      child: Center(child: Text('Backdrop View')),
     );
   }
-}
 
-class BackPanel extends StatefulWidget {
-  BackPanel({
-    @required this.frontPanelOpen,
-  });
-  final ValueNotifier<bool> frontPanelOpen;
-
-  @override
-  createState() => _BackPanelState();
-}
-
-class _BackPanelState extends State<BackPanel> {
-  bool panelOpen;
-
-  @override
-  initState() {
-    super.initState();
-    panelOpen = widget.frontPanelOpen.value;
-    widget.frontPanelOpen.addListener(_subscribeToValueNotifier);
-  }
-
-  void _subscribeToValueNotifier() {
-    panelOpen = widget.frontPanelOpen.value;
-    setState(() {});
-  }
-
-  @override
-  void didUpdateWidget(BackPanel oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    oldWidget.frontPanelOpen.removeListener(_subscribeToValueNotifier);
-    widget.frontPanelOpen.addListener(_subscribeToValueNotifier);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget getBackPanel() {
     return Container(
-      color: Colors.blueGrey,
+      color: Colors.red,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Center(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 10.0,
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Backdrop View is ${panelOpen ? "open" : "closed"}',
+                style: TextStyle(color: Colors.white),
               ),
-              child: Text('Front panel is ${panelOpen ? "open" : "closed"}'),
             ),
           ),
-          Center(
-            child: RaisedButton(
-              child: Text('Tap Me'),
-              onPressed: () {
-                widget.frontPanelOpen.value = true;
-              },
-            ),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getHeightChangeBtn('높이 600', 600),
+                  getHeightChangeBtn('높이 400', 400),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getHeightChangeBtn('높이 200', 200),
+                  getHeightChangeBtn('높이 100', 100),
+                ],
+              ),
+            ],
           ),
           Center(child: Text('Bottom of Panel')),
         ],
       ),
+    );
+  }
+
+  Widget getHeightChangeBtn(String title, double height) {
+    return FlatButton(
+      child: Text(
+        title,
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () {
+        frontPanelHeight = height;
+        setState(() {
+          frontPanelVisible.value = !panelOpen;
+        });
+      },
     );
   }
 }
@@ -124,18 +127,18 @@ class _BackdropPanel extends StatelessWidget {
     this.onTap,
     this.onVerticalDragUpdate,
     this.onVerticalDragEnd,
-    this.title,
-    this.child,
-    this.titleHeight,
+    this.header,
+    this.body,
+    this.headerHeight,
     this.padding,
   }) : super(key: key);
 
   final VoidCallback onTap;
   final GestureDragUpdateCallback onVerticalDragUpdate;
   final GestureDragEndCallback onVerticalDragEnd;
-  final Widget title;
-  final Widget child;
-  final double titleHeight;
+  final Widget header;
+  final Widget body;
+  final double headerHeight;
   final EdgeInsets padding;
 
   @override
@@ -151,18 +154,25 @@ class _BackdropPanel extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onVerticalDragUpdate: onVerticalDragUpdate,
-              onVerticalDragEnd: onVerticalDragEnd,
-              onTap: onTap,
-              child: Container(height: titleHeight, child: title),
-            ),
+            getHeader(),
             Divider(height: 1.0),
-            child,
+            body,
             // Expanded(child: child),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget getHeader() {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onVerticalDragUpdate: onVerticalDragUpdate,
+      onVerticalDragEnd: onVerticalDragEnd,
+      onTap: onTap,
+      child: Container(
+        height: headerHeight,
+        child: header,
       ),
     );
   }
@@ -207,7 +217,14 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
 
   double get _backdropHeight {
     final RenderBox renderBox = _backdropKey.currentContext.findRenderObject();
-    return renderBox.size.height;
+    final maxHeight = renderBox.size.height;
+    double panelBodyHeight = widget.frontPanelHeight;
+
+    if (panelBodyHeight == 0) return maxHeight;
+
+    panelBodyHeight = panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
+
+    return panelBodyHeight + widget.frontHeaderHeight;
   }
 
   @override
@@ -232,6 +249,7 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
     if (panelVisible == null) return;
 
     panelVisible.addListener(_subscribeToValueNotifier);
+
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) panelVisible.value = true;
       if (status == AnimationStatus.dismissed) panelVisible.value = false;
@@ -289,9 +307,10 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxHeight = constraints.biggest.height;
+        final bodyHeight = widget.frontPanelHeight;
 
         final closedPercentage = getClosedPercentage(maxHeight);
-        final openPercentage = getOpenPercentage(maxHeight);
+        final openPercentage = bodyHeight == 0 ? 0.0 : getOpenPercentage(maxHeight);
 
         final panelDetailsPosition = Tween<Offset>(
           begin: Offset(0.0, closedPercentage),
@@ -309,9 +328,9 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
                   onTap: _toggleBackdropPanelVisibility,
                   onVerticalDragUpdate: _handleDragUpdate,
                   onVerticalDragEnd: _handleDragEnd,
-                  title: widget.frontHeader,
-                  titleHeight: widget.frontHeaderHeight,
-                  child: widget.frontLayer,
+                  header: widget.frontHeader,
+                  headerHeight: widget.frontHeaderHeight,
+                  body: widget.frontLayer,
                   padding: widget.frontPanelPadding,
                 ),
               ),
@@ -328,7 +347,10 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
   }
 
   double getOpenPercentage(double maxHeight) {
-    final panelHeight = widget.frontPanelHeight + widget.frontHeaderHeight;
+    double panelBodyHeight = widget.frontPanelHeight;
+    panelBodyHeight = panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
+
+    final panelHeight = panelBodyHeight + widget.frontHeaderHeight;
     return (maxHeight - panelHeight) / maxHeight;
   }
 }
