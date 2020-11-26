@@ -135,7 +135,7 @@ class _AnimationButtonState extends State<AnimationButton> with TickerProviderSt
                         AnimatedSize(
                           vsync: this,
                           duration: Duration(milliseconds: 200),
-                          child: sent ? Text("Done1") : Container(),
+                          child: sent ? Text("Done") : Container(),
                         ),
                       ],
                     ),
