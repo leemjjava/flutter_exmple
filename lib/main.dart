@@ -24,6 +24,7 @@ import 'animation/17_repeating_animation.dart';
 import 'animation/19_physics_card_drag.dart';
 import 'animation/21_fade_out_route.dart';
 import 'animation/22_backdrop.dart';
+import 'animation/23_animation_button.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -210,6 +211,10 @@ final navigators = [
       name: 'OpenContainerTransformDemo',
       route: OpenContainerTransformDemo.routeName,
       builder: (BuildContext context) => OpenContainerTransformDemo()),
+  MyRouts(
+      name: 'AnimationButton',
+      route: AnimationButton.routeName,
+      builder: (BuildContext context) => AnimationButton()),
 ];
 
 final weekOfWidgets = [
@@ -377,7 +382,12 @@ class DemoTile extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(demo.name),
+      title: Text(
+        demo.name,
+        style: TextStyle(
+          fontSize: 15,
+        ),
+      ),
       onTap: () {
         Navigator.pushNamed(context, demo.route);
       },
