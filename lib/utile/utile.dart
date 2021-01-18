@@ -65,3 +65,49 @@ void printAnimation(AnimationStatus status) {
     default:
   }
 }
+
+// ignore: must_be_immutable
+class InkWellCS extends StatelessWidget {
+  InkWellCS({
+    Key key,
+    this.child,
+    this.onTap,
+    this.backgroundColor = Colors.white,
+    this.splashColor,
+  }) : super(key: key);
+
+  final Widget child;
+  GestureTapCallback onTap;
+  Color splashColor;
+  Color backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: backgroundColor,
+      child: InkWell(
+        splashColor: splashColor,
+        child: child,
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+Route createSlideUpRoute({Widget widget}) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => widget,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}

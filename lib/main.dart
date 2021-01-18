@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
+import 'package:navigator/animation/24_animation_alert.dart';
+import 'package:navigator/animation/25_transform_example.dart';
 import 'package:navigator/navigator/09_webSocket.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
@@ -25,6 +27,7 @@ import 'animation/19_physics_card_drag.dart';
 import 'animation/21_fade_out_route.dart';
 import 'animation/22_backdrop.dart';
 import 'animation/23_animation_button.dart';
+import 'animation/26_zoom_view.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -36,6 +39,7 @@ import 'navigator/08_custom_bar.dart';
 
 import 'navigator/10_address_search.dart';
 import 'navigator/11_open_container_transform.dart';
+import 'navigator/12_text_field.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -160,61 +164,94 @@ final animation = [
       name: 'Backdrop',
       route: BackdropExample.routeName,
       builder: (context) => BackdropExample()),
+  MyRouts(
+    name: 'AnimationButton',
+    route: AnimationButton.routeName,
+    builder: (BuildContext context) => AnimationButton(),
+  ),
+  MyRouts(
+    name: 'AnimationAlert',
+    route: AnimationAlert.routeName,
+    builder: (BuildContext context) => AnimationAlert(),
+  ),
+  MyRouts(
+    name: 'TransformExample',
+    route: TransformExample.routeName,
+    builder: (BuildContext context) => TransformExample(),
+  ),
+  MyRouts(
+    name: 'ZoomView',
+    route: ZoomView.routeName,
+    builder: (BuildContext context) => ZoomView(),
+  ),
 ];
 
 final navigators = [
   MyRouts(
-      name: 'Named Routs Arguments',
-      route: ArgumentsDemo.routeName,
-      builder: (BuildContext context) => ArgumentsDemo()),
+    name: 'Named Routs Arguments',
+    route: ArgumentsDemo.routeName,
+    builder: (BuildContext context) => ArgumentsDemo(),
+  ),
   MyRouts(
-      name: 'Returning Data',
-      route: ReturningDataDemo.routeName,
-      builder: (BuildContext context) => ReturningDataDemo()),
+    name: 'Returning Data',
+    route: ReturningDataDemo.routeName,
+    builder: (BuildContext context) => ReturningDataDemo(),
+  ),
   MyRouts(
-      name: 'Todo List',
-      route: TodoScreen.routeName,
-      builder: (BuildContext context) => TodoScreen(
-          todos: List.generate(
-              20,
-              (i) => Todo(
-                  'Todo $i', 'a description of what needs to be done for Todo $i')))),
+    name: 'Todo List',
+    route: TodoScreen.routeName,
+    builder: (BuildContext context) => TodoScreen(
+      todos: List.generate(
+        20,
+        (i) => Todo('Todo $i', 'a description of what needs to be done for Todo $i'),
+      ),
+    ),
+  ),
   MyRouts(
-      name: 'Hero',
-      route: MainScreen.routeName,
-      builder: (BuildContext context) => MainScreen()),
+    name: 'Hero',
+    route: MainScreen.routeName,
+    builder: (BuildContext context) => MainScreen(),
+  ),
   MyRouts(
-      name: 'Login',
-      route: LoginEx.routeName,
-      builder: (BuildContext context) => LoginEx()),
+    name: 'Login',
+    route: LoginEx.routeName,
+    builder: (BuildContext context) => LoginEx(),
+  ),
   MyRouts(
-      name: 'LoginExTwo',
-      route: LoginExTwo.routeName,
-      builder: (BuildContext context) => LoginExTwo()),
+    name: 'LoginExTwo',
+    route: LoginExTwo.routeName,
+    builder: (BuildContext context) => LoginExTwo(),
+  ),
   MyRouts(
-      name: 'UserInputEx',
-      route: UserInputEx.routeName,
-      builder: (BuildContext context) => UserInputEx()),
+    name: 'UserInputEx',
+    route: UserInputEx.routeName,
+    builder: (BuildContext context) => UserInputEx(),
+  ),
   MyRouts(
-      name: 'CustomBarWidget',
-      route: CustomBarWidget.routeName,
-      builder: (BuildContext context) => CustomBarWidget()),
+    name: 'CustomBarWidget',
+    route: CustomBarWidget.routeName,
+    builder: (BuildContext context) => CustomBarWidget(),
+  ),
   MyRouts(
-      name: 'WebSocketView',
-      route: WebSocketView.routeName,
-      builder: (BuildContext context) => WebSocketView()),
+    name: 'WebSocketView',
+    route: WebSocketView.routeName,
+    builder: (BuildContext context) => WebSocketView(),
+  ),
   MyRouts(
-      name: 'AddressSearch',
-      route: SearchAddress.routeName,
-      builder: (BuildContext context) => SearchAddress()),
+    name: 'AddressSearch',
+    route: SearchAddress.routeName,
+    builder: (BuildContext context) => SearchAddress(),
+  ),
   MyRouts(
-      name: 'OpenContainerTransformDemo',
-      route: OpenContainerTransformDemo.routeName,
-      builder: (BuildContext context) => OpenContainerTransformDemo()),
+    name: 'OpenContainerTransformDemo',
+    route: OpenContainerTransformDemo.routeName,
+    builder: (BuildContext context) => OpenContainerTransformDemo(),
+  ),
   MyRouts(
-      name: 'AnimationButton',
-      route: AnimationButton.routeName,
-      builder: (BuildContext context) => AnimationButton()),
+    name: 'TextField',
+    route: TextFieldDemo.routeName,
+    builder: (BuildContext context) => TextFieldDemo(),
+  ),
 ];
 
 final weekOfWidgets = [

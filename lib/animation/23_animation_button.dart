@@ -28,8 +28,11 @@ class _AnimationButtonState extends State<AnimationButton> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1300));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1300),
+    );
+
     show = true;
     _animationController.addListener(() {
       setState(
@@ -82,10 +85,7 @@ class _AnimationButtonState extends State<AnimationButton> with TickerProviderSt
                           color: _color,
                           blurRadius: 21,
                           spreadRadius: -15,
-                          offset: Offset(
-                            0.0,
-                            20.0,
-                          ),
+                          offset: Offset(0.0, 20.0),
                         )
                       ],
                     ),
