@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
 import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
@@ -40,6 +41,8 @@ import 'navigator/08_custom_bar.dart';
 import 'navigator/10_address_search.dart';
 import 'navigator/11_open_container_transform.dart';
 import 'navigator/12_text_field.dart';
+import 'navigator/13_custom_keyboard.dart';
+import 'navigator/14_get_x_statement.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -252,6 +255,16 @@ final navigators = [
     route: TextFieldDemo.routeName,
     builder: (BuildContext context) => TextFieldDemo(),
   ),
+  MyRouts(
+    name: 'CustomKeyboard',
+    route: CustomKeyboard.routeName,
+    builder: (BuildContext context) => CustomKeyboard(),
+  ),
+  MyRouts(
+    name: 'ReactiveScreen',
+    route: ReactiveScreen.routeName,
+    builder: (BuildContext context) => ReactiveScreen(),
+  ),
 ];
 
 final weekOfWidgets = [
@@ -360,7 +373,7 @@ final allRoutes = <String, WidgetBuilder>{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,

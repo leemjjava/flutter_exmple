@@ -101,3 +101,64 @@ class ExpandBtnCS extends StatelessWidget {
         ));
   }
 }
+
+// ignore: must_be_immutable
+class BorderBtnCS extends StatelessWidget {
+  BorderBtnCS({
+    Key key,
+    this.title = "Button",
+    this.buttonColor = Colors.white,
+    this.textColor = Colors.black,
+    this.borderColor = Colors.grey,
+    this.width = double.infinity,
+    this.height = 40,
+    this.fontSize = 14,
+    this.radius,
+    this.onPressed,
+    this.fontWeight,
+    this.borderWeight = 1,
+  }) : super(key: key);
+
+  String title;
+  Color buttonColor;
+  Color textColor;
+  Color borderColor;
+
+  double width;
+  double height;
+  double fontSize;
+  double radius;
+  double borderWeight;
+
+  VoidCallback onPressed;
+  FontWeight fontWeight;
+
+  @override
+  Widget build(BuildContext context) {
+    radius = radius == null ? (height / 2) : radius;
+
+    return Container(
+      width: width,
+      height: height,
+      child: FlatButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius),
+          side: BorderSide(
+            width: borderWeight,
+            color: borderColor,
+          ),
+        ),
+        onPressed: onPressed,
+        color: buttonColor,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: fontWeight,
+            fontSize: fontSize,
+            color: textColor,
+          ),
+        ),
+      ),
+    );
+  }
+}

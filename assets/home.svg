@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 54.1 (76490) - https://sketchapp.com -->
+    <title>BB2E8AD2-5C2F-408C-BF6F-0CF8CE69D5D8</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone8Plus/mainLayout" transform="translate(-38.000000, -669.000000)">
+            <g id="bottomNav" transform="translate(20.000000, 663.000000)">
+                <g id="btn/home" transform="translate(-2.000000, 0.000000)">
+                    <g id="ic/home" transform="translate(17.000000, 5.000000)">
+                        <path d="M4,12.0169026 L14.2979246,3 L24.4500267,11.8892198 L24.4500258,23.2898551 L20.3723719,23.2874286 C18.7140193,23.2864418 17.3696591,21.9508741 17.3696595,20.2881135 L17.3696594,20.6509071 C17.3696597,18.9954179 16.0213123,17.6533788 14.3638088,17.6533788 L14.433441,17.6533788 C12.7733552,17.6533788 11.4275898,18.9891449 11.4275898,20.6531493 L11.4275898,20.2900844 C11.4275898,21.9468119 10.0825093,23.2898549 8.42791447,23.2898549 L4,23.2898549 L4,12.0169026 Z" id="v" stroke="#BFBFBF" stroke-width="2"></path>
+                        <rect id="ViewBox" fill-rule="nonzero" x="0" y="4.61852778e-14" width="28" height="28.9032258"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

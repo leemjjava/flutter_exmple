@@ -111,3 +111,35 @@ Route createSlideUpRoute({Widget widget}) {
     },
   );
 }
+
+String numberToWon(String number) {
+  final han1 = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+  final han2 = ["", "십", "백", "천"];
+  final han3 = ["", "만", "억", "조", "경"];
+  StringBuffer stringBuffer = StringBuffer();
+
+  int len = number.length;
+  for (int i = len - 1; i >= 0; i--) {
+    String item = number.substring(len - i - 1, len - i);
+    final index = int.parse(item);
+    String han1Item = han1[index];
+
+    if (index > 0) {
+      if (index != 1) stringBuffer.write(han1Item);
+      stringBuffer.write(han2[i % 4]);
+    } else
+      stringBuffer.write(han1Item);
+    if (i % 4 == 0) {
+      if (index == 1) stringBuffer.write(han1Item);
+      stringBuffer.write(han3[(i / 4).round()]);
+    }
+  }
+  stringBuffer.write(" 원");
+  String won = stringBuffer.toString();
+
+  won = won.replaceAll("억만", "억");
+  won = won.replaceAll("조억", "조");
+  won = won.replaceAll("경조", "경");
+
+  return won;
+}
