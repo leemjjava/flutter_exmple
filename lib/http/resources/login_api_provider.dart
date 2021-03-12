@@ -15,9 +15,7 @@ class LoginProvide {
   final String _loginURL = "$host/Stage/api/Auth";
 
   Future<Token> getToken() async {
-    Response res = await get(
-      _loginURL,
-    );
+    Response res = await get(Uri.parse(_loginURL));
 
     ResultBody resultBody = HttpRepository.getResultBody(_loginURL, res);
     if (res.statusCode != 200) throw resultBody;
@@ -25,7 +23,7 @@ class LoginProvide {
     Map<String, dynamic> body = resultBody.data;
 
     Token post = Token.fromJson(body);
-    String token = post.token;
+    String? token = post.token;
 
     storage.write(key: tokenKey, value: token);
     return Token.fromJson(body);
@@ -38,10 +36,7 @@ class LoginProvide {
       'password': password,
     };
 
-    Response res = await post(
-      _authTokenURL,
-      body: jsonEncode(parameter),
-    );
+    Response res = await post(Uri.parse(_authTokenURL), body: jsonEncode(parameter));
 
     ResultBody resultBody = HttpRepository.getResultBody(_authTokenURL, res);
     if (res.statusCode != 200) throw resultBody;
@@ -49,8 +44,8 @@ class LoginProvide {
     Map<String, dynamic> body = resultBody.data;
 
     AuthToken authToken = AuthToken.fromJson(body);
-    String accessToken = authToken.accessToken;
-    String refreshToken = authToken.refreshToken;
+    String? accessToken = authToken.accessToken;
+    String? refreshToken = authToken.refreshToken;
 
     storage.write(key: tokenKey, value: accessToken);
     storage.write(key: reTokenKey, value: refreshToken);
@@ -59,17 +54,14 @@ class LoginProvide {
 
   final String _authReTokenURL = "$authHost/Prod/refresh";
   Future<AuthToken> getReToken() async {
-    String refreshToken = await storage.read(key: reTokenKey);
+    String refreshToken = await storage.read(key: reTokenKey) ?? '';
     Map<String, String> headers = {
       reTokenKey: refreshToken,
     };
 
     print(headers);
 
-    Response res = await post(
-      _authReTokenURL,
-      headers: headers,
-    );
+    Response res = await post(Uri.parse(_authReTokenURL), headers: headers);
 
     ResultBody resultBody = HttpRepository.getResultBody(_authReTokenURL, res);
     if (res.statusCode != 200) throw resultBody;
@@ -77,8 +69,8 @@ class LoginProvide {
     Map<String, dynamic> body = resultBody.data;
 
     AuthToken authToken = AuthToken.fromJson(body);
-    String accessToken = authToken.accessToken;
-    refreshToken = authToken.refreshToken;
+    String accessToken = authToken.accessToken!;
+    refreshToken = authToken.refreshToken!;
 
     storage.write(key: tokenKey, value: accessToken);
     storage.write(key: reTokenKey, value: refreshToken);

@@ -1,14 +1,12 @@
-import 'package:flutter/foundation.dart';
-
 class Token {
-  final int statusCod;
-  final String msg;
-  final String token;
+  final int? statusCod;
+  final String? msg;
+  final String? token;
 
   Token({
-    @required this.statusCod,
-    @required this.msg,
-    @required this.token,
+    this.statusCod,
+    this.msg,
+    this.token,
   });
 
   factory Token.fromJson(Map<String, dynamic> json) {

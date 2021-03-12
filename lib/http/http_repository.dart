@@ -11,15 +11,15 @@ import 'resources/login_api_provider.dart';
 import 'resources/member_api_provider.dart';
 
 class HttpRepository {
-  static ResultBody getResultBody(String url ,Response res){
+  static ResultBody getResultBody(String url, Response res) {
     var logger = Logger();
 
     String request = res.request.toString();
     int statusCode = res.statusCode;
-    String parse = res.reasonPhrase;
+    String? parse = res.reasonPhrase;
     logger.d('\n$request\n$statusCode $parse');
 
-    Map<String,String> headers = res.headers;
+    Map<String, String> headers = res.headers;
     logger.d(headers);
 
     String bodyString = utf8.decode(res.bodyBytes);
@@ -31,15 +31,16 @@ class HttpRepository {
     return ResultBody.fromJson(body, statusCode);
   }
 
-  static ResultBody getMultipartResultBody(String url ,StreamedResponse res, String resStr){
+  static ResultBody getMultipartResultBody(
+      String url, StreamedResponse res, String resStr) {
     var logger = Logger();
 
     String request = res.request.toString();
     int statusCode = res.statusCode;
-    String parse = res.reasonPhrase;
+    String? parse = res.reasonPhrase;
     logger.d('\n$request\n$statusCode $parse');
 
-    Map<String,String> headers = res.headers;
+    Map<String, String> headers = res.headers;
     logger.d(headers);
 
     Map<String, dynamic> body = jsonDecode(resStr);
@@ -48,15 +49,16 @@ class HttpRepository {
     return ResultBody.fromJson(body, statusCode);
   }
 
-
   final loginProvider = LoginProvide();
 
   Future<Token> getToken() => loginProvider.getToken();
-  Future<AuthToken> getAuthToken(String id, String password) => loginProvider.getAuthToken(id, password);
+  Future<AuthToken> getAuthToken(String id, String password) =>
+      loginProvider.getAuthToken(id, password);
   Future<AuthToken> getReToken() => loginProvider.getReToken();
 
   final memberProvider = MemberApiProvider();
 
   Future<List<Member>> getMembers() => memberProvider.getMembers();
-  Future<MemberInputResult> createMember(Map<String, String> parameter) => memberProvider.createMember(parameter);
+  Future<MemberInputResult> createMember(Map<String, String> parameter) =>
+      memberProvider.createMember(parameter);
 }

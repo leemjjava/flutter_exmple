@@ -8,10 +8,8 @@ class ReorderListViewEx extends StatefulWidget {
   ReorderListViewExState createState() => ReorderListViewExState();
 }
 
-class ReorderListViewExState extends State<ReorderListViewEx>{
-  List<String> alphabetList = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
-  ];
+class ReorderListViewExState extends State<ReorderListViewEx> {
+  List<String> alphabetList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +23,7 @@ class ReorderListViewExState extends State<ReorderListViewEx>{
           child: Text(
             'This is the hearder!',
             style: TextStyle(
-                fontSize: 25,
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.bold),
+                fontSize: 25, color: Colors.blueAccent, fontWeight: FontWeight.bold),
           ),
         ),
         onReorder: _onReorder,
@@ -35,21 +31,15 @@ class ReorderListViewExState extends State<ReorderListViewEx>{
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: List<ListViewCard>.generate(
           alphabetList.length,
-              (index) {
-            return ListViewCard(
-              alphabetList,
-              index,
-              Key('$index'),
-            );
-          },
+          (index) => ListViewCard(alphabetList, index, Key('$index')),
         ),
       ),
     );
   }
 
-
   void _onReorder(int oldIndex, int newIndex) {
-    setState(() {
+    setState(
+      () {
         if (newIndex > oldIndex) newIndex -= 1;
 
         final String item = alphabetList.removeAt(oldIndex);
@@ -107,19 +97,18 @@ class _ListViewCard extends State<ListViewCard> {
     );
   }
 
-  Widget getTextView({bool isTitle}){
-
-    FontWeight fontWeight = isTitle? FontWeight.bold : FontWeight.normal;
-    String text = isTitle? 'Title ${widget.listItems[widget.index]}'
+  Widget getTextView({bool isTitle = false}) {
+    FontWeight fontWeight = isTitle ? FontWeight.bold : FontWeight.normal;
+    String text = isTitle
+        ? 'Title ${widget.listItems[widget.index]}'
         : 'Description ${widget.listItems[widget.index]}';
 
-    return  Container(
+    return Container(
       padding: const EdgeInsets.all(8.0),
       alignment: Alignment.topLeft,
       child: Text(
         text,
-        style:
-        TextStyle(fontWeight: fontWeight, fontSize: 16),
+        style: TextStyle(fontWeight: fontWeight, fontSize: 16),
         textAlign: TextAlign.left,
         maxLines: 5,
       ),

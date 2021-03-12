@@ -11,7 +11,7 @@ class TransformExample extends StatefulWidget {
 
 class TransformExampleState extends State<TransformExample>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -74,11 +74,13 @@ class TransformExampleState extends State<TransformExample>
     return Expanded(
       child: Container(
         height: 40,
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            primary: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
-          color: color,
           child: Text(
             title,
             style: TextStyle(

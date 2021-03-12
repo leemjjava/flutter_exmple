@@ -41,21 +41,24 @@ BoxDecoration getBorderBox() {
 
 Widget getExpandedButton(String title, VoidCallback onPressed) {
   return Container(
-      constraints: BoxConstraints(
-        minWidth: double.infinity,
-      ),
-      child: FlatButton(
+    constraints: BoxConstraints(
+      minWidth: double.infinity,
+    ),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        primary: buttonColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0),
         ),
-        color: buttonColor,
-        textColor: Colors.white,
-        child: Text(title),
-        onPressed: onPressed,
-      ));
+        textStyle: TextStyle(color: Colors.white),
+      ),
+      child: Text(title),
+      onPressed: onPressed,
+    ),
+  );
 }
 
-Widget getTextCheckBox(String title, bool checkValue, ValueChanged<bool> callBack) {
+Widget getTextCheckBox(String title, bool checkValue, ValueChanged<bool?>? callBack) {
   return Container(
     height: 40,
     child: Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
@@ -69,12 +72,14 @@ Widget getTextCheckBox(String title, bool checkValue, ValueChanged<bool> callBac
 }
 
 Widget getGradientButton(Text title) {
-  return FlatButton(
+  return TextButton(
     onPressed: () {},
-    shape: RoundedRectangleBorder(
-      borderRadius: new BorderRadius.circular(18.0),
+    style: TextButton.styleFrom(
+      padding: const EdgeInsets.all(0.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+      ),
     ),
-    padding: const EdgeInsets.all(0.0),
     child: Ink(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[buttonColor, buttonLightColor]),
@@ -89,44 +94,57 @@ Widget getGradientButton(Text title) {
   );
 }
 
-Widget getBorderButton() {
-  return FlatButton(
+Widget getBorderButton({
+  VoidCallback? onPressed,
+}) {
+  return TextButton(
+    style: TextButton.styleFrom(
+      backgroundColor: Colors.white,
+      textStyle: TextStyle(color: buttonColor),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-          side: BorderSide(color: buttonColor)),
-      onPressed: () {},
-      color: Colors.white,
-      textColor: buttonColor,
-      child: Container(
-        constraints: expandedConstraints(),
-        alignment: Alignment.center,
-        child: Text("Border".toUpperCase(), style: TextStyle(fontSize: 14)),
-      ));
+        borderRadius: BorderRadius.circular(18.0),
+        side: BorderSide(color: buttonColor),
+      ),
+    ),
+    onPressed: onPressed,
+    child: Container(
+      constraints: expandedConstraints(),
+      alignment: Alignment.center,
+      child: Text(
+        "Border".toUpperCase(),
+        style: TextStyle(fontSize: 14),
+      ),
+    ),
+  );
 }
 
 BoxConstraints expandedConstraints() {
   return const BoxConstraints(
-      minWidth: double.infinity, minHeight: 36.0); // min sizes for Material buttons
+    minWidth: double.infinity,
+    minHeight: 36.0,
+  ); // min sizes for Material buttons
 }
 
 Widget tfFocusWidget(BuildContext context, Widget child) {
   return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(new FocusNode()), child: child);
+    onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+    child: child,
+  );
 }
 
 // ignore: must_be_immutable
 class TopBar extends StatelessWidget {
   TopBar({
-    Key key,
+    Key? key,
     this.title,
     this.onTap,
     this.closeIcon,
     this.height = 60,
   }) : super(key: key);
 
-  String title;
-  Function onTap;
-  Icon closeIcon;
+  String? title;
+  GestureTapCallback? onTap;
+  Icon? closeIcon;
   double height;
 
   @override
@@ -137,7 +155,7 @@ class TopBar extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           TopTitle(
-            title: title,
+            title: title ?? '',
             height: height,
           ),
           SizedBox(
@@ -147,7 +165,7 @@ class TopBar extends StatelessWidget {
               color: Colors.white,
               child: InkWell(
                 splashColor: Color(0xFF757575),
-                onTap: onTap != null ? onTap : () => Navigator.pop(context),
+                onTap: onTap != null ? onTap! : () => Navigator.pop(context),
                 child: Container(
                   margin: EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
@@ -165,17 +183,17 @@ class TopBar extends StatelessWidget {
 // ignore: must_be_immutable
 class TopTitle extends StatelessWidget {
   TopTitle({
-    Key key,
+    Key? key,
     this.title,
     this.height = 60,
     this.alignment,
     this.weight,
   }) : super(key: key);
 
-  String title;
+  String? title;
   double height;
-  AlignmentGeometry alignment;
-  FontWeight weight;
+  AlignmentGeometry? alignment;
+  FontWeight? weight;
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +203,7 @@ class TopTitle extends StatelessWidget {
       color: Colors.white,
       height: height,
       child: Text(
-        title,
+        title ?? '',
         style: TextStyle(
           fontSize: 17,
           fontWeight: weight ?? FontWeight.w500,

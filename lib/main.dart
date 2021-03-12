@@ -28,7 +28,7 @@ import 'animation/19_physics_card_drag.dart';
 import 'animation/21_fade_out_route.dart';
 import 'animation/22_backdrop.dart';
 import 'animation/23_animation_button.dart';
-import 'animation/26_zoom_view.dart';
+import 'animation/27_fade_size_animation.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -82,7 +82,11 @@ class MyRouts {
   final String route;
   final WidgetBuilder builder;
 
-  const MyRouts({this.name, this.route, this.builder});
+  const MyRouts({
+    required this.name,
+    required this.route,
+    required this.builder,
+  });
 }
 
 final animation = [
@@ -183,9 +187,9 @@ final animation = [
     builder: (BuildContext context) => TransformExample(),
   ),
   MyRouts(
-    name: 'ZoomView',
-    route: ZoomView.routeName,
-    builder: (BuildContext context) => ZoomView(),
+    name: 'FadeSizeAnimation',
+    route: FadeSizeAnimationExample.routeName,
+    builder: (BuildContext context) => FadeSizeAnimationExample(),
   ),
 ];
 
@@ -204,7 +208,7 @@ final navigators = [
     name: 'Todo List',
     route: TodoScreen.routeName,
     builder: (BuildContext context) => TodoScreen(
-      todos: List.generate(
+      todoList: List.generate(
         20,
         (i) => Todo('Todo $i', 'a description of what needs to be done for Todo $i'),
       ),
@@ -382,10 +386,13 @@ class MyApp extends StatelessWidget {
       routes: allRoutes,
       onGenerateRoute: (RouteSettings settings) {
         if (settings.name == PassArgumentsScreen.routeName) {
-          final ScreenArguments args = settings.arguments;
+          final ScreenArguments args = settings.arguments as ScreenArguments;
 
           return MaterialPageRoute(builder: (BuildContext context) {
-            return PassArgumentsScreen(title: args.title, message: args.messgae);
+            return PassArgumentsScreen(
+              title: args.title,
+              message: args.messgae,
+            );
           });
         }
 

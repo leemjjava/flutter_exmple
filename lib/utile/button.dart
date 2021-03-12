@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class DropDownBtnCS extends StatelessWidget {
   DropDownBtnCS({
-    Key key,
+    Key? key,
     this.value,
-    @required this.hint,
-    @required this.itemList,
-    @required this.onChanged,
+    required this.hint,
+    required this.itemList,
+    this.onChanged,
   }) : super(key: key);
 
-  String value;
+  String? value;
   final String hint;
   final List<String> itemList;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -52,49 +52,50 @@ class DropDownBtnCS extends StatelessWidget {
 
 // ignore: must_be_immutable
 class ExpandBtnCS extends StatelessWidget {
-  ExpandBtnCS(
-      {Key key,
-      this.title = "Button",
-      this.buttonColor = Colors.grey,
-      this.textColor = Colors.white,
-      this.onPressed,
-      this.height = 40,
-      this.width = double.infinity,
-      this.fontSize,
-      this.radius,
-      this.fontWeight})
-      : super(key: key);
+  ExpandBtnCS({
+    Key? key,
+    this.title = "Button",
+    this.buttonColor = Colors.grey,
+    this.textColor = Colors.white,
+    this.onPressed,
+    this.height = 40,
+    this.width = double.infinity,
+    double? fontSize,
+    double? radius,
+    FontWeight? fontWeight,
+  })  : _radius = radius ?? (height / 2),
+        _fontSize = fontSize ?? (height / 3),
+        _fontWeight = fontWeight ?? FontWeight.w300,
+        super(key: key);
 
   String title;
   Color buttonColor;
   Color textColor;
-  VoidCallback onPressed;
+  VoidCallback? onPressed;
   double height;
   double width;
-  double fontSize;
-  double radius;
-  FontWeight fontWeight;
+  double _fontSize;
+  double _radius;
+  FontWeight _fontWeight;
 
   @override
   Widget build(BuildContext context) {
-    radius = radius == null ? (height / 2) : radius;
-    fontSize = fontSize == null ? (height / 3) : fontSize;
-    fontWeight = fontWeight == null ? FontWeight.w300 : fontWeight;
-
     return Container(
         width: width,
         height: height,
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            primary: buttonColor,
+            textStyle: TextStyle(color: textColor),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(_radius),
+            ),
           ),
-          color: buttonColor,
-          textColor: textColor,
           child: Text(
             title,
             style: TextStyle(
-              fontWeight: fontWeight,
-              fontSize: fontSize,
+              fontWeight: _fontWeight,
+              fontSize: _fontSize,
             ),
           ),
           onPressed: onPressed,
@@ -105,7 +106,7 @@ class ExpandBtnCS extends StatelessWidget {
 // ignore: must_be_immutable
 class BorderBtnCS extends StatelessWidget {
   BorderBtnCS({
-    Key key,
+    Key? key,
     this.title = "Button",
     this.buttonColor = Colors.white,
     this.textColor = Colors.black,
@@ -113,11 +114,12 @@ class BorderBtnCS extends StatelessWidget {
     this.width = double.infinity,
     this.height = 40,
     this.fontSize = 14,
-    this.radius,
     this.onPressed,
-    this.fontWeight,
     this.borderWeight = 1,
-  }) : super(key: key);
+    required this.fontWeight,
+    double? radius,
+  })  : _radius = radius ?? (height / 2),
+        super(key: key);
 
   String title;
   Color buttonColor;
@@ -127,29 +129,29 @@ class BorderBtnCS extends StatelessWidget {
   double width;
   double height;
   double fontSize;
-  double radius;
   double borderWeight;
-
-  VoidCallback onPressed;
   FontWeight fontWeight;
+
+  VoidCallback? onPressed;
+  double _radius;
 
   @override
   Widget build(BuildContext context) {
-    radius = radius == null ? (height / 2) : radius;
-
     return Container(
       width: width,
       height: height,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radius),
-          side: BorderSide(
-            width: borderWeight,
-            color: borderColor,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_radius),
+            side: BorderSide(
+              width: borderWeight,
+              color: borderColor,
+            ),
           ),
         ),
         onPressed: onPressed,
-        color: buttonColor,
         child: Text(
           title,
           style: TextStyle(

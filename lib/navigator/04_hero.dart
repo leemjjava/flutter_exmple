@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class MainScreen extends StatefulWidget{
+class MainScreen extends StatefulWidget {
   static const String routeName = '/navigator/hero';
   @override
   State<StatefulWidget> createState() => MainScreenState();
 }
 
-
-class MainScreenState extends State<MainScreen>{
+class MainScreenState extends State<MainScreen> {
   int index = 0;
-  final pageList =[
+  final pageList = [
     'https://picsum.photos/250?image=1',
     'https://picsum.photos/250?image=2',
     'https://picsum.photos/250?image=3',
@@ -35,80 +34,93 @@ class MainScreenState extends State<MainScreen>{
         children: <Widget>[
           Expanded(
             child: GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                  return DetailScreen(path: pageList[index],);
-                }));
-              },
-              child: Hero(
-                tag: 'firstHero',
-                child:
-                Container(
-                    padding: EdgeInsets.all(10),
-                    child:Stack(
-                      children: <Widget>[
-                        Center(child:  CircularProgressIndicator(),),
-                        FadeInImage.memoryNetwork(
-                          fadeInDuration: const Duration(seconds: 2),
-                          placeholder: kTransparentImage,
-                          image: pageList[index],
-                          fit: BoxFit.fitWidth,
-                          width: double.infinity,
-                        ),
-                      ],
-                    )
-                ),
-              ),
+              onTap: _onHeroTap,
+              child: Hero(tag: 'firstHero', child: renderMainImage()),
             ),
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text('indexNow: $index'),
-            onPressed: (){
-              setState(() {
-                index = index == 11? 0: index + 1;
-              });
+            onPressed: () {
+              index = index == 11 ? 0 : index + 1;
+              setState(() {});
             },
           ),
         ],
-      )
+      ),
     );
+  }
+
+  renderMainImage() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Stack(
+        children: <Widget>[
+          Center(child: CircularProgressIndicator()),
+          renderImage(),
+        ],
+      ),
+    );
+  }
+
+  renderImage() {
+    return FadeInImage.memoryNetwork(
+      fadeInDuration: const Duration(seconds: 2),
+      placeholder: kTransparentImage,
+      image: pageList[index],
+      fit: BoxFit.fitWidth,
+      width: double.infinity,
+    );
+  }
+
+  _onHeroTap() {
+    Route route = MaterialPageRoute(
+      builder: (context) => DetailScreen(path: pageList[index]),
+    );
+    Navigator.push(context, route);
   }
 }
 
-class DetailScreen extends StatelessWidget{
+class DetailScreen extends StatelessWidget {
   final String path;
 
   DetailScreen({
-    Key key,
-    this.path
-  }) : super(key : key);
+    Key? key,
+    required this.path,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           Navigator.pop(context);
         },
         child: Hero(
           tag: 'firstHero',
-          child :Stack(
-            children: <Widget>[
-              Center(child:  CircularProgressIndicator(),),
-              Container(
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.center,
-                child:FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: path,
-                  fit: BoxFit.fitWidth,
-                  width: double.infinity,
-              ),
-              ),
-            ],
-          )
-
+          child: renderMain(),
         ),
+      ),
+    );
+  }
+
+  renderMain() {
+    return Stack(
+      children: <Widget>[
+        Center(child: CircularProgressIndicator()),
+        renderImage(),
+      ],
+    );
+  }
+
+  renderImage() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      alignment: Alignment.center,
+      child: FadeInImage.memoryNetwork(
+        placeholder: kTransparentImage,
+        image: path,
+        fit: BoxFit.fitWidth,
+        width: double.infinity,
       ),
     );
   }

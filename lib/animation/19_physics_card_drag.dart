@@ -19,18 +19,19 @@ class PhysicsCardDragDemo extends StatelessWidget {
 
 class DraggableCard extends StatefulWidget {
   final Widget child;
-  DraggableCard({this.child});
+  DraggableCard({
+    required this.child,
+  });
 
   @override
   _DraggableCardState createState() => _DraggableCardState();
 }
 
-class _DraggableCardState extends State<DraggableCard> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-
+class _DraggableCardState extends State<DraggableCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Alignment> _animation;
   var _dragAlignment = Alignment.center;
-
-  Animation<Alignment> _animation;
 
   final _spring = const SpringDescription(
     mass: 10,
@@ -64,8 +65,9 @@ class _DraggableCardState extends State<DraggableCard> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController.unbounded(vsync: this)
-      ..addListener(() => setState(() => _dragAlignment = _animation.value));
+    _controller = AnimationController.unbounded(
+      vsync: this,
+    )..addListener(() => setState(() => _dragAlignment = _animation.value));
   }
 
   @override
@@ -85,8 +87,7 @@ class _DraggableCardState extends State<DraggableCard> with SingleTickerProvider
           details.delta.dy / (size.height / 2),
         ),
       ),
-      onPanEnd: (details) =>
-          _runAnimation(details.velocity.pixelsPerSecond, size),
+      onPanEnd: (details) => _runAnimation(details.velocity.pixelsPerSecond, size),
       child: Align(
         alignment: _dragAlignment,
         child: Card(

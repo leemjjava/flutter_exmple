@@ -13,10 +13,10 @@ class MemberApiProvider {
   final String _memberUrl = "$host/Stage/api/Member";
 
   Future<List<Member>> getMembers() async {
-    String token = await storage.read(key: tokenKey);
+    String? token = await storage.read(key: tokenKey);
     print("$tokenKey $token");
 
-    Response res = await get(_memberUrl, headers: {tokenKey: '$token'});
+    Response res = await get(Uri.parse(_memberUrl), headers: {tokenKey: '$token'});
 
     ResultBody resultBody = HttpRepository.getResultBody(_memberUrl, res);
     if (res.statusCode != 200) throw resultBody;
@@ -29,7 +29,7 @@ class MemberApiProvider {
 
   final String _createMemberURL = "$host/Stage/api/Member";
   Future<MemberInputResult> createMember(Map<String, String> parameter) async {
-    String token = await storage.read(key: tokenKey);
+    String? token = await storage.read(key: tokenKey);
 
     MultipartRequest request = MultipartRequest('POST', Uri.parse(_createMemberURL));
     request.fields.addAll(parameter);

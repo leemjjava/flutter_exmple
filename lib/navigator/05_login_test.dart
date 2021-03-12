@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:navigator/utile/utile.dart';
 import '../http/http_repository.dart';
-import 'package:navigator/http/models/auth_token.dart';
-import 'package:navigator/http/models/member.dart';
 import '../utile/token_decoder.dart';
 
 class LoginEx extends StatefulWidget {
   static const String routeName = '/transparent_image/LoginEx';
-  LoginEx({Key key}) : super(key: key);
+  LoginEx({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => LoginExState();
@@ -14,8 +15,8 @@ class LoginEx extends StatefulWidget {
 
 class LoginExState extends State<LoginEx> {
   final HttpRepository httpService = HttpRepository();
-  TextEditingController _tec = TextEditingController();
-  TextEditingController _tec2 = TextEditingController();
+  TextEditingController _tecId = TextEditingController();
+  TextEditingController _tecPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,8 @@ class LoginExState extends State<LoginEx> {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    _tec.dispose();
-    _tec2.dispose();
+    _tecId.dispose();
+    _tecPassword.dispose();
     super.dispose();
   }
 
@@ -40,171 +41,130 @@ class LoginExState extends State<LoginEx> {
       color: Colors.white,
       child: Column(
         children: <Widget>[
-          Flexible(
-            child: Container(
-              alignment: Alignment(0.0, 0.0),
-              height: 45,
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 1, color: Colors.black12)),
-              child: Row(children: <Widget>[
-                Container(
-                  width: 60,
-                  child: Text("ID", style: TextStyle(fontSize: 16, color: Colors.black)),
-                ),
-                Flexible(
-                  child: Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: TextField(
-                      controller: _tec,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'ID',
-                          hintStyle: TextStyle(color: Colors.grey[300])),
-                      cursorColor: Colors.blue,
-                    ),
-                  ),
-                ),
-              ]),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              alignment: Alignment(0.0, 0.0),
-              height: 45,
-              margin: EdgeInsets.only(left: 30, right: 30, top: 20),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 1, color: Colors.black12)),
-              child: Row(children: <Widget>[
-                Container(
-                  width: 80,
-                  child: Text("passwrod",
-                      style: TextStyle(fontSize: 16, color: Colors.black)),
-                ),
-                Flexible(
-                  child: Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: TextField(
-                      controller: _tec2,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: '패스워',
-                          hintStyle: TextStyle(color: Colors.grey[300])),
-                      cursorColor: Colors.blue,
-                    ),
-                  ),
-                ),
-              ]),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-            child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                onPressed: () {
-                  FutureBuilder<AuthToken>(
-                    future: httpService.getAuthToken(_tec.text, _tec2.text),
-                    builder: (context, snapshot) {
-                      final token = snapshot.data;
-                      final content = token?.accessToken ?? 'No Token';
+          Flexible(child: renderTextField("ID", _tecId, false)),
+          Flexible(child: renderTextField("password", _tecPassword, true)),
+          renderButton('로그인', _loginOnTap),
+          renderButton('Account 가져오기', _accountOnTap),
+          renderButton('Token 디코딩', _tokenDecodeOnTap),
+          renderButton('reToken 전송', _reTokenOnTap),
+          FutureBuilder<String>(
+            future: getLocalToken(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final jwtMap = parseJwt(snapshot.data!);
+                return Text(jwtMap.toString());
+              }
 
-                      return Text(content);
-                    },
-                  );
-                },
-                child: Text('로그인'),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                child: Text('Account 가져오기'),
-                onPressed: () {
-                  FutureBuilder<List<Member>>(
-                    future: httpService.getMembers(),
-                    builder: (context, snapshot) {
-                      final listMember = snapshot.data;
-                      final count = listMember?.length.toString() ?? 0;
-
-                      return Text(count);
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                child: Text('Token 디코딩'),
-                onPressed: () {
-                  return FutureBuilder(
-                      future: getLocalToken(),
-                      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                        print('token 디코딩\n');
-
-                        if (snapshot.hasData) {
-                          final jwtMap = parseJwt(snapshot.data);
-                          print(jwtMap);
-                        }
-
-                        return Text('');
-                      });
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                child: Text('rtoken 전송'),
-                onPressed: () {
-                  return FutureBuilder<AuthToken>(
-                    future: httpService.getReToken(),
-                    builder: (context, snapshot) {
-                      final token = snapshot.data;
-                      final content = token?.accessToken ?? 'No Token';
-
-                      return Text(content);
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-          Container(
-            child: FutureBuilder<String>(
-                future: getLocalToken(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final jwtMap = parseJwt(snapshot.data);
-                    print(jwtMap);
-                    return Text(jwtMap.toString());
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  // By default, show a loading spinner
-                  return CircularProgressIndicator();
-                }),
+              if (snapshot.hasError) return Text("${snapshot.error}");
+              return CircularProgressIndicator();
+            },
           ),
         ],
       ),
     );
+  }
+
+  Widget renderTextField(String title, TextEditingController tec, bool obscureText) {
+    return Container(
+      height: 45,
+      margin: EdgeInsets.only(left: 30, right: 30, top: 15),
+      padding: EdgeInsets.only(left: 20, right: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.all(width: 1, color: Colors.black12),
+      ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 60,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              margin: EdgeInsets.only(right: 20),
+              child: TextField(
+                controller: tec,
+                style: TextStyle(color: Colors.black),
+                obscureText: obscureText,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: title,
+                  hintStyle: TextStyle(color: Colors.grey[300]),
+                ),
+                cursorColor: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget renderButton(String title, VoidCallback? onPressed) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          child: Text('reToken 전송'),
+          onPressed: onPressed,
+        ),
+      ),
+    );
+  }
+
+  _loginOnTap() async {
+    try {
+      final data = await httpService.getAuthToken(
+        _tecId.text,
+        _tecPassword.text,
+      );
+
+      final content = data.accessToken;
+      print(content);
+    } catch (e, stacktrace) {
+      print(stacktrace);
+      showAlertDialog(context, e.toString());
+    }
+  }
+
+  _accountOnTap() async {
+    try {
+      final data = await httpService.getMembers();
+      final content = data.length.toString();
+      print(content);
+    } catch (e, stacktrace) {
+      print(stacktrace);
+      showAlertDialog(context, e.toString());
+    }
+  }
+
+  _tokenDecodeOnTap() async {
+    try {
+      final data = await getLocalToken();
+      final jwtMap = parseJwt(data as String);
+      print(jwtMap);
+    } catch (e, stacktrace) {
+      print(stacktrace);
+      showAlertDialog(context, e.toString());
+    }
+  }
+
+  _reTokenOnTap() async {
+    try {
+      final data = await httpService.getReToken();
+      final content = data.accessToken;
+      print(content);
+    } catch (e, stacktrace) {
+      print(stacktrace);
+      showAlertDialog(context, e.toString());
+    }
   }
 }

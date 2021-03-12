@@ -35,11 +35,10 @@ String _decodeBase64(String str) {
   return utf8.decode(base64Url.decode(output));
 }
 
-Future<String> getLocalToken() async {
+Future<String>? getLocalToken() async {
   final tokenKey = "Authorization";
   final storage = new FlutterSecureStorage();
 
-  String token = await storage.read(key: tokenKey);
-  print("$tokenKey $token");
-  return token;
+  String? token = await storage.read(key: tokenKey);
+  return token ?? '';
 }

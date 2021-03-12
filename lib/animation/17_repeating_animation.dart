@@ -9,16 +9,17 @@ class RepeatingAnimationDemo extends StatefulWidget {
 
 class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<BorderRadius> _borderRadius;
+  late AnimationController _controller;
+  late Animation<BorderRadius> _borderRadius;
 
   @override
   void initState() {
     super.initState();
 
-    _controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this)
-          ..repeat(reverse: true);
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
 
     _borderRadius = BorderRadiusTween(
       begin: BorderRadius.circular(100.0),

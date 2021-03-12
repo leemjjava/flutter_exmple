@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class BackdropExample extends StatefulWidget {
   static const String routeName = '/misc/backdrop';
@@ -13,7 +12,7 @@ class BackdropExample extends StatefulWidget {
 class BackdropExampleState extends State<BackdropExample> {
   final frontPanelVisible = ValueNotifier<bool>(false);
   double frontPanelHeight = 600;
-  bool panelOpen;
+  late bool panelOpen;
 
   @override
   void initState() {
@@ -104,7 +103,7 @@ class BackdropExampleState extends State<BackdropExample> {
   }
 
   Widget getHeightChangeBtn(String title, double height) {
-    return FlatButton(
+    return TextButton(
       child: Text(
         title,
         style: TextStyle(color: Colors.white),
@@ -123,14 +122,14 @@ const _kFlingVelocity = 2.0;
 
 class _BackdropPanel extends StatelessWidget {
   const _BackdropPanel({
-    Key key,
-    this.onTap,
-    this.onVerticalDragUpdate,
-    this.onVerticalDragEnd,
-    this.header,
-    this.body,
-    this.headerHeight,
-    this.padding,
+    Key? key,
+    required this.onTap,
+    required this.onVerticalDragUpdate,
+    required this.onVerticalDragEnd,
+    required this.header,
+    required this.body,
+    required this.headerHeight,
+    required this.padding,
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -181,24 +180,23 @@ class _BackdropPanel extends StatelessWidget {
 class Backdrop extends StatefulWidget {
   final Widget frontLayer;
   final Widget backLayer;
-  final Widget frontHeader;
+  final Widget? frontHeader;
   final double frontPanelHeight;
   final double frontHeaderHeight;
   final bool frontHeaderVisibleClosed;
   final EdgeInsets frontPanelPadding;
-  final ValueNotifier<bool> panelVisible;
+  final ValueNotifier<bool>? panelVisible;
 
   Backdrop({
-    @required this.frontLayer,
-    @required this.backLayer,
+    required this.frontLayer,
+    required this.backLayer,
     this.frontPanelHeight = 0.0,
     this.frontHeaderHeight = 48.0,
     this.frontPanelPadding = const EdgeInsets.all(0.0),
     this.frontHeaderVisibleClosed = true,
     this.panelVisible,
     this.frontHeader,
-  })  : assert(frontLayer != null),
-        assert(backLayer != null);
+  });
 
   @override
   createState() => _BackdropState();
@@ -206,7 +204,7 @@ class Backdrop extends StatefulWidget {
 
 class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin {
   final _backdropKey = GlobalKey(debugLabel: 'Backdrop');
-  AnimationController _controller;
+  late AnimationController _controller;
 
   bool get _backdropPanelVisible {
     if (_controller.status == AnimationStatus.completed) return true;
@@ -216,7 +214,8 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
   }
 
   double get _backdropHeight {
-    final RenderBox renderBox = _backdropKey.currentContext.findRenderObject();
+    final currentContext = _backdropKey.currentContext!;
+    final RenderBox renderBox = currentContext.findRenderObject() as RenderBox;
     final maxHeight = renderBox.size.height;
     double panelBodyHeight = widget.frontPanelHeight;
 
@@ -257,15 +256,15 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
   }
 
   void _subscribeToValueNotifier() {
-    if (widget.panelVisible.value == _backdropPanelVisible) return;
+    if (widget.panelVisible!.value == _backdropPanelVisible) return;
     _toggleBackdropPanelVisibility();
   }
 
   @override
   void didUpdateWidget(Backdrop oldWidget) {
     super.didUpdateWidget(oldWidget);
-    oldWidget.panelVisible?.removeListener(_subscribeToValueNotifier);
-    widget.panelVisible?.addListener(_subscribeToValueNotifier);
+    oldWidget.panelVisible!.removeListener(_subscribeToValueNotifier);
+    widget.panelVisible!.addListener(_subscribeToValueNotifier);
   }
 
   @override
@@ -282,7 +281,7 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
 
   void _handleDragUpdate(DragUpdateDetails details) {
     if (_controller.isAnimating == true) return;
-    _controller.value -= details.primaryDelta / _backdropHeight;
+    _controller.value -= details.primaryDelta ?? 0.0 / _backdropHeight;
   }
 
   void _handleDragEnd(DragEndDetails details) {
@@ -328,7 +327,7 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
                   onTap: _toggleBackdropPanelVisibility,
                   onVerticalDragUpdate: _handleDragUpdate,
                   onVerticalDragEnd: _handleDragEnd,
-                  header: widget.frontHeader,
+                  header: widget.frontHeader ?? Container(),
                   headerHeight: widget.frontHeaderHeight,
                   body: widget.frontLayer,
                   padding: widget.frontPanelPadding,

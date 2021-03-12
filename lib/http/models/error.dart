@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-class ErrorModel{
-  final int statusCode;
-  final int error;
-  final String message;
+class ErrorModel {
+  final int? statusCode;
+  final int? error;
+  final String? message;
 
   ErrorModel({
     @required this.statusCode,
@@ -11,11 +11,11 @@ class ErrorModel{
     @required this.message,
   });
 
-  Map<String,dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
-      'success':false,
-      'message':message,
-      'data':error,
+      'success': false,
+      'message': message,
+      'data': error,
     };
   }
 }

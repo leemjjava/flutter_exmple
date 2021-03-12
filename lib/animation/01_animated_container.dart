@@ -17,33 +17,11 @@ class AnimatedContainerDemo extends StatefulWidget {
 }
 
 class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
-  Color color;
-  double borderRadius;
-  double margin;
-
-  void initState() {
-    super.initState();
-    color = Colors.deepPurple;
-    borderRadius = generateBorderRadius();
-    margin = generateMargin();
-  }
-
-  void change() {
-    setState(() {
-      color = generateColor();
-      borderRadius = generateBorderRadius();
-      margin = generateMargin();
-    });
-  }
+  Color color = Colors.deepPurple;
+  double borderRadius = generateBorderRadius();
+  double margin = generateMargin();
 
   Widget build(BuildContext context) {
-    // This widget is built using an AnimatedContainer, one of the easiest to use
-    // animated Widgets. Whenever the AnimatedContainer's properties, such as decoration,
-    // change, it will handle animating from the previous value to the new value. You can
-    // specify both a Duration and a Curve for the animation.
-    // This Widget is useful for designing animated interfaces that just need to change
-    // the properties of a container. For example, you could use this to design expanding
-    // and shrinking cards.
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -65,15 +43,21 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
                 ),
               ),
             ),
-            RaisedButton(
-              child: Text(
-                'change',
-              ),
+            ElevatedButton(
+              child: Text('change'),
               onPressed: () => change(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void change() {
+    setState(() {
+      color = generateColor();
+      borderRadius = generateBorderRadius();
+      margin = generateMargin();
+    });
   }
 }

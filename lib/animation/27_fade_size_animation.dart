@@ -1,30 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
-class AnimatedListExample extends StatefulWidget {
-  static const String routeName = '/week_of_widget/animated_list_example';
+class FadeSizeAnimationExample extends StatefulWidget {
+  static const String routeName = '/misc/fade_size_animation';
 
   @override
-  _AnimatedListExampleState createState() => _AnimatedListExampleState();
+  _FadeSizeAnimationExampleState createState() => _FadeSizeAnimationExampleState();
 }
 
-class _AnimatedListExampleState extends State<AnimatedListExample> {
+class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
   final ScrollController _scrollController = new ScrollController();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   var items = <int>[0, 1, 2];
-  int? _selectedItem;
+  int _selectedItem = -1;
   int _nextItem = 3;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AnimatedListExample'),
+        title: const Text('FadeSizeAnimationExample'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add_circle),
@@ -48,14 +43,14 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
     );
   }
 
-  Widget _listItemBuilder(context, index, animation) {
+  Widget _listItemBuilder(BuildContext context, int index, Animation<double> animation) {
     return CardItem(
       animation: animation,
       item: items[index],
       selected: _selectedItem == items[index],
       onTap: () {
         setState(() {
-          _selectedItem = _selectedItem == items[index] ? null : items[index];
+          _selectedItem = _selectedItem == items[index] ? -1 : items[index];
         });
       },
     );
@@ -75,7 +70,7 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
   }
 
   void _insert() {
-    int index = _selectedItem == null ? items.length : items.indexOf(_selectedItem!);
+    int index = _selectedItem == -1 ? items.length : items.indexOf(_selectedItem);
     if (index == items.length) _scrollEnd();
 
     items.insert(index, _nextItem);
@@ -85,25 +80,24 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
   }
 
   void _remove() {
-    int index = _selectedItem == null ? items.length - 1 : items.indexOf(_selectedItem!);
+    int index = _selectedItem == -1 ? items.length - 1 : items.indexOf(_selectedItem);
     if (index < 0) return;
 
-    final currentState = _listKey.currentState;
-    if (currentState == null) return;
-
     int item = items[index];
-    currentState.removeItem(
-      index,
-      (context, animation) => _buildRemovedItem(context, item, animation),
-      duration: Duration(milliseconds: 300),
-    );
+    _listKey.currentState!.removeItem(
+        index, (context, animation) => _buildRemovedItem(context, item, animation),
+        duration: Duration(milliseconds: 300));
     items.removeAt(index);
 
     _selectedItem = -1;
   }
 
   Widget _buildRemovedItem(BuildContext context, int item, Animation<double> animation) {
-    return CardItem(animation: animation, item: item, selected: false);
+    return CardItem(
+      animation: animation,
+      item: item,
+      selected: false,
+    );
   }
 }
 
@@ -112,13 +106,13 @@ class CardItem extends StatelessWidget {
     Key? key,
     required this.animation,
     required this.item,
-    this.selected = false,
     this.onTap,
-  });
+    this.selected: false,
+  }) : super(key: key);
 
   final Animation<double> animation;
   final int item;
-  final VoidCallback? onTap;
+  final GestureTapCallback? onTap;
   final bool selected;
 
   @override
@@ -128,7 +122,7 @@ class CardItem extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
-      child: getSlideTransition(child: getCardBody(textStyle: textStyle)),
+      child: getFadeSizeTransition(child: getCardBody(textStyle: textStyle)),
     );
   }
 
@@ -148,24 +142,59 @@ class CardItem extends StatelessWidget {
     );
   }
 
-  Widget getSizeTransition({
+  Widget getFadeSizeTransition({
     required Widget child,
   }) {
-    return SizeTransition(
-      axis: Axis.vertical,
-      sizeFactor: animation,
+    return FadeSizeAnimation(
+      controller: animation,
       child: child,
     );
   }
+}
 
-  Widget getSlideTransition({
-    required Widget child,
-  }) {
-    return SlideTransition(
-      position: animation.drive(Tween(
-        begin: Offset(1, 0),
-        end: Offset(0.0, 0),
-      ).chain(CurveTween(curve: Curves.easeOutExpo))),
+// ignore: must_be_immutable
+class FadeSizeAnimation extends StatelessWidget {
+  FadeSizeAnimation({
+    Key? key,
+    required this.child,
+    required this.controller,
+    this.containerHeight = 150,
+  })  : opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.5, 1, curve: Curves.ease),
+          ),
+        ),
+        height = Tween<double>(begin: 0.0, end: containerHeight).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0, 0.5, curve: Curves.ease),
+          ),
+        ),
+        super(key: key);
+
+  final Widget child;
+  final Animation<double> controller;
+  final Animation<double> opacity;
+  final Animation<double> height;
+  double containerHeight;
+
+  Widget _buildAnimation(BuildContext context, Widget? child) {
+    return Opacity(
+      opacity: opacity.value,
+      child: Container(
+        width: double.infinity,
+        height: height.value,
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      builder: _buildAnimation,
+      animation: controller,
       child: child,
     );
   }

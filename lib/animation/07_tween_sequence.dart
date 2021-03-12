@@ -14,8 +14,8 @@ class TweenSequenceDemo extends StatefulWidget {
 class _TweenSequenceDemoState extends State<TweenSequenceDemo>
     with SingleTickerProviderStateMixin {
   static const Duration duration = Duration(seconds: 3);
-  AnimationController controller;
-  Animation<Color> animation;
+  late AnimationController controller;
+  late Animation<Color> animation;
 
   static final colors = [
     Colors.red,
@@ -33,19 +33,20 @@ class _TweenSequenceDemoState extends State<TweenSequenceDemo>
     final sequenceItems = <TweenSequenceItem<Color>>[];
 
     for (var i = 0; i < colors.length; i++) {
-      final beginColor = colors[i];
-      final endColor = colors[(i + 1) % colors.length];
+      final Color beginColor = colors[i];
+      final Color endColor = colors[(i + 1) % colors.length];
       final weight = 1 / colors.length;
 
       sequenceItems.add(
         TweenSequenceItem<Color>(
-          tween: ColorTween(begin: beginColor, end: endColor),
+          tween: ColorTween(begin: beginColor, end: endColor) as Animatable<Color>,
           weight: weight,
         ),
       );
     }
 
     controller = AnimationController(duration: duration, vsync: this);
+
     animation = TweenSequence<Color>(sequenceItems).animate(controller);
   }
 

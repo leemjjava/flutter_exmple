@@ -216,7 +216,7 @@ class BoxConstraintEx extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: RaisedButton(
+            child: ElevatedButton(
               child: Text('버튼이유'),
               onPressed: () => showAlertDialog(context),
             ),
@@ -225,7 +225,7 @@ class BoxConstraintEx extends StatelessWidget {
             width: 20,
           ),
           Expanded(
-            child: RaisedButton(
+            child: ElevatedButton(
               child: Text('버튼이유2'),
               onPressed: () => showAlertDialog(context),
             ),
@@ -244,13 +244,13 @@ class BoxConstraintEx extends StatelessWidget {
           title: Text('AlertDialog Demo'),
           content: Text("Select button you want"),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text('OK'),
               onPressed: () {
                 Navigator.pop(context, "OK");
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('Cancel'),
               onPressed: () {
                 Navigator.pop(context, "Cancel");

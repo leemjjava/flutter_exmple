@@ -12,7 +12,7 @@ class DraggableEx extends StatefulWidget {
 class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin {
   int rng = new Random().nextInt(1000);
 
-  void newRng(){
+  void newRng() {
     setState(() {
       rng = Random().nextInt(1000);
     });
@@ -20,9 +20,10 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text('Draggable Example'),),
+      appBar: AppBar(
+        title: Text('Draggable Example'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,7 +32,7 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
               data: rng,
               child: draggableChild(),
               feedback: feedbackChild(),
-              childWhenDragging:rectangleContainer(color: Colors.black38),
+              childWhenDragging: rectangleContainer(color: Colors.black38),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +47,7 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
     );
   }
 
-  Widget draggableChild(){
+  Widget draggableChild() {
     return rectangleContainer(
       color: Colors.pink,
       child: Center(
@@ -58,7 +59,7 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
     );
   }
 
-  Widget feedbackChild(){
+  Widget feedbackChild() {
     return rectangleContainer(
       color: Colors.orange,
       radius: 20,
@@ -71,36 +72,49 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
     );
   }
 
-  Widget oddTarget(){
+  Widget oddTarget() {
     return rectangleContainer(
         color: Colors.deepPurple,
         child: DragTarget(
-          builder: (context, List<int> candidateData, rejectedData) {
-            return Center(child: Text("홀수", style: TextStyle(color: Colors.white, fontSize: 22.0),));
+          builder: (context, List<int?> candidateData, rejectedData) {
+            return Center(
+              child: Text(
+                "홀수",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+              ),
+            );
           },
           onWillAccept: (data) {
             return true;
           },
-          onAccept: (data) {
+          onAccept: (item) {
+            final data = item as int;
             showAlertDialog(context, data % 2 != 0 ? "맞음!" : "틀림!");
             newRng();
           },
-        )
-    );
+        ));
   }
 
-  Widget evenTarget(){
+  Widget evenTarget() {
     return rectangleContainer(
       color: Colors.green,
       child: DragTarget(
-        builder: (context, List<int> candidateData, rejectedData) {
+        builder: (context, List<int?> candidateData, rejectedData) {
           print(candidateData);
-          return Center(child: Text("짝수", style: TextStyle(color: Colors.white, fontSize: 22.0),));
+          return Center(
+              child: Text(
+            "짝수",
+            style: TextStyle(color: Colors.white, fontSize: 22.0),
+          ));
         },
         onWillAccept: (data) {
           return true;
         },
-        onAccept: (data) {
+        onAccept: (item) {
+          final data = item as int;
           showAlertDialog(context, data % 2 == 0 ? "맞음!" : "틀림!");
           newRng();
         },
@@ -108,15 +122,19 @@ class _DraggableExState extends State<DraggableEx> with TickerProviderStateMixin
     );
   }
 
-  Widget rectangleContainer({Color color, Widget child, double radius = 0}){
+  Widget rectangleContainer({
+    Color? color,
+    Widget? child,
+    double radius = 0,
+  }) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         color: color,
       ),
-        width: 100.0,
-        height: 100.0,
-        child: child,
+      width: 100.0,
+      height: 100.0,
+      child: child,
     );
   }
 }

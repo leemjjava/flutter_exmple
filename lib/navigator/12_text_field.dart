@@ -15,7 +15,7 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   final phoneTec = TextEditingController(), accountNumberTec = TextEditingController();
   final etcInfoTec = TextEditingController(), etcTec = TextEditingController();
 
-  List<String> errorList = [null, null, null, null, null, null];
+  List<String?> errorList = [null, null, null, null, null, null];
 
   @override
   Widget build(BuildContext context) {
@@ -91,13 +91,15 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget inputButton() {
-    return FlatButton(
-      padding: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-        side: BorderSide(
-          width: 1,
-          color: Colors.grey,
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: BorderSide(
+            width: 1,
+            color: Colors.grey,
+          ),
         ),
       ),
       child: Container(
@@ -106,9 +108,7 @@ class TextFieldDemoState extends State<TextFieldDemo> {
         height: 50,
         child: Text(
           "전송",
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style: TextStyle(color: Colors.black),
         ),
       ),
       onPressed: () {
@@ -125,12 +125,12 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget defaultTextField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
-    int maxLines,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
+    int? maxLines,
   }) {
     return TextFormField(
       controller: tec,
@@ -152,11 +152,11 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget phoneTextField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
   }) {
     return TextFormField(
       controller: tec,
@@ -183,11 +183,11 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget citizenNumberTextField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
   }) {
     return TextFormField(
       controller: tec,
@@ -214,11 +214,11 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget accountNumberTextField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
   }) {
     return TextFormField(
       controller: tec,
@@ -244,12 +244,12 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget infoEtcTextField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
-    int maxLines,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
+    int? maxLines,
   }) {
     final fontSize = 12.0;
 
@@ -274,11 +274,11 @@ class TextFieldDemoState extends State<TextFieldDemo> {
   }
 
   Widget etcFormField({
-    Icon icon,
-    String title,
-    TextEditingController tec,
-    String errorMessage,
-    FocusNode focusNode,
+    Icon? icon,
+    String? title,
+    TextEditingController? tec,
+    String? errorMessage,
+    FocusNode? focusNode,
   }) {
     return Container(
       height: 200,
@@ -314,33 +314,23 @@ class TextFieldDemoState extends State<TextFieldDemo> {
     final etcInfo = etcInfoTec.text;
     final etc = etcTec.text;
 
-    if (name == null || name.isEmpty == true) {
-      errorList[0] = "성함을 입력하세요.";
-    }
+    if (name.isEmpty) errorList[0] = "성함을 입력하세요.";
 
-    if (phone == null || phone.isEmpty == true) {
+    if (phone.isEmpty) {
       errorList[1] = "연락처를 입력하세요.";
     } else if (phone.length < 12) {
       errorList[1] = "연락처를 정확히 입력하세요.";
     }
 
-    if (citizenNumber == null || citizenNumber.isEmpty == true) {
+    if (citizenNumber.isEmpty) {
       errorList[2] = "주민번호를 입력하세요.";
     } else if (citizenNumber.length < 14) {
       errorList[2] = "주민번호를 정확히 입력하세요.";
     }
 
-    if (accountNumber == null || accountNumber.isEmpty == true) {
-      errorList[3] = "계좌번호를 입력하세요.";
-    }
-
-    if (etcInfo == null || etcInfo.isEmpty == true) {
-      errorList[4] = "title 을 입력하세요.";
-    }
-
-    if (etc == null || etc.isEmpty == true) {
-      errorList[5] = "비고를 입력하세요.";
-    }
+    if (accountNumber.isEmpty) errorList[3] = "계좌번호를 입력하세요.";
+    if (etcInfo.isEmpty) errorList[4] = "title 을 입력하세요.";
+    if (etc.isEmpty) errorList[5] = "비고를 입력하세요.";
 
     for (final item in errorList) {
       if (item != null) return false;
@@ -353,16 +343,16 @@ class TextFieldDemoState extends State<TextFieldDemo> {
 // ignore: must_be_immutable
 class TopBar extends StatelessWidget {
   TopBar({
-    Key key,
-    this.title,
+    Key? key,
+    this.title = '',
     this.onTap,
     this.closeIcon,
     this.height = 60,
   }) : super(key: key);
 
   String title;
-  Function onTap;
-  Icon closeIcon;
+  GestureTapCallback? onTap;
+  Icon? closeIcon;
   double height;
 
   @override

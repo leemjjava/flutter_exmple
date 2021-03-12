@@ -5,18 +5,17 @@ import 'dart:convert';
 
 import 'package:navigator/http/models/address.dart';
 
-class AddressRepository{
+class AddressRepository {
   final logger = Logger();
 
-  Future<Address> searchAddress(String query) async{
+  Future<Address> searchAddress(String query) async {
     String url = "http://www.juso.go.kr/addrlink/addrLinkApi.do$query";
 
-    Response response = await get(url);
+    Response response = await get(Uri.parse(url));
     String bodyString = utf8.decode(response.bodyBytes);
     Map<String, dynamic> body = jsonDecode(bodyString);
     logger.d(body);
 
     return Address.formJson(body);
   }
-
 }

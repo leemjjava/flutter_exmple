@@ -14,16 +14,14 @@ class AnimationControllerDemo extends StatefulWidget {
 class _AnimationControllerDemoState extends State<AnimationControllerDemo>
     with SingleTickerProviderStateMixin {
   static const Duration _duration = Duration(seconds: 1);
-  AnimationController controller;
+  late AnimationController controller;
 
   @override
   void initState() {
     super.initState();
 
     controller = AnimationController(vsync: this, duration: _duration)
-      ..addListener(() {
-        setState(() {});
-      });
+      ..addListener(() => setState(() {}));
   }
 
   @override
@@ -47,19 +45,21 @@ class _AnimationControllerDemoState extends State<AnimationControllerDemo>
                 textScaleFactor: 1 + controller.value,
               ),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text('animate'),
-              onPressed: () {
-                if (controller.status == AnimationStatus.completed) {
-                  controller.reverse();
-                } else {
-                  controller.forward();
-                }
-              },
+              onPressed: _animateBtnOnTap,
             )
           ],
         ),
       ),
     );
+  }
+
+  _animateBtnOnTap() {
+    if (controller.status == AnimationStatus.completed) {
+      controller.reverse();
+    } else {
+      controller.forward();
+    }
   }
 }

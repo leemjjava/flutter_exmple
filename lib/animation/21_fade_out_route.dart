@@ -8,8 +8,8 @@ class FadeOutRoute extends StatefulWidget {
 }
 
 class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+  late AnimationController controller;
+  late Animation<double> animation;
   final duration = Duration(milliseconds: 500);
   final curve = Curves.ease;
   double textFont = 15;
@@ -36,29 +36,33 @@ class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderSta
     return FadeItemCS(
       ratio: animation.value,
       child: Center(
-        child: FlatButton(
+        child: TextButton(
           child: Text(
             '나를 눌러라!',
             style: TextStyle(fontSize: textFont),
           ),
-          onPressed: () async {
-            controller.forward();
-
-            final secondRoute = createSlideSideRoute(widget: SecondView());
-            await Navigator.push(context, secondRoute);
-
-            controller.reverse();
-          },
+          onPressed: _centerBtnOnTap,
         ),
       ),
     );
+  }
+
+  _centerBtnOnTap() async {
+    controller.forward();
+
+    final secondRoute = createSlideSideRoute(widget: SecondView());
+    await Navigator.push(context, secondRoute);
+
+    controller.reverse();
   }
 
   double getFontSize() {
     return (animation.value * 100) * 0.15;
   }
 
-  Route createSlideSideRoute({Widget widget}) {
+  Route createSlideSideRoute({
+    required Widget widget,
+  }) {
     return PageRouteBuilder(
       transitionDuration: duration,
       pageBuilder: (context, animation, secondaryAnimation) => widget,
@@ -96,12 +100,12 @@ class SecondView extends StatelessWidget {
 // ignore: must_be_immutable
 class FadeItemCS extends StatelessWidget {
   FadeItemCS({
-    Key key,
-    @required this.ratio,
-    @required this.child,
+    Key? key,
+    required this.ratio,
+    required this.child,
   }) : super(key: key);
 
-  double deviceHeight, deviceWidth;
+  late double deviceHeight, deviceWidth;
   final ratio;
   Widget child;
 

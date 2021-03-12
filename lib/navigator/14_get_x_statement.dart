@@ -10,7 +10,7 @@ class ReactiveScreen extends StatefulWidget {
 }
 
 class _ReactiveScreenState extends State<ReactiveScreen> {
-  final controller = Get.put(ReactiveController());
+  final ReactiveController controller = Get.put(ReactiveController())!;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +28,15 @@ class _ReactiveScreenState extends State<ReactiveScreen> {
             renderObxSum(),
             renderObxUser(),
             renderObxList(),
-            RaisedButton(
+            ElevatedButton(
               child: Text('COUNT 1 UP!'),
               onPressed: () => controller.count1++,
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text('COUNT 2 UP!'),
               onPressed: () => controller.count2++,
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Change User'),
               onPressed: () => controller.change(id: 2, name: '레드벨벳'),
             ),
@@ -63,8 +63,8 @@ class _ReactiveScreenState extends State<ReactiveScreen> {
   Widget renderObxUser() {
     return Obx(
       () => Text(
-        'USER : ${controller.user.value.id}'
-        '/${controller.user.value.name}',
+        'USER : ${controller.user.value!.id}'
+        '/${controller.user.value!.name}',
       ),
     );
   }
@@ -79,8 +79,8 @@ class User {
   String name;
 
   User({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 }
 
@@ -94,10 +94,11 @@ class ReactiveController extends GetxController {
   get sum => count1.value + count2.value;
 
   change({
-    @required int id,
-    @required String name,
+    required int id,
+    required String name,
   }) {
     user.update((val) {
+      if (val == null) return;
       val.name = name;
       val.id = id;
     });

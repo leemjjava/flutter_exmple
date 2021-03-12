@@ -95,9 +95,8 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
       child: Row(
         children: [
           Expanded(
-            child: FlatButton(
-              color: Colors.orange,
-              disabledColor: Colors.grey[200],
+            child: TextButton(
+              style: TextButton.styleFrom(primary: Colors.orange),
               onPressed: amount.length > 0 ? () {} : null,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -138,9 +137,9 @@ class KeyboardKey extends StatefulWidget {
   final ValueSetter<dynamic> onTap;
 
   KeyboardKey({
-    @required this.label,
-    @required this.value,
-    @required this.onTap,
+    required this.label,
+    required this.value,
+    required this.onTap,
   });
 
   @override

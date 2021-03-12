@@ -1,22 +1,19 @@
-import 'package:flutter/foundation.dart';
-
 class ResultBody<T> {
-  final int statusCdoe;
-  final String message;
-  final dynamic data;
+  final int statusCode;
+  final String? message;
+  final dynamic? data;
 
   ResultBody({
-    @required this.statusCdoe,
-    @required this.message,
-    @required this.data,
+    required this.statusCode,
+    this.message,
+    this.data,
   });
 
-  factory ResultBody.fromJson(Map<String, dynamic> json, int statusCdoe) {
+  factory ResultBody.fromJson(Map<String, dynamic> json, int statusCode) {
     return ResultBody(
-      statusCdoe: statusCdoe,
+      statusCode: statusCode,
       message: json['message'] as String,
       data: json['data'] as dynamic,
     );
   }
-
 }

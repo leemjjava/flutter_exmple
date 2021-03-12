@@ -10,22 +10,24 @@ class TweenDemo extends StatefulWidget {
   _TweenDemoState createState() => _TweenDemoState();
 }
 
-class _TweenDemoState extends State<TweenDemo>
-    with SingleTickerProviderStateMixin {
+class _TweenDemoState extends State<TweenDemo> with SingleTickerProviderStateMixin {
   static const Duration _duration = Duration(seconds: 1);
   static const double accountBalance = 1000000;
-  AnimationController controller;
-  Animation<double> animation;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   void initState() {
     super.initState();
 
-    controller = AnimationController(vsync: this, duration: _duration)
-          ..addListener(() {
-            // Marks the widget tree as dirty
-            setState(() {});
-      });
-    animation = Tween(begin: 0.0, end: accountBalance).animate(controller);
+    controller = AnimationController(
+      vsync: this,
+      duration: _duration,
+    )..addListener(() => setState(() {}));
+
+    animation = Tween(
+      begin: 0.0,
+      end: accountBalance,
+    ).animate(controller);
   }
 
   void dispose() {
@@ -34,6 +36,9 @@ class _TweenDemoState extends State<TweenDemo>
   }
 
   Widget build(BuildContext context) {
+    final title =
+        controller.status == AnimationStatus.completed ? 'Buy a Mansion' : 'Win Lottery';
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -45,23 +50,21 @@ class _TweenDemoState extends State<TweenDemo>
               child: Text('\$${animation.value.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 24)),
             ),
-            RaisedButton(
-              child: Text(
-                controller.status == AnimationStatus.completed
-                    ? 'Buy a Mansion'
-                    : 'Win Lottery',
-              ),
-              onPressed: () {
-                if (controller.status == AnimationStatus.completed) {
-                  controller.reverse();
-                } else {
-                  controller.forward();
-                }
-              },
+            ElevatedButton(
+              child: Text(title),
+              onPressed: _onBtnTap,
             )
           ],
         ),
       ),
     );
+  }
+
+  _onBtnTap() {
+    if (controller.status == AnimationStatus.completed) {
+      controller.reverse();
+    } else {
+      controller.forward();
+    }
   }
 }

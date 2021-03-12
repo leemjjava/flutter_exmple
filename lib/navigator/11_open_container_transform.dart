@@ -40,7 +40,9 @@ const double _fabDimension = 56;
 
 class OpenContainerTransformDemo extends StatefulWidget {
   static const String routeName = '/navigator/open_container_transform';
-  const OpenContainerTransformDemo({Key key}) : super(key: key);
+  const OpenContainerTransformDemo({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _OpenContainerTransformDemoState createState() => _OpenContainerTransformDemoState();
@@ -113,13 +115,13 @@ class _OpenContainerTransformDemoState extends State<OpenContainerTransformDemo>
 // ignore: must_be_immutable
 class Page extends StatelessWidget {
   Page({
-    Key key,
+    Key? key,
     this.scaffoldKey,
-    this.transitionType,
-    this.showSettingsBottomModalSheet,
+    required this.transitionType,
+    required this.showSettingsBottomModalSheet,
   }) : super(key: key);
 
-  GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldState>? scaffoldKey;
   ContainerTransitionType transitionType;
   VoidCallback showSettingsBottomModalSheet;
 
@@ -136,7 +138,7 @@ class Page extends StatelessWidget {
             Text('컨테이너 변환'),
             Text(
               '(Cards, Lists & FAB)',
-              style: Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
             ),
           ],
         ),
@@ -293,8 +295,8 @@ class Page extends StatelessWidget {
 
 class _OpenContainerWrapper extends StatelessWidget {
   const _OpenContainerWrapper({
-    this.closedBuilder,
-    this.transitionType,
+    required this.closedBuilder,
+    required this.transitionType,
   });
 
   final CloseContainerBuilder closedBuilder;
@@ -313,7 +315,7 @@ class _OpenContainerWrapper extends StatelessWidget {
 
 class _DetailsCard extends StatelessWidget {
   const _DetailsCard({
-    this.openContainer,
+    required this.openContainer,
   });
 
   final VoidCallback openContainer;
@@ -345,7 +347,7 @@ class _DetailsCard extends StatelessWidget {
               'adipiscing elit, sed do eiusmod tempor.',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2
+                  .bodyText2!
                   .copyWith(color: Colors.black54, inherit: false),
             ),
           ),
@@ -357,8 +359,8 @@ class _DetailsCard extends StatelessWidget {
 
 class _SmallDetailsCard extends StatelessWidget {
   const _SmallDetailsCard({
-    this.openContainer,
-    this.subtitle,
+    required this.openContainer,
+    required this.subtitle,
   });
 
   final VoidCallback openContainer;
@@ -402,7 +404,7 @@ class _SmallDetailsCard extends StatelessWidget {
 
 class _DetailsListTile extends StatelessWidget {
   const _DetailsListTile({
-    this.openContainer,
+    required this.openContainer,
   });
 
   final VoidCallback openContainer;
@@ -449,15 +451,15 @@ class _DetailsListTile extends StatelessWidget {
 
 class _InkWellOverlay extends StatelessWidget {
   const _InkWellOverlay({
-    this.openContainer,
+    required this.openContainer,
     this.width,
     this.height,
-    this.child,
+    required this.child,
   });
 
   final VoidCallback openContainer;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final Widget child;
 
   @override
@@ -498,7 +500,7 @@ class _DetailsPage extends StatelessWidget {
               children: [
                 Text(
                   '제목',
-                  style: textTheme.headline5.copyWith(
+                  style: textTheme.headline5!.copyWith(
                     color: Colors.black54,
                     fontSize: 30,
                   ),
@@ -506,7 +508,7 @@ class _DetailsPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   _loremIpsumParagraph,
-                  style: textTheme.bodyText2.copyWith(
+                  style: textTheme.bodyText2!.copyWith(
                     color: Colors.black54,
                     height: 1.5,
                     fontSize: 16,

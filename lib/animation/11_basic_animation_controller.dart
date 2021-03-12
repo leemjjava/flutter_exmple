@@ -9,7 +9,7 @@ class BasicAnimationDemo extends StatefulWidget{
 
 class _BasicAnimationDemoState extends State<BasicAnimationDemo>
     with SingleTickerProviderStateMixin<BasicAnimationDemo>{
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   double i = 0;
 

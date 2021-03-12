@@ -2,14 +2,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NestedScrollViewExample extends StatefulWidget{
+class NestedScrollViewExample extends StatefulWidget {
   static const String routeName = '/week_of_widget/nested_scroll_view';
 
   @override
   NestedScrollViewExampleState createState() => NestedScrollViewExampleState();
 }
 
-class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
+class NestedScrollViewExampleState extends State<NestedScrollViewExample> {
   ScrollController scrollController = ScrollController();
   PageController pageController = PageController(initialPage: 0);
 
@@ -43,20 +43,19 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: NestedScrollView(
-          controller: scrollController,
-          headerSliverBuilder: headerSliverBuilder,
-          body: Container(
-            margin: EdgeInsets.only(top: sliverMinHeight),
-            child: mainPageView(),
-          ),
+        child: Scaffold(
+      body: NestedScrollView(
+        controller: scrollController,
+        headerSliverBuilder: headerSliverBuilder,
+        body: Container(
+          margin: EdgeInsets.only(top: sliverMinHeight),
+          child: mainPageView(),
         ),
-      )
-    );
+      ),
+    ));
   }
 
-  List<Widget> headerSliverBuilder(BuildContext context, bool innerBoxIsScrolled){
+  List<Widget> headerSliverBuilder(BuildContext context, bool innerBoxIsScrolled) {
     return <Widget>[
       SliverOverlapAbsorber(
         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -73,14 +72,15 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
     ];
   }
 
-  Widget minTopChild(){
+  Widget minTopChild() {
     return Column(
       children: <Widget>[
         Expanded(
           child: Container(
             alignment: Alignment.center,
             color: Color(0xFF014F90),
-            child: Text("Min Top Bar",
+            child: Text(
+              "Min Top Bar",
               style: TextStyle(
                 color: Color(0xFFFFFFFF),
                 fontSize: 23,
@@ -93,14 +93,15 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
     );
   }
 
-  Widget topChild(){
+  Widget topChild() {
     return Column(
       children: <Widget>[
         Expanded(
           child: Container(
             alignment: Alignment.center,
             color: Color(0xFFFF1D1D),
-            child: Text("Max Top Bar",
+            child: Text(
+              "Max Top Bar",
               style: TextStyle(
                 color: Color(0xFFFFFFFF),
                 fontSize: 23,
@@ -113,32 +114,33 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
     );
   }
 
-  Widget pageButtonLayout(){
+  Widget pageButtonLayout() {
     return SizedBox(
-      height: sliverMinHeight/2,
+      height: sliverMinHeight / 2,
       child: Row(
         children: <Widget>[
-          Expanded(child: pageButton("page 1",0)),
-          Expanded(child: pageButton("page 2",1)),
-          Expanded(child: pageButton("page 3",2)),
-          Expanded(child: pageButton("page 4",3)),
+          Expanded(child: pageButton("page 1", 0)),
+          Expanded(child: pageButton("page 2", 1)),
+          Expanded(child: pageButton("page 3", 2)),
+          Expanded(child: pageButton("page 4", 3)),
         ],
       ),
     );
   }
 
-  Widget pageButton(String title, int page){
+  Widget pageButton(String title, int page) {
     final fontColor = pageIndex == page ? Color(0xFF2C313C) : Color(0xFF9E9E9E);
     final lineColor = pageIndex == page ? Color(0xFF014F90) : Color(0xFFF1F1F1);
 
     return InkWell(
       splashColor: Color(0xFF204D7E),
-      onTap: ()=> pageBtnOnTap(page),
+      onTap: () => pageBtnOnTap(page),
       child: Column(
         children: <Widget>[
           Expanded(
             child: Center(
-              child: Text(title,
+              child: Text(
+                title,
                 style: TextStyle(
                   color: fontColor,
                 ),
@@ -154,31 +156,37 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
     );
   }
 
-  pageBtnOnTap(int page){
+  pageBtnOnTap(int page) {
     setState(() {
       pageIndex = page;
-      pageController.animateToPage(
-          pageIndex,
-          duration: Duration(milliseconds: 700),
-          curve: Curves.easeOutCirc
-      );
+      pageController.animateToPage(pageIndex,
+          duration: Duration(milliseconds: 700), curve: Curves.easeOutCirc);
     });
   }
 
-  Widget mainPageView(){
+  Widget mainPageView() {
     return PageView(
       controller: pageController,
       children: <Widget>[
-        pageItem( Text("page 1"),),
-        pageItem( Center(child: Text("page 2\n\n두번째\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게", style: TextStyle(fontSize: 100),),) ),
+        pageItem(
+          Text("page 1"),
+        ),
+        pageItem(Center(
+          child: Text(
+            "page 2\n\n두번째\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게",
+            style: TextStyle(fontSize: 100),
+          ),
+        )),
         pageListView(),
-        pageItem( Center(child: Text("page 4"),) ),
+        pageItem(Center(
+          child: Text("page 4"),
+        )),
       ],
-      onPageChanged: (index)=> setState(() => pageIndex = index),
+      onPageChanged: (index) => setState(() => pageIndex = index),
     );
   }
 
-  Widget pageItem(Widget child){
+  Widget pageItem(Widget child) {
     double statusHeight = MediaQuery.of(context).padding.top;
     double height = MediaQuery.of(context).size.height;
     double minHeight = height - statusHeight - sliverMinHeight;
@@ -192,11 +200,14 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
     );
   }
 
-  Widget pageListView(){
-    return  ListView.builder(
+  Widget pageListView() {
+    return ListView.builder(
       itemCount: colors.length,
-      itemBuilder: (BuildContext context, int index){
-        return Container(color: colors[index], height: 150,);
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          color: colors[index],
+          height: 150,
+        );
       },
     );
   }
@@ -204,15 +215,15 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample>{
 
 class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
   SliverHeaderDelegateCS({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.maxChild,
-    @required this.minChild,
+    required this.minHeight,
+    required this.maxHeight,
+    required this.maxChild,
+    required this.minChild,
   });
-  final double minHeight, maxHeight;
+  double minHeight, maxHeight;
   final Widget maxChild, minChild;
 
-  double visibleMainHeight, animationVal, width;
+  late double visibleMainHeight, animationVal, width;
 
   @override
   bool shouldRebuild(SliverHeaderDelegateCS oldDelegate) => true;
@@ -224,9 +235,7 @@ class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
 
-    return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed)
-        .clamp(0, 1)
-        .toDouble();
+    return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed).clamp(0, 1).toDouble();
   }
 
   @override
@@ -244,11 +253,10 @@ class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
             getMinTop(),
             animationVal != 0 ? getMaxTop() : Container(),
           ],
-        )
-    );
+        ));
   }
 
-  Widget getMaxTop(){
+  Widget getMaxTop() {
     return Positioned(
       bottom: 0.0,
       child: Opacity(
@@ -262,14 +270,10 @@ class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget getMinTop(){
+  Widget getMinTop() {
     return Opacity(
       opacity: 1 - animationVal,
-      child: Container(
-          height: visibleMainHeight,
-          width: width,
-          child: minChild
-      ),
+      child: Container(height: visibleMainHeight, width: width, child: minChild),
     );
   }
 }

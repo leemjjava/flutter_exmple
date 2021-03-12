@@ -7,15 +7,13 @@ class PageViewFade extends StatefulWidget {
 }
 
 class PageViewFadeState extends State<PageViewFade> {
-  PageController pageController;
+  late PageController pageController;
   double pageScrollPosition = 1;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(
-      keepPage: true,
-    );
+    pageController = PageController(keepPage: true);
     pageController.addListener(updatePageState);
   }
 
@@ -143,13 +141,13 @@ class PageViewFadeState extends State<PageViewFade> {
 // ignore: must_be_immutable
 class FadePageItemCS extends StatelessWidget {
   FadePageItemCS({
-    Key key,
-    @required this.pageScrollPosition,
-    @required this.pageNumber,
-    @required this.child,
+    Key? key,
+    required this.pageScrollPosition,
+    required this.pageNumber,
+    required this.child,
   }) : super(key: key);
 
-  double deviceHeight, deviceWidth;
+  late double deviceHeight, deviceWidth;
   final pageScrollPosition;
   final pageNumber;
   Widget child;

@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     width: 150,
     height: 150,
   );
-  AnimationController _animation;
+  late AnimationController _animation;
 
   @override
   void initState() {
@@ -58,8 +58,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 }
 
 class BeamTransition extends AnimatedWidget {
-  BeamTransition({Key key, Animation<double> animation})
-      : super(key: key, listenable: animation);
+  BeamTransition({
+    Key? key,
+    required Animation<double> animation,
+  }) : super(key: key, listenable: animation);
+
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
@@ -70,10 +73,7 @@ class BeamTransition extends AnimatedWidget {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             radius: 1.5,
-            colors: [
-              Colors.yellow,
-              Colors.transparent,
-            ],
+            colors: [Colors.yellow, Colors.transparent],
             stops: [0, animation.value],
           ),
         ),

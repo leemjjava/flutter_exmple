@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TimeMachineDemo extends StatefulWidget{
+class TimeMachineDemo extends StatefulWidget {
   static const String routeName = '/basics/chaining_rotation_transition';
 
   @override
@@ -8,19 +8,19 @@ class TimeMachineDemo extends StatefulWidget{
 }
 
 class _TimeMachineDemoState extends State<TimeMachineDemo>
-    with SingleTickerProviderStateMixin{
-  AnimationController _animationController;
-  
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
-    
+
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 5),
     )..repeat();
   }
-  
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -30,49 +30,49 @@ class _TimeMachineDemoState extends State<TimeMachineDemo>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: TimeStopper(
-               controller: _animationController
+        appBar: AppBar(),
+        body: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: TimeStopper(controller: _animationController),
             ),
-          ),
-          RotationTransition(
-            alignment: Alignment.center,
-            turns: _animationController,
-            child: Container(
+            RotationTransition(
               alignment: Alignment.center,
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return Image(
-                    image: AssetImage('assets/galaxy.png'),
-                    fit: BoxFit.fill,
-                    width: constraints.maxWidth,
-                  );
-                },
+              turns: _animationController,
+              child: Container(
+                alignment: Alignment.center,
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Image(
+                      image: AssetImage('assets/galaxy.png'),
+                      fit: BoxFit.fill,
+                      width: constraints.maxWidth,
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }
 
-class TimeStopper extends StatelessWidget{
+class TimeStopper extends StatelessWidget {
   final AnimationController controller;
 
-  const TimeStopper({Key key, this.controller}) : super(key: key);
+  const TimeStopper({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        if(controller.isAnimating){
+      onTap: () {
+        if (controller.isAnimating) {
           controller.stop();
-        }else{
+        } else {
           controller.repeat();
         }
       },

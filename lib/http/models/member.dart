@@ -1,19 +1,19 @@
 import 'package:flutter/foundation.dart';
 
 class Member {
-  final int cid;
-  final String emailAddress;
-  final String password;
-  final String userName;
-  final String nickName;
-  final String allowMailing;
-  final String allowMessage;
-  final String denied;
-  final String limitDate;
-  final String regDate;
-  final String lastLogin;
-  final String changePasswordDate;
-  final String isAdmin;
+  final int? cid;
+  final String? emailAddress;
+  final String? password;
+  final String? userName;
+  final String? nickName;
+  final String? allowMailing;
+  final String? allowMessage;
+  final String? denied;
+  final String? limitDate;
+  final String? regDate;
+  final String? lastLogin;
+  final String? changePasswordDate;
+  final String? isAdmin;
 
   Member({
     @required this.cid,

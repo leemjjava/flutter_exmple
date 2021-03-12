@@ -9,16 +9,14 @@ class AnimatedIconEx extends StatefulWidget {
 
 class _AnimatedIconExState extends State<AnimatedIconEx>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
   bool isPlaying = false;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300)
-    );
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
   }
 
   @override

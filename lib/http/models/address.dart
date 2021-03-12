@@ -3,8 +3,8 @@ class Address {
   List<Juso> jusoList;
 
   Address({
-    this.common,
-    this.jusoList,
+    required this.common,
+    required this.jusoList,
   });
 
   factory Address.formJson(Map<String, dynamic> json) {
@@ -24,18 +24,19 @@ class Address {
 }
 
 class Common {
-  String errorMessage;
-  String countPerPage;
-  String totalCount;
-  String errorCode;
-  String currentPage;
+  String? errorMessage;
+  String? countPerPage;
+  String? totalCount;
+  String? errorCode;
+  String? currentPage;
 
-  Common(
-      {this.errorMessage,
-      this.countPerPage,
-      this.totalCount,
-      this.errorCode,
-      this.currentPage});
+  Common({
+    this.errorMessage,
+    this.countPerPage,
+    this.totalCount,
+    this.errorCode,
+    this.currentPage,
+  });
 
   factory Common.fromJson(Map<String, dynamic> json) {
     return Common(
@@ -49,40 +50,41 @@ class Common {
 }
 
 class Juso {
-  String detBdNmList, engAddr, rn;
-  String emdNm, zipNo, roadAddrPart2;
-  String emdNo, sggNm, jibunAddr;
-  String siNm, roadAddrPart1, bdNm;
-  String admCd, udrtYn, lnbrMnnm;
-  String roadAddr, lnbrSlno, buldMnnm;
-  String bdKdcd, liNm, rnMgtSn;
-  String mtYn, bdMgtSn, buldSlno;
+  String? detBdNmList, engAddr, rn;
+  String? emdNm, zipNo, roadAddrPart2;
+  String? emdNo, sggNm, jibunAddr;
+  String? siNm, roadAddrPart1, bdNm;
+  String? admCd, udrtYn, lnbrMnnm;
+  String? roadAddr, lnbrSlno, buldMnnm;
+  String? bdKdcd, liNm, rnMgtSn;
+  String? mtYn, bdMgtSn, buldSlno;
 
-  Juso(
-      {this.detBdNmList,
-      this.engAddr,
-      this.rn,
-      this.emdNm,
-      this.zipNo,
-      this.roadAddrPart2,
-      this.emdNo,
-      this.sggNm,
-      this.jibunAddr,
-      this.siNm,
-      this.roadAddrPart1,
-      this.bdNm,
-      this.admCd,
-      this.udrtYn,
-      this.lnbrMnnm,
-      this.roadAddr,
-      this.lnbrSlno,
-      this.buldMnnm,
-      this.bdKdcd,
-      this.liNm,
-      this.rnMgtSn,
-      this.mtYn,
-      this.bdMgtSn,
-      this.buldSlno});
+  Juso({
+    this.detBdNmList,
+    this.engAddr,
+    this.rn,
+    this.emdNm,
+    this.zipNo,
+    this.roadAddrPart2,
+    this.emdNo,
+    this.sggNm,
+    this.jibunAddr,
+    this.siNm,
+    this.roadAddrPart1,
+    this.bdNm,
+    this.admCd,
+    this.udrtYn,
+    this.lnbrMnnm,
+    this.roadAddr,
+    this.lnbrSlno,
+    this.buldMnnm,
+    this.bdKdcd,
+    this.liNm,
+    this.rnMgtSn,
+    this.mtYn,
+    this.bdMgtSn,
+    this.buldSlno,
+  });
 
   factory Juso.fromJson(Map<String, dynamic> json) {
     return Juso(

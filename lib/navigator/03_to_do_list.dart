@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 
-class Todo{
+class Todo {
   final String title;
   final String description;
 
-  Todo(this.title, this.description);
+  Todo(
+    this.title,
+    this.description,
+  );
 }
 
-class TodoScreen extends StatelessWidget{
-  static const String routeName = '/navigator/to_do_list';
-
-  final List<Todo> todos;
-
+class TodoScreen extends StatelessWidget {
   TodoScreen({
-    Key key,
-    this.todos
+    Key? key,
+    required this.todoList,
   }) : super(key: key);
+
+  static const String routeName = '/navigator/to_do_list';
+  final List<Todo> todoList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Todos'),),
+      appBar: AppBar(
+        title: Text('Todo List'),
+      ),
       body: ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (BuildContext context, int index){
+        itemCount: todoList.length,
+        itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: Text(todos[index].title),
-            onTap: (){
+            title: Text(todoList[index].title),
+            onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailScreen(todo: todos[index],)
-                  )
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(todo: todoList[index]),
+                ),
               );
             },
           );
@@ -41,12 +45,12 @@ class TodoScreen extends StatelessWidget{
   }
 }
 
-class DetailScreen extends StatelessWidget{
+class DetailScreen extends StatelessWidget {
   final Todo todo;
 
   DetailScreen({
-    Key key,
-    @required this.todo
+    Key? key,
+    required this.todo,
   }) : super(key: key);
 
   @override

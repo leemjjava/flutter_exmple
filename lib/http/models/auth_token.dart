@@ -1,13 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 class AuthToken {
-  final String accessToken;
-  final String refreshToken;
+  final String? accessToken;
+  final String? refreshToken;
 
   AuthToken({
-    @required this.accessToken,
-    @required this.refreshToken,
-
+    this.accessToken,
+    this.refreshToken,
   });
 
   factory AuthToken.fromJson(Map<String, dynamic> json) {

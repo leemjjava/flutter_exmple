@@ -38,13 +38,12 @@ class AnimationAlertState extends State<AnimationAlert> {
   }
 
   Widget inputButton(String title, VoidCallback onPressed) {
-    return FlatButton(
-      padding: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-        side: BorderSide(
-          width: 1,
-          color: Colors.grey,
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: BorderSide(width: 1, color: Colors.grey),
         ),
       ),
       child: Container(

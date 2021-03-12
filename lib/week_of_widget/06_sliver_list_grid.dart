@@ -11,14 +11,13 @@ class SliverListGridEx extends StatelessWidget {
       body: CollapsingList(),
     );
   }
-
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.child,
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
   });
 
   final double minHeight;
@@ -51,12 +50,7 @@ class CollapsingList extends StatelessWidget {
       delegate: _SliverAppBarDelegate(
         minHeight: 60.0,
         maxHeight: 200.0,
-        child: Container(
-            color: Colors.lightBlue,
-            child: Center(
-                child: Text(headerText)
-            )
-        ),
+        child: Container(color: Colors.lightBlue, child: Center(child: Text(headerText))),
       ),
     );
   }
@@ -95,14 +89,14 @@ class CollapsingList extends StatelessWidget {
         ),
         makeHeader('Header Section 3'),
         SliverGrid(
-          gridDelegate:
-          SliverGridDelegateWithMaxCrossAxisExtent(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200.0,
             mainAxisSpacing: 10.0,
             crossAxisSpacing: 10.0,
             childAspectRatio: 4.0,
           ),
-          delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
               return Container(
                 alignment: Alignment.center,
                 color: Colors.teal[100 * (index % 9)],

@@ -5,23 +5,23 @@ final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 class AnimationButton extends StatefulWidget {
   static const String routeName = '/misc/animation_button';
 
-  AnimationButton({Key key}) : super(key: key);
+  AnimationButton({Key? key}) : super(key: key);
 
   @override
   _AnimationButtonState createState() => _AnimationButtonState();
 }
 
 class _AnimationButtonState extends State<AnimationButton> with TickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   double _containerPaddingLeft = 20.0;
-  double _animationValue;
+  double _animationValue = 0.0;
   double _translateX = 0;
   double _translateY = 0;
   double _rotate = 0;
   double _scale = 1;
 
-  bool show;
+  bool show = true;
   bool sent = false;
   Color _color = Colors.lightBlue;
 
@@ -33,7 +33,6 @@ class _AnimationButtonState extends State<AnimationButton> with TickerProviderSt
       duration: Duration(milliseconds: 1300),
     );
 
-    show = true;
     _animationController.addListener(() {
       setState(
         () {

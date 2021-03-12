@@ -17,8 +17,9 @@ class SearchAddressState extends State<SearchAddress> {
   final scrollController = ScrollController();
   final addressBloc = AddressBloc();
   List<Juso> addressList = [];
-  String keyword, errorMessage = "검색어를 입력하세요.";
-  int page;
+  String? keyword;
+  String errorMessage = "검색어를 입력하세요.";
+  int page = 0;
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class SearchAddressState extends State<SearchAddress> {
         if (page == 1) addressList = [];
         if (errorModel.error == -101) page = -1;
 
-        errorMessage = errorModel.message;
+        errorMessage = errorModel.message ?? errorMessage;
         setState(() {});
       },
     );
@@ -118,7 +119,7 @@ class SearchAddressState extends State<SearchAddress> {
   }
 
   Widget cancelWidget() {
-    if (keyword == null || keyword.isEmpty) return Container();
+    if (keyword == null || keyword!.isEmpty) return Container();
 
     return GestureDetector(
       child: Icon(
@@ -163,9 +164,9 @@ class SearchAddressState extends State<SearchAddress> {
   }
 
   Widget listItem(Juso address) {
-    final roadLast = address.buldSlno == '0' ? '' : '-' + address.buldSlno;
+    final roadLast = address.buldSlno == '0' ? '' : '-' + (address.buldSlno ?? '');
     final rodaTitle = '${address.rn} ${address.buldMnnm}$roadLast';
-    final title = address.bdNm.isEmpty ? rodaTitle : address.bdNm;
+    final String title = address.bdNm?.isEmpty == true ? rodaTitle : address.bdNm!;
 
     return Container(
       padding: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15),
@@ -180,11 +181,11 @@ class SearchAddressState extends State<SearchAddress> {
           ),
           SizedBox(height: 5),
           Text(
-            address.jibunAddr,
+            address.jibunAddr ?? '',
             style: TextStyle(color: Color(0xFFA8A8A8)),
           ),
           Text(
-            '[도로명] ' + address.roadAddr,
+            '[도로명] ' + (address.roadAddr ?? ''),
             style: TextStyle(color: Color(0xFFA8A8A8)),
           ),
         ],
@@ -202,16 +203,16 @@ class SearchAddressState extends State<SearchAddress> {
 // ignore: must_be_immutable
 class TopBar extends StatelessWidget {
   TopBar({
-    Key key,
-    this.title,
-    this.onTap,
+    Key? key,
+    this.title = '',
     this.closeIcon,
+    this.onTap,
     this.height = 60,
   }) : super(key: key);
 
   String title;
-  Function onTap;
-  Icon closeIcon;
+  GestureTapCallback? onTap;
+  Icon? closeIcon;
   double height;
 
   @override

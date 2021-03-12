@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
-class StackEx extends StatefulWidget{
+class StackEx extends StatefulWidget {
   static const String routeName = '/week_of_widget/stack';
 
   @override
   StackExState createState() => StackExState();
 }
 
-class StackExState extends State<StackEx> with TickerProviderStateMixin{
-  StackFit _fit;
-  Alignment _alignment;
-  AnimationController _animationController;
-  Animation<Alignment> _animation;
+class StackExState extends State<StackEx> with TickerProviderStateMixin {
+  StackFit _fit = StackFit.loose;
+  Alignment _alignment = Alignment.centerLeft;
+  late AnimationController _animationController;
+  late Animation<Alignment> _animation;
 
   @override
   void initState() {
     super.initState();
-    _fit = StackFit.loose;
-    _alignment = Alignment.centerLeft;
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
     );
 
-    _animation = AlignmentTween(begin: Alignment.centerLeft).animate(_animationController);
+    _animation = AlignmentTween(
+      begin: Alignment.centerLeft,
+    ).animate(
+      _animationController,
+    );
   }
 
   _handleFit(StackFit fit) {
@@ -33,8 +34,9 @@ class StackExState extends State<StackEx> with TickerProviderStateMixin{
     });
   }
 
-  _handelAlign(Alignment alignment){
-    _animation = AlignmentTween(begin: _alignment, end: alignment).animate(_animationController);
+  _handelAlign(Alignment alignment) {
+    _animation =
+        AlignmentTween(begin: _alignment, end: alignment).animate(_animationController);
 
     _animationController.reset();
     _animationController.forward();
@@ -45,7 +47,9 @@ class StackExState extends State<StackEx> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('STACK EXAMPLE'),),
+      appBar: AppBar(
+        title: Text('STACK EXAMPLE'),
+      ),
       body: Stack(
         fit: StackFit.expand,
         alignment: Alignment.center,
@@ -72,7 +76,7 @@ class StackExState extends State<StackEx> with TickerProviderStateMixin{
       builder: (context, child) {
         return Stack(
           fit: _fit,
-          alignment: _animation.value ,
+          alignment: _animation.value,
           children: <Widget>[
             Container(
               width: 150,
@@ -97,95 +101,121 @@ class StackExState extends State<StackEx> with TickerProviderStateMixin{
 
   Widget bottomButtons() {
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
-      color: Colors.grey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('StackFit'),
-          fitButtons(),
-          Text('AlignTop'),
-          alignTopButtons(),
-          Text('AlignCenter'),
-          alignCenterButtons(),
-          Text('AlignBottom'),
-          alignBottomButtons(),
-        ],
-      )
-    );
+        padding: EdgeInsets.only(left: 5, right: 5),
+        color: Colors.grey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('StackFit'),
+            fitButtons(),
+            Text('AlignTop'),
+            alignTopButtons(),
+            Text('AlignCenter'),
+            alignCenterButtons(),
+            Text('AlignBottom'),
+            alignBottomButtons(),
+          ],
+        ));
   }
 
-  Widget fitButtons(){
+  Widget fitButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        RaisedButton(
+        ElevatedButton(
             child: Text('loose'),
-            onPressed:(){ _handleFit(StackFit.loose);}
-        ),
-        RaisedButton(
-          child: Text('expand'),
-            onPressed:(){ _handleFit(StackFit.expand);}
-        ),
-        RaisedButton(
-          child: Text('passthrough'),
-            onPressed:(){ _handleFit(StackFit.passthrough);}
-        ),
+            onPressed: () {
+              _handleFit(StackFit.loose);
+            }),
+        ElevatedButton(
+            child: Text('expand'),
+            onPressed: () {
+              _handleFit(StackFit.expand);
+            }),
+        ElevatedButton(
+            child: Text('passthrough'),
+            onPressed: () {
+              _handleFit(StackFit.passthrough);
+            }),
       ],
     );
   }
 
-  Widget alignTopButtons(){
+  Widget alignTopButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        RaisedButton(child: Text('Left'),
-          onPressed: (){_handelAlign(Alignment.topLeft);},
+        ElevatedButton(
+          child: Text('Left'),
+          onPressed: () {
+            _handelAlign(Alignment.topLeft);
+          },
         ),
-        RaisedButton(child: Text('Center'),
-          onPressed: (){ _handelAlign(Alignment.topCenter);},
+        ElevatedButton(
+          child: Text('Center'),
+          onPressed: () {
+            _handelAlign(Alignment.topCenter);
+          },
         ),
-        RaisedButton(child: Text('Right'),
-          onPressed: (){ _handelAlign(Alignment.topRight);},
+        ElevatedButton(
+          child: Text('Right'),
+          onPressed: () {
+            _handelAlign(Alignment.topRight);
+          },
         ),
       ],
     );
   }
 
-  Widget alignCenterButtons(){
+  Widget alignCenterButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        RaisedButton(child: Text('Left'),
-          onPressed: (){ _handelAlign(Alignment.centerLeft);},
+        ElevatedButton(
+          child: Text('Left'),
+          onPressed: () {
+            _handelAlign(Alignment.centerLeft);
+          },
         ),
-        RaisedButton(child: Text('center'),
-          onPressed: (){ _handelAlign(Alignment.center);},
+        ElevatedButton(
+          child: Text('center'),
+          onPressed: () {
+            _handelAlign(Alignment.center);
+          },
         ),
-        RaisedButton(child: Text('Right'),
-          onPressed: (){ _handelAlign(Alignment.centerRight);},
+        ElevatedButton(
+          child: Text('Right'),
+          onPressed: () {
+            _handelAlign(Alignment.centerRight);
+          },
         ),
       ],
     );
   }
 
-  Widget alignBottomButtons(){
+  Widget alignBottomButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        RaisedButton(child: Text('Left'),
-          onPressed: (){ _handelAlign(Alignment.bottomLeft);},
+        ElevatedButton(
+          child: Text('Left'),
+          onPressed: () {
+            _handelAlign(Alignment.bottomLeft);
+          },
         ),
-        RaisedButton(child: Text('Center'),
-          onPressed: (){ _handelAlign(Alignment.bottomCenter);},
+        ElevatedButton(
+          child: Text('Center'),
+          onPressed: () {
+            _handelAlign(Alignment.bottomCenter);
+          },
         ),
-        RaisedButton(child: Text('Right'),
-          onPressed: (){ _handelAlign(Alignment.bottomRight);},
+        ElevatedButton(
+          child: Text('Right'),
+          onPressed: () {
+            _handelAlign(Alignment.bottomRight);
+          },
         ),
       ],
     );
   }
-
-
 }
-
