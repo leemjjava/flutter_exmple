@@ -26,9 +26,7 @@ class TransformExampleState extends State<TransformExample>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Transform Example'),
-        ),
+        appBar: AppBar(title: Text('Transform Example')),
         body: Stack(
           children: [
             Positioned(
@@ -76,16 +74,14 @@ class TransformExampleState extends State<TransformExample>
         height: 40,
         child: TextButton(
           style: TextButton.styleFrom(
-            primary: color,
+            backgroundColor: color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
           child: Text(
             title,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+            style: TextStyle(color: Colors.white),
           ),
           onPressed: () {
             if (_animationController.isDismissed) {

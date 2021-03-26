@@ -43,6 +43,7 @@ import 'navigator/11_open_container_transform.dart';
 import 'navigator/12_text_field.dart';
 import 'navigator/13_custom_keyboard.dart';
 import 'navigator/14_get_x_statement.dart';
+import 'navigator/15_amount_custom_keyboard.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -268,6 +269,11 @@ final navigators = [
     name: 'ReactiveScreen',
     route: ReactiveScreen.routeName,
     builder: (BuildContext context) => ReactiveScreen(),
+  ),
+  MyRouts(
+    name: 'TextFieldCustom',
+    route: AmountCustomKeyboard.routeName,
+    builder: (BuildContext context) => AmountCustomKeyboard(),
   ),
 ];
 
