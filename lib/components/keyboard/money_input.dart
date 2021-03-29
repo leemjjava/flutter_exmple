@@ -177,7 +177,8 @@ class _MoneyInputState extends State<MoneyInput> {
 
   onAddNumberTap(int amount, TextEditingController controller) {
     int curNumber = 0;
-    if (controller.text.length > 0) curNumber = int.parse(controller.text);
+    final controllerText = controller.text.replaceAll(',', '');
+    if (controllerText.length > 0) curNumber = int.parse(controllerText);
 
     final newString = (curNumber + amount).toString();
     final account = accountString(newString);

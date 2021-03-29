@@ -29,6 +29,8 @@ import 'animation/21_fade_out_route.dart';
 import 'animation/22_backdrop.dart';
 import 'animation/23_animation_button.dart';
 import 'animation/27_fade_size_animation.dart';
+import 'animation/28_animation_indicator_example.dart';
+import 'animation/29_page_tap_example.dart';
 import 'navigator/01_name_routes_arguments.dart';
 import 'navigator/02_returning_data.dart';
 import 'navigator/03_to_do_list.dart';
@@ -191,6 +193,16 @@ final animation = [
     name: 'FadeSizeAnimation',
     route: FadeSizeAnimationExample.routeName,
     builder: (BuildContext context) => FadeSizeAnimationExample(),
+  ),
+  MyRouts(
+    name: 'Animation Indicator',
+    route: AnimationIndicatorExample.routeName,
+    builder: (BuildContext context) => AnimationIndicatorExample(),
+  ),
+  MyRouts(
+    name: 'Page Tap',
+    route: PageTapExample.routeName,
+    builder: (BuildContext context) => PageTapExample(),
   ),
 ];
 
