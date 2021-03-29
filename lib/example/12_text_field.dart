@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:navigator/utile/utile.dart';
 
 class TextFieldDemo extends StatefulWidget {
-  static const String routeName = '/navigator/text_field_demo';
+  static const String routeName = '/examples/text_field_demo';
 
   @override
   TextFieldDemoState createState() => TextFieldDemoState();

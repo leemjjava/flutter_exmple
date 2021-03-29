@@ -5,7 +5,7 @@ import 'package:navigator/http/models/address.dart';
 import 'package:navigator/http/models/error.dart';
 
 class SearchAddress extends StatefulWidget {
-  static const String routeName = '/navigator/address_search';
+  static const String routeName = '/examples/address_search';
 
   @override
   SearchAddressState createState() => SearchAddressState();

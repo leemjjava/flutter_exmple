@@ -8,7 +8,7 @@ import '../utile/ui.dart';
 enum CheckBoxType { MAIL, MESSAGE }
 
 class UserInputEx extends StatefulWidget {
-  static const String routeName = '/navigator/UserInputEx';
+  static const String routeName = '/examples/UserInputEx';
 
   @override
   State<StatefulWidget> createState() => UserInputExState();

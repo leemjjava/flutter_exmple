@@ -16,7 +16,7 @@ class TodoScreen extends StatelessWidget {
     required this.todoList,
   }) : super(key: key);
 
-  static const String routeName = '/navigator/to_do_list';
+  static const String routeName = '/examples/to_do_list';
   final List<Todo> todoList;
 
   @override

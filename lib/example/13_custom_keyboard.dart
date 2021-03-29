@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:navigator/utile/utile.dart';
 
 class CustomKeyboard extends StatefulWidget {
-  static const String routeName = '/navigator/custom_key_board';
+  static const String routeName = '/examples/custom_key_board';
 
   @override
   _CustomKeyboardState createState() => _CustomKeyboardState();

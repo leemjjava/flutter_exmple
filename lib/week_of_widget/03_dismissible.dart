@@ -35,8 +35,12 @@ class DismissibleExState extends State<DismissibleEx> {
                   items.removeAt(index);
                 });
 
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('$item dismiss')));
+                // ignore: deprecated_member_use
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$item dismiss'),
+                  ),
+                );
               },
               background: Container(
                 color: Colors.red,

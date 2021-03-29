@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WebSocketView extends StatefulWidget {
-  static const String routeName = '/navigator/web_socket';
+  static const String routeName = '/examples/web_socket';
 
   @override
   _WebSocketViewState createState() => _WebSocketViewState();
@@ -27,26 +27,26 @@ class _WebSocketViewState extends State<WebSocketView> {
     // socketIO.connect();
   }
 
-  _onSocketInfo(dynamic data) {
-    print("Socket info: " + data);
-  }
+  // _onSocketInfo(dynamic data) {
+  //   print("Socket info: " + data);
+  // }
 
-  _socketStatus(dynamic data) {
-    print("Socket status: " + data);
-  }
+  // _socketStatus(dynamic data) {
+  //   print("Socket status: " + data);
+  // }
 
-  _subscribes() {
-    // if (socketIO != null) {
-    //   socketIO.subscribe("messages", _onReceiveChatMessage);
-    //   socketIO.subscribe("member_add", _onReceiveChatMessage);
-    //   socketIO.subscribe("member_delete", _onReceiveChatMessage);
-    //   socketIO.subscribe("message_history", _onReceiveChatMessage);
-    // }
-  }
+  // _subscribes() {
+  //   if (socketIO != null) {
+  //     socketIO.subscribe("messages", _onReceiveChatMessage);
+  //     socketIO.subscribe("member_add", _onReceiveChatMessage);
+  //     socketIO.subscribe("member_delete", _onReceiveChatMessage);
+  //     socketIO.subscribe("message_history", _onReceiveChatMessage);
+  //   }
+  // }
 
-  void _onReceiveChatMessage(dynamic message) {
-    print("Message from UFO: " + message);
-  }
+  // void _onReceiveChatMessage(dynamic message) {
+  //   print("Message from UFO: " + message);
+  // }
 
   void _sendChatMessage() async {
     // String msg = _controller.text;

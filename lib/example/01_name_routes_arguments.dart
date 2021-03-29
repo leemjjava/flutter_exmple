@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ArgumentsDemo extends StatelessWidget {
-  static const String routeName = '/navigator/arguments';
+  static const String routeName = '/examples/arguments';
 
   @override
   Widget build(BuildContext context) {

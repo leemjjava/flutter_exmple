@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 enum ButtonType { NONE, LOGIN, RE_TOKEN, TOKEN_DECODE, ACCOUNT }
 
 class LoginExTwo extends StatefulWidget {
-  static const String routeName = '/transparent_image/LoginExTow';
+  static const String routeName = '/examples/LoginExTow';
   LoginExTwo({
     Key? key,
   }) : super(key: key);

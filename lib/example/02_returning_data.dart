@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utile/utile.dart';
 
 class ReturningDataDemo extends StatelessWidget {
-  static const String routeName = '/navigator/returing_data';
+  static const String routeName = '/examples/returing_data';
 
   void returnDataFunc(BuildContext context, String data) {
     showAlertDialog(context, data);

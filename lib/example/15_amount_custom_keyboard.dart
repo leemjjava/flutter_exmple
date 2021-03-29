@@ -14,7 +14,7 @@ class KeyboardModel {
 }
 
 class AmountCustomKeyboard extends StatefulWidget {
-  static const String routeName = '/navigator/amount_custom_keyboard';
+  static const String routeName = '/examples/amount_custom_keyboard';
 
   @override
   AmountCustomKeyboardState createState() => AmountCustomKeyboardState();

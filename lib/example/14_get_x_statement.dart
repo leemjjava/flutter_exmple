@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ReactiveScreen extends StatefulWidget {
-  static const String routeName = '/navigator/reactive_screen';
+  static const String routeName = '/examples/reactive_screen';
 
   @override
   _ReactiveScreenState createState() => _ReactiveScreenState();

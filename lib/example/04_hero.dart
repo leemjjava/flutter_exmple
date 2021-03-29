@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MainScreen extends StatefulWidget {
-  static const String routeName = '/navigator/hero';
+  static const String routeName = '/examples/hero';
   @override
   State<StatefulWidget> createState() => MainScreenState();
 }

@@ -39,7 +39,7 @@ const String _loremIpsumParagraph =
 const double _fabDimension = 56;
 
 class OpenContainerTransformDemo extends StatefulWidget {
-  static const String routeName = '/navigator/open_container_transform';
+  static const String routeName = '/examples/open_container_transform';
   const OpenContainerTransformDemo({
     Key? key,
   }) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CustomBarWidget extends StatelessWidget {
-  static const String routeName = '/navigator/custom_bar';
+  static const String routeName = '/examples/custom_bar';
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late double topPadding;

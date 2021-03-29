@@ -45,6 +45,7 @@ import 'example/12_text_field.dart';
 import 'example/13_custom_keyboard.dart';
 import 'example/14_get_x_statement.dart';
 import 'example/15_amount_custom_keyboard.dart';
+import 'example/16_card_list.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -285,6 +286,11 @@ final examples = [
     name: 'TextFieldCustom',
     route: AmountCustomKeyboard.routeName,
     builder: (BuildContext context) => AmountCustomKeyboard(),
+  ),
+  MyRouts(
+    name: 'Card List',
+    route: CardList.routeName,
+    builder: (BuildContext context) => CardList(),
   ),
 ];
 

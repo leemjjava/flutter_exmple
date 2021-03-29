@@ -4,7 +4,7 @@ import '../http/http_repository.dart';
 import '../utile/token_decoder.dart';
 
 class LoginEx extends StatefulWidget {
-  static const String routeName = '/transparent_image/LoginEx';
+  static const String routeName = '/examples/LoginEx';
   LoginEx({
     Key? key,
   }) : super(key: key);
