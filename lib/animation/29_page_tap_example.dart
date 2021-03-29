@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/components/tap/page_tab.dart';
-import 'package:navigator/navigator/10_address_search.dart';
+import 'package:navigator/utile/ui.dart';
 
 class PageTapExample extends StatefulWidget {
   static const String routeName = '/misc/page_tap_example';

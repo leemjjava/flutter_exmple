@@ -3,7 +3,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
 import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
-import 'package:navigator/navigator/09_webSocket.dart';
+import 'package:navigator/example/01_name_routes_arguments.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -31,21 +31,20 @@ import 'animation/23_animation_button.dart';
 import 'animation/27_fade_size_animation.dart';
 import 'animation/28_animation_indicator_example.dart';
 import 'animation/29_page_tap_example.dart';
-import 'navigator/01_name_routes_arguments.dart';
-import 'navigator/02_returning_data.dart';
-import 'navigator/03_to_do_list.dart';
-import 'navigator/04_hero.dart';
-import 'navigator/05_login_test.dart';
-import 'navigator/06_login_test_two.dart';
-import 'navigator/07_input_user.dart';
-import 'navigator/08_custom_bar.dart';
-
-import 'navigator/10_address_search.dart';
-import 'navigator/11_open_container_transform.dart';
-import 'navigator/12_text_field.dart';
-import 'navigator/13_custom_keyboard.dart';
-import 'navigator/14_get_x_statement.dart';
-import 'navigator/15_amount_custom_keyboard.dart';
+import 'example/02_returning_data.dart';
+import 'example/03_to_do_list.dart';
+import 'example/04_hero.dart';
+import 'example/05_login_test.dart';
+import 'example/06_login_test_two.dart';
+import 'example/07_input_user.dart';
+import 'example/08_custom_bar.dart';
+import 'example/09_webSocket.dart';
+import 'example/10_address_search.dart';
+import 'example/11_open_container_transform.dart';
+import 'example/12_text_field.dart';
+import 'example/13_custom_keyboard.dart';
+import 'example/14_get_x_statement.dart';
+import 'example/15_amount_custom_keyboard.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -206,7 +205,7 @@ final animation = [
   ),
 ];
 
-final navigators = [
+final examples = [
   MyRouts(
     name: 'Named Routs Arguments',
     route: ArgumentsDemo.routeName,
@@ -376,8 +375,8 @@ final boxConstraints = [
 final animationMap =
     Map.fromEntries(animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
-final navigatorsMap =
-    Map.fromEntries(navigators.map((MyRouts item) => MapEntry(item.route, item.builder)));
+final examplesMap =
+    Map.fromEntries(examples.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
 final weekOfWidgetMap = Map.fromEntries(
     weekOfWidgets.map((MyRouts item) => MapEntry(item.route, item.builder)));
@@ -386,7 +385,7 @@ final boxConstraintMap = Map.fromEntries(
     boxConstraints.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
 final allRoutes = <String, WidgetBuilder>{
-  ...navigatorsMap,
+  ...examplesMap,
   ...weekOfWidgetMap,
   ...boxConstraintMap,
   ...animationMap,
@@ -436,8 +435,8 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(title: Text('Navigator', style: headerStyle)),
-          ...navigators.map((d) => DemoTile(d)),
+          ListTile(title: Text('Examples', style: headerStyle)),
+          ...examples.map((d) => DemoTile(d)),
           ListTile(title: Text('Week of Widget', style: headerStyle)),
           ...weekOfWidgets.map((d) => DemoTile(d)),
           ListTile(title: Text('BoxConstraint', style: headerStyle)),

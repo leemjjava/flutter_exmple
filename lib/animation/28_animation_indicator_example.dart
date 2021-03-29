@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/components/animation/animated_liner_indicator.dart';
 import 'package:navigator/components/card/circle_network_image.dart';
-import 'package:navigator/navigator/10_address_search.dart';
+import 'package:navigator/utile/ui.dart';
 
 const Color gray6D = Color(0xff6d6d6d);
 const Color grayDD = Color(0xffdde1e2);
