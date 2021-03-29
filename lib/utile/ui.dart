@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 const buttonColor = Colors.red;
 const buttonLightColor = Color(0xFFFFCDD2);
 
-Widget getTextField(TextEditingController tec, String title, String hint, bool obscure) {
+Widget renderTextField(
+    TextEditingController tec, String title, String hint, bool obscure) {
   return Container(
     height: 45,
     margin: const EdgeInsets.only(top: 15),
@@ -39,7 +40,7 @@ BoxDecoration getBorderBox() {
       color: Colors.white, border: Border.all(width: 1, color: Colors.black12));
 }
 
-Widget getExpandedButton(String title, VoidCallback onPressed) {
+Widget renderExpandedButton(String title, VoidCallback onPressed) {
   return Container(
     constraints: BoxConstraints(
       minWidth: double.infinity,
@@ -71,7 +72,7 @@ Widget getTextCheckBox(String title, bool checkValue, ValueChanged<bool?>? callB
   );
 }
 
-Widget getGradientButton(Text title) {
+Widget renderGradientButton(Text title) {
   return TextButton(
     onPressed: () {},
     style: TextButton.styleFrom(
@@ -94,7 +95,7 @@ Widget getGradientButton(Text title) {
   );
 }
 
-Widget getBorderButton({
+Widget renderBorderButton({
   VoidCallback? onPressed,
 }) {
   return TextButton(
@@ -125,7 +126,10 @@ BoxConstraints expandedConstraints() {
   ); // min sizes for Material buttons
 }
 
-Widget tfFocusWidget(BuildContext context, Widget child) {
+Widget renderTfFocusWidget({
+  required BuildContext context,
+  required Widget child,
+}) {
   return GestureDetector(
     onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
     child: child,

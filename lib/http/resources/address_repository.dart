@@ -9,7 +9,7 @@ class AddressRepository {
   final logger = Logger();
 
   Future<Address> searchAddress(String query) async {
-    String url = "http://www.juso.go.kr/addrlink/addrLinkApi.do$query";
+    String url = "https://www.juso.go.kr/addrlink/addrLinkApi.do$query";
 
     Response response = await get(Uri.parse(url));
     String bodyString = utf8.decode(response.bodyBytes);

@@ -49,41 +49,41 @@ class UserInputExState extends State<UserInputEx> {
     var minHeight = MediaQuery.of(context).size.height -
         (appBar.preferredSize.height + MediaQuery.of(context).padding.top);
 
-    var body = SingleChildScrollView(
-        child: Container(
-      padding: EdgeInsets.all(20),
-      constraints: BoxConstraints(
-        minHeight: minHeight,
-        maxHeight: minHeight,
-      ),
-      child: getMainColumn(),
-    ));
-
     return Scaffold(
       appBar: appBar,
-      body: tfFocusWidget(context, body),
+      body: renderTfFocusWidget(
+        context: context,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            constraints: BoxConstraints(
+              minHeight: minHeight,
+              maxHeight: minHeight,
+            ),
+            child: renderMainColumn(),
+          ),
+        ),
+      ),
     );
   }
 
-  Widget getMainColumn() {
+  Widget renderMainColumn() {
     return Column(children: <Widget>[
-      getTextField(_emailTec, 'eamil', '이메일 입력', false),
-      getTextField(_passwordTec, 'passwrod', '비밀번호 입력', true),
-      getTextField(_userNameTec, 'name', '이름 입력', false),
-      getTextField(_nickNameTec, 'nick', '닉네임 입력', false),
-      SizedBox(
-        height: 15,
-      ),
-      getCheckBox(CheckBoxType.MAIL),
-      getCheckBox(CheckBoxType.MESSAGE),
+      renderTextField(_emailTec, 'eamil', '이메일 입력', false),
+      renderTextField(_passwordTec, 'passwrod', '비밀번호 입력', true),
+      renderTextField(_userNameTec, 'name', '이름 입력', false),
+      renderTextField(_nickNameTec, 'nick', '닉네임 입력', false),
+      SizedBox(height: 15),
+      renderCheckBox(CheckBoxType.MAIL),
+      renderCheckBox(CheckBoxType.MESSAGE),
       Expanded(child: Container()),
-      getExpandedButton('가입', memberCreateOnPress()),
-      getMemberCreate(),
-      getGradientButton(Text(
+      renderExpandedButton('가입', memberCreateOnPress()),
+      renderMemberCreate(),
+      renderGradientButton(Text(
         '그라데이션 버튼',
         style: TextStyle(color: Colors.white),
       )),
-      getBorderButton(),
+      renderBorderButton(),
     ]);
   }
 
@@ -104,7 +104,7 @@ class UserInputExState extends State<UserInputEx> {
     };
   }
 
-  Widget getCheckBox(CheckBoxType type) {
+  Widget renderCheckBox(CheckBoxType type) {
     String title = '';
     bool checkValue = false;
     ValueChanged<bool?>? callBack;
@@ -128,7 +128,7 @@ class UserInputExState extends State<UserInputEx> {
     return getTextCheckBox(title, checkValue, callBack);
   }
 
-  Widget getMemberCreate() {
+  Widget renderMemberCreate() {
     return StreamBuilder<MemberInputResult>(
       stream: _memberBloc.create,
       builder: (context, snapshot) {

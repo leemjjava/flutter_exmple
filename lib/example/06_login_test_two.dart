@@ -97,8 +97,8 @@ class LoginExTowState extends State<LoginExTwo> {
   Widget inputColumn() {
     return Column(
       children: <Widget>[
-        getTextField(_idCon, 'eamil', '이메일 입력', false),
-        getTextField(_passwordCon, 'passwrod', '비밀번호 입력', true),
+        renderTextField(_idCon, 'eamil', '이메일 입력', false),
+        renderTextField(_passwordCon, 'passwrod', '비밀번호 입력', true),
       ],
     );
   }
@@ -109,14 +109,14 @@ class LoginExTowState extends State<LoginExTwo> {
         Row(
           children: <Widget>[
             Expanded(
-              child: getExpandedButton(
+              child: renderExpandedButton(
                 '로그인',
                 () => onPress(ButtonType.LOGIN),
               ),
             ),
             SizedBox(width: 10),
             Expanded(
-              child: getExpandedButton(
+              child: renderExpandedButton(
                 '토큰 decode',
                 () => onPress(ButtonType.TOKEN_DECODE),
               ),
@@ -126,14 +126,14 @@ class LoginExTowState extends State<LoginExTwo> {
         Row(
           children: <Widget>[
             Expanded(
-              child: getExpandedButton(
+              child: renderExpandedButton(
                 'get Member',
                 () => onPress(ButtonType.ACCOUNT),
               ),
             ),
             SizedBox(width: 10),
             Expanded(
-              child: getExpandedButton(
+              child: renderExpandedButton(
                 '토큰 refresh',
                 () => onPress(ButtonType.RE_TOKEN),
               ),

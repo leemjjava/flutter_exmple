@@ -43,7 +43,11 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
     );
   }
 
-  Widget _listItemBuilder(BuildContext context, int index, Animation<double> animation) {
+  Widget _listItemBuilder(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+  ) {
     return CardItem(
       animation: animation,
       item: items[index],
@@ -56,7 +60,7 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
     );
   }
 
-  void _scrollEnd() {
+  void _scrollEnd() async {
     final widgetBinding = WidgetsBinding.instance;
     if (widgetBinding == null) return;
 
@@ -71,12 +75,12 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
 
   void _insert() {
     int index = _selectedItem == -1 ? items.length : items.indexOf(_selectedItem);
-    if (index == items.length) _scrollEnd();
-
+    bool isLast = index == items.length;
     items.insert(index, _nextItem);
     ++_nextItem;
 
     _listKey.currentState!.insertItem(index, duration: Duration(milliseconds: 300));
+    if (isLast) _scrollEnd();
   }
 
   void _remove() {
@@ -85,14 +89,20 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
 
     int item = items[index];
     _listKey.currentState!.removeItem(
-        index, (context, animation) => _buildRemovedItem(context, item, animation),
-        duration: Duration(milliseconds: 300));
+      index,
+      (context, animation) => _buildRemovedItem(context, item, animation),
+      duration: Duration(milliseconds: 300),
+    );
     items.removeAt(index);
 
     _selectedItem = -1;
   }
 
-  Widget _buildRemovedItem(BuildContext context, int item, Animation<double> animation) {
+  Widget _buildRemovedItem(
+    BuildContext context,
+    int item,
+    Animation<double> animation,
+  ) {
     return CardItem(
       animation: animation,
       item: item,
