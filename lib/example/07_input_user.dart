@@ -132,11 +132,14 @@ class UserInputExState extends State<UserInputEx> {
     return StreamBuilder<MemberInputResult>(
       stream: _memberBloc.create,
       builder: (context, snapshot) {
-        String? message = snapshot.data!.message;
+        final data = snapshot.data;
+        if (data == null) return Container();
+        String? message = data.message;
+        if (message == null) return Container();
 
         if (snapshot.hasError) {
           ResultBody resultBody = snapshot.error as ResultBody;
-          message = resultBody.message;
+          message = resultBody.message!;
         }
 
         WidgetsBinding.instance!.addPostFrameCallback((_) {

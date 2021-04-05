@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:navigator/components/topbar/top_bar.dart';
 import 'package:navigator/http/blocs/address_bloc.dart';
 import 'package:navigator/http/models/address.dart';
 import 'package:navigator/http/models/error.dart';
@@ -197,69 +198,5 @@ class SearchAddressState extends State<SearchAddress> {
     if (page == -1) return;
     ++page;
     addressBloc.fetchAddress(keyword, page);
-  }
-}
-
-// ignore: must_be_immutable
-class TopBar extends StatelessWidget {
-  TopBar({
-    Key? key,
-    this.title = '',
-    this.closeIcon,
-    this.onTap,
-    this.height = 60,
-  }) : super(key: key);
-
-  String title;
-  GestureTapCallback? onTap;
-  Icon? closeIcon;
-  double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: double.infinity,
-      child: Stack(
-        children: <Widget>[
-          titleWidget(),
-          closeWidget(context),
-        ],
-      ),
-    );
-  }
-
-  Widget titleWidget() {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.white,
-      height: height,
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  Widget closeWidget(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: height,
-      child: Material(
-        color: Colors.white,
-        child: InkWell(
-          splashColor: Color(0xFF757575),
-          onTap: onTap != null ? onTap : () => Navigator.pop(context),
-          child: Container(
-            margin: EdgeInsets.only(left: 10),
-            alignment: Alignment.centerLeft,
-            child: closeIcon == null ? Icon(Icons.close) : closeIcon,
-          ),
-        ),
-      ),
-    );
   }
 }

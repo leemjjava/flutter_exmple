@@ -50,12 +50,17 @@ class LoginExState extends State<LoginEx> {
           FutureBuilder<String>(
             future: getLocalToken(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final jwtMap = parseJwt(snapshot.data!);
-                return Text(jwtMap.toString());
+              try {
+                if (snapshot.hasData) {
+                  final jwtMap = parseJwt(snapshot.data!);
+                  return Text(jwtMap.toString());
+                }
+
+                if (snapshot.hasError) return Text("${snapshot.error}");
+              } catch (e) {
+                print(e.toString());
               }
 
-              if (snapshot.hasError) return Text("${snapshot.error}");
               return CircularProgressIndicator();
             },
           ),
