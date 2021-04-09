@@ -20,14 +20,14 @@ final String authHost = "https://23fay7fefe.execute-api.ap-northeast-2.amazonaws
 //   return pr;
 // }
 
-showAlertDialog(BuildContext context, String message) async {
+showAlertDialog(BuildContext context, String? message) async {
   await showDialog(
     context: context,
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('알림'),
-        content: Text(message),
+        content: Text(message ?? 'NO MESSAGE'),
         actions: <Widget>[
           TextButton(
             child: Text('OK'),

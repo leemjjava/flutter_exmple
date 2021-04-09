@@ -47,6 +47,7 @@ import 'example/14_get_x_statement.dart';
 import 'example/15_amount_custom_keyboard.dart';
 import 'example/16_card_list.dart';
 import 'example/17_bubble_list.dart';
+import 'example/18_photo_grid.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -297,6 +298,11 @@ final examples = [
     name: 'Bubble List',
     route: BubbleListExample.routeName,
     builder: (BuildContext context) => BubbleListExample(),
+  ),
+  MyRouts(
+    name: 'Photo Grid',
+    route: PhotoGridExample.routeName,
+    builder: (BuildContext context) => PhotoGridExample(),
   ),
 ];
 
