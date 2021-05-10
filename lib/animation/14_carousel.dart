@@ -63,6 +63,7 @@ class _CarouselState extends State<Carousel> {
   @override
   void initState() {
     super.initState();
+
     _controller = PageController(
       viewportFraction: .85,
       initialPage: _currentPage,
@@ -70,14 +71,20 @@ class _CarouselState extends State<Carousel> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(context) {
     var size = MediaQuery.of(context).size;
     return PageView.builder(
       onPageChanged: (value) {
-        setState(() {
-          _pageHasChanged = true;
-          _currentPage = value;
-        });
+        _pageHasChanged = true;
+        _currentPage = value;
+
+        setState(() {});
       },
       controller: _controller,
       itemBuilder: (context, index) => AnimatedBuilder(
@@ -99,11 +106,5 @@ class _CarouselState extends State<Carousel> {
         child: widget.itemBuilder(context, index),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

@@ -1,7 +1,3 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
 class AnimatedBuilderDemo extends StatefulWidget {
@@ -14,7 +10,7 @@ class _AnimatedBuilderDemoState extends State<AnimatedBuilderDemo>
     with SingleTickerProviderStateMixin {
   static const Color beginColor = Colors.deepPurple;
   static const Color endColor = Colors.deepOrange;
-  Duration duration = Duration(milliseconds: 800);
+
   late AnimationController controller;
   late Animation<Color?> animation;
 
@@ -23,7 +19,7 @@ class _AnimatedBuilderDemoState extends State<AnimatedBuilderDemo>
 
     controller = AnimationController(
       vsync: this,
-      duration: duration,
+      duration: Duration(milliseconds: 800),
     );
 
     animation = ColorTween(
@@ -39,21 +35,23 @@ class _AnimatedBuilderDemoState extends State<AnimatedBuilderDemo>
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: AnimatedBuilder(
-          animation: animation,
-          builder: (context, child) => renderBtn(child),
-          child: Text(
-            'Change Color',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+      appBar: AppBar(title: Text('Animated Builder')),
+      body: Center(child: renderMain()),
+    );
+  }
+
+  Widget renderMain() {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) => renderBtn(child),
+      child: Text(
+        'Change Color',
+        style: TextStyle(color: Colors.white),
       ),
     );
   }
 
-  renderBtn(Widget? child) {
+  Widget renderBtn(Widget? child) {
     return MaterialButton(
       color: animation.value,
       child: child,

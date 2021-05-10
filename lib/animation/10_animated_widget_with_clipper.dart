@@ -8,16 +8,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-//  final Image starsBackground = Image.asset(
-//    'assets/space.png',
-//    fit: BoxFit.fitHeight,
-//  );
-  final Image ufo = Image.asset(
-    'assets/ufo.png',
-    fit: BoxFit.fill,
-    width: 150,
-    height: 150,
-  );
   late AnimationController _animation;
 
   @override
@@ -31,29 +21,44 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   }
 
   @override
+  void dispose() {
+    _animation.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Stack(
         alignment: AlignmentDirectional.center,
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/space.png"), fit: BoxFit.cover),
-            ),
-          ),
+          renderBackground(),
           BeamTransition(animation: _animation),
-          ufo,
+          renderUfo(),
         ],
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _animation.dispose();
-    super.dispose();
+  Widget renderBackground() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/space.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget renderUfo() {
+    return Image.asset(
+      'assets/ufo.png',
+      fit: BoxFit.fill,
+      width: 150,
+      height: 150,
+    );
   }
 }
 
@@ -66,6 +71,7 @@ class BeamTransition extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
+
     return ClipPath(
       clipper: const BeamClipper(),
       child: Container(

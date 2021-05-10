@@ -1,7 +1,3 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
 class TypewriterTween extends Tween<String> {
@@ -10,9 +6,13 @@ class TypewriterTween extends Tween<String> {
     String end = '',
   }) : super(begin: begin, end: end);
 
-  String lerp(double t) {
-    var cutoff = (end!.length * t).round();
-    return end!.substring(0, cutoff);
+  @override
+  String lerp(double value) {
+    final end = this.end;
+    if (end == null) return '';
+
+    var endPosition = (end.length * value).round();
+    return end.substring(0, endPosition);
   }
 }
 
@@ -24,16 +24,18 @@ class CustomTweenDemo extends StatefulWidget {
 
 class _CustomTweenDemoState extends State<CustomTweenDemo>
     with SingleTickerProviderStateMixin {
-  static const Duration _duration = Duration(seconds: 3);
-  static const String message = loremIpsum;
   late AnimationController controller;
   late Animation<String> animation;
 
   void initState() {
     super.initState();
 
-    controller = AnimationController(vsync: this, duration: _duration);
-    animation = TypewriterTween(end: message).animate(controller);
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    animation = TypewriterTween(end: loremIpsum).animate(controller);
   }
 
   void dispose() {
@@ -43,49 +45,65 @@ class _CustomTweenDemoState extends State<CustomTweenDemo>
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          MaterialButton(
-            child: Text(
-              controller.status == AnimationStatus.completed
-                  ? 'Delete Essay'
-                  : 'Write Essay',
-            ),
-            textColor: Colors.white,
-            onPressed: () {
-              if (controller.status == AnimationStatus.completed) {
-                controller.reverse();
-              } else {
-                controller.forward();
-              }
-            },
-          ),
-        ],
-      ),
+      appBar: renderAppBar(),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Card(
-                child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) {
-                      return Text('${animation.value}',
-                          style: TextStyle(fontSize: 16, fontFamily: 'SpecialElite'));
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ],
+        child: Container(
+          height: double.infinity,
+          alignment: Alignment.bottomCenter,
+          child: renderMain(),
         ),
       ),
     );
+  }
+
+  AppBar renderAppBar() {
+    final title = isCompleted() ? 'Delete Essay' : 'Write Essay';
+
+    return AppBar(
+      actions: [
+        MaterialButton(
+          child: Text(title),
+          textColor: Colors.white,
+          onPressed: _appBarButtonTap,
+        ),
+      ],
+    );
+  }
+
+  Widget renderMain() {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        width: double.infinity,
+        child: AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) => renderContent(),
+        ),
+      ),
+    );
+  }
+
+  Widget renderContent() {
+    return Text(
+      '${animation.value}',
+      style: TextStyle(
+        fontSize: 16,
+        fontFamily: 'SpecialElite',
+      ),
+    );
+  }
+
+  _appBarButtonTap() {
+    if (controller.status == AnimationStatus.completed) {
+      controller.reverse();
+    } else {
+      controller.forward();
+    }
+  }
+
+  bool isCompleted() {
+    return controller.status == AnimationStatus.completed;
   }
 }
 

@@ -30,31 +30,37 @@ class _TimeMachineDemoState extends State<TimeMachineDemo>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: TimeStopper(controller: _animationController),
-            ),
-            RotationTransition(
-              alignment: Alignment.center,
-              turns: _animationController,
-              child: Container(
-                alignment: Alignment.center,
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return Image(
-                      image: AssetImage('assets/galaxy.png'),
-                      fit: BoxFit.fill,
-                      width: constraints.maxWidth,
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ));
+      appBar: AppBar(),
+      body: Stack(
+        children: <Widget>[
+          RotationTransition(
+            alignment: Alignment.center,
+            turns: _animationController,
+            child: Center(child: renderImage()),
+          ),
+          renderBottomBtn(),
+        ],
+      ),
+    );
+  }
+
+  Widget renderImage() {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Image(
+          image: AssetImage('assets/galaxy.png'),
+          fit: BoxFit.fill,
+          width: constraints.maxWidth,
+        );
+      },
+    );
+  }
+
+  Widget renderBottomBtn() {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: TimeStopper(controller: _animationController),
+    );
   }
 }
 
@@ -69,20 +75,19 @@ class TimeStopper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (controller.isAnimating) {
-          controller.stop();
-        } else {
-          controller.repeat();
-        }
-      },
+      onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-        ),
+        decoration: BoxDecoration(color: Colors.transparent),
         width: 100,
         height: 100,
       ),
     );
+  }
+
+  onTap() {
+    if (controller.isAnimating)
+      controller.stop();
+    else
+      controller.repeat();
   }
 }

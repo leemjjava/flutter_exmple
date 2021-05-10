@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FadeTransitionDemo extends StatefulWidget{
+class FadeTransitionDemo extends StatefulWidget {
   static const String routeName = '/basics/fade_transition';
 
   @override
@@ -8,8 +8,7 @@ class FadeTransitionDemo extends StatefulWidget{
 }
 
 class _FadeTransitionDemoState extends State<FadeTransitionDemo>
-    with SingleTickerProviderStateMixin{
-
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -32,23 +31,9 @@ class _FadeTransitionDemoState extends State<FadeTransitionDemo>
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            FadeTransition(
-              opacity: _controller,
-              child: Image.asset("assets/space.png"),
-            ),
-//            RaisedButton(
-//              child: Text("hide/show"),
-//              onPressed: (){
-//                if (_controller.status == AnimationStatus.completed) {
-//                  _controller.reverse();
-//                } else {
-//                  _controller.forward();
-//                }
-//              },
-//            )
-          ],
+        child: FadeTransition(
+          opacity: _controller,
+          child: Image.asset("assets/space.png"),
         ),
       ),
     );

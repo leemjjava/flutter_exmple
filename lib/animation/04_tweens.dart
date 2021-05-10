@@ -1,7 +1,3 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
 class TweenDemo extends StatefulWidget {
@@ -19,10 +15,8 @@ class _TweenDemoState extends State<TweenDemo> with SingleTickerProviderStateMix
   void initState() {
     super.initState();
 
-    controller = AnimationController(
-      vsync: this,
-      duration: _duration,
-    )..addListener(() => setState(() {}));
+    controller = AnimationController(vsync: this, duration: _duration);
+    controller.addListener(() => setState(() {}));
 
     animation = Tween(
       begin: 0.0,
@@ -36,28 +30,40 @@ class _TweenDemoState extends State<TweenDemo> with SingleTickerProviderStateMix
   }
 
   Widget build(BuildContext context) {
-    final title =
-        controller.status == AnimationStatus.completed ? 'Buy a Mansion' : 'Win Lottery';
-
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 200),
-              child: Text('\$${animation.value.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 24)),
-            ),
-            ElevatedButton(
-              child: Text(title),
-              onPressed: _onBtnTap,
-            )
-          ],
-        ),
+      body: Center(child: renderMain()),
+    );
+  }
+
+  Widget renderMain() {
+    final btnTitle = getTitle();
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        renderDataShow(),
+        ElevatedButton(
+          child: Text(btnTitle),
+          onPressed: _onBtnTap,
+        )
+      ],
+    );
+  }
+
+  Widget renderDataShow() {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 200),
+      child: Text(
+        '\$${animation.value.toStringAsFixed(2)}',
+        style: TextStyle(fontSize: 24),
       ),
     );
+  }
+
+  String getTitle() {
+    if (controller.status == AnimationStatus.completed) return 'Buy a Mansion';
+    return 'Win Lottery';
   }
 
   _onBtnTap() {

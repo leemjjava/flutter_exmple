@@ -1,9 +1,4 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 double generateBorderRadius() => Random().nextDouble() * 64;
@@ -23,41 +18,47 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 128,
-                height: 128,
-                child: AnimatedContainer(
-                  margin: EdgeInsets.all(margin),
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(borderRadius),
-                  ),
-                  duration: const Duration(seconds: 2),
-                  curve: Curves.bounceIn,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              child: Text('change'),
-              onPressed: () => change(),
-            ),
-          ],
+      appBar: AppBar(title: Text('Animation Container')),
+      body: Center(child: renderMain()),
+    );
+  }
+
+  Widget renderMain() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        renderChangeContainer(),
+        SizedBox(height: 10),
+        ElevatedButton(
+          child: Text('CHANGE'),
+          onPressed: _onChange,
         ),
+      ],
+    );
+  }
+
+  Widget renderChangeContainer() {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      width: 150,
+      height: 150,
+      child: AnimatedContainer(
+        margin: EdgeInsets.all(margin),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        duration: const Duration(seconds: 2),
+        curve: Curves.bounceIn,
       ),
     );
   }
 
-  void change() {
-    setState(() {
-      color = generateColor();
-      borderRadius = generateBorderRadius();
-      margin = generateMargin();
-    });
+  _onChange() {
+    color = generateColor();
+    borderRadius = generateBorderRadius();
+    margin = generateMargin();
+
+    setState(() {});
   }
 }
