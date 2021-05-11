@@ -146,12 +146,11 @@ class _SwipeableCardState extends State<SwipeableCard>
       _updateAnimation(details.localPosition.dx);
     }
 
-    setState(() {
-      // Calculate the amount dragged in unit coordinates (between 0 and 1)
-      // using this widgets width.
-      _controller.value =
-          (details.localPosition.dx - _dragStartX).abs() / context.size!.width;
-    });
+    // Calculate the amount dragged in unit coordinates (between 0 and 1)
+    // using this widgets width.
+    _controller.value =
+        (details.localPosition.dx - _dragStartX).abs() / context.size!.width;
+    setState(() {});
   }
 
   /// Runs the fling / spring animation using the final velocity of the drag
