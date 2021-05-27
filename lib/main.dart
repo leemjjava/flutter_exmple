@@ -4,6 +4,7 @@ import 'package:navigator/animation/20_page_view_fade.dart';
 import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
 import 'package:navigator/example/01_name_routes_arguments.dart';
+import 'package:navigator/example/20_in_app_web_view.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -48,6 +49,8 @@ import 'example/15_amount_custom_keyboard.dart';
 import 'example/16_card_list.dart';
 import 'example/17_bubble_list.dart';
 import 'example/18_photo_grid.dart';
+import 'example/19_bar_change_nested.dart';
+import 'example/21_kakao_map.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -303,6 +306,21 @@ final examples = [
     name: 'Photo Grid',
     route: PhotoGridExample.routeName,
     builder: (BuildContext context) => PhotoGridExample(),
+  ),
+  MyRouts(
+    name: 'Bar Change Nested',
+    route: BarChangeNested.routeName,
+    builder: (BuildContext context) => BarChangeNested(),
+  ),
+  MyRouts(
+    name: 'In App Web View Example',
+    route: InAppWebViewExample.routeName,
+    builder: (BuildContext context) => InAppWebViewExample(),
+  ),
+  MyRouts(
+    name: 'kakao map view body',
+    route: MapViewBody.routeName,
+    builder: (BuildContext context) => MapViewBody(),
   ),
 ];
 

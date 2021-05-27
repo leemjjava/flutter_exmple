@@ -17,7 +17,6 @@ class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderSta
   @override
   void initState() {
     super.initState();
-
     controller = AnimationController(vsync: this, duration: duration);
     animation = Tween(
       begin: 1.0,
@@ -25,9 +24,8 @@ class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderSta
     ).chain(CurveTween(curve: curve)).animate(controller);
 
     animation.addListener(() {
-      setState(() {
-        textFont = getFontSize();
-      });
+      textFont = getFontSize();
+      setState(() {});
     });
   }
 
@@ -60,9 +58,7 @@ class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderSta
     return (animation.value * 100) * 0.15;
   }
 
-  Route createSlideSideRoute({
-    required Widget widget,
-  }) {
+  Route createSlideSideRoute({required Widget widget}) {
     return PageRouteBuilder(
       transitionDuration: duration,
       pageBuilder: (context, animation, secondaryAnimation) => widget,

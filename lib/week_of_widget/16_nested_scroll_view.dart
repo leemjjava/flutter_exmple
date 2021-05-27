@@ -43,16 +43,17 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: NestedScrollView(
-        controller: scrollController,
-        headerSliverBuilder: headerSliverBuilder,
-        body: Container(
-          margin: EdgeInsets.only(top: sliverMinHeight),
-          child: mainPageView(),
+      child: Scaffold(
+        body: NestedScrollView(
+          controller: scrollController,
+          headerSliverBuilder: headerSliverBuilder,
+          body: Container(
+            margin: EdgeInsets.only(top: sliverMinHeight),
+            child: mainPageView(),
+          ),
         ),
       ),
-    ));
+    );
   }
 
   List<Widget> headerSliverBuilder(BuildContext context, bool innerBoxIsScrolled) {

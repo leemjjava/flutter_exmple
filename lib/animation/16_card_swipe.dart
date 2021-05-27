@@ -15,7 +15,11 @@ class CardSwipeDemo extends StatefulWidget {
 }
 
 class _CardSwipeDemoState extends State<CardSwipeDemo> {
-  late List<String> fileNames;
+  late List<String> fileNames = [
+    'assets/eat_cape_town_sm.jpg',
+    'assets/eat_new_orleans_sm.jpg',
+    'assets/eat_sydney_sm.jpg',
+  ];
 
   void initState() {
     super.initState();
@@ -35,39 +39,40 @@ class _CardSwipeDemoState extends State<CardSwipeDemo> {
       appBar: AppBar(
         title: Text('Card Swipe'),
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.all(12.0),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: ClipRect(
-                  child: Stack(
-                    children: <Widget>[
-                      for (final fileName in fileNames)
-                        SwipeableCard(
-                          imageAssetName: fileName,
-                          onSwiped: () {
-                            setState(() {
-                              fileNames.remove(fileName);
-                            });
-                          },
-                        ),
-                    ],
-                  ),
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ClipRect(
+                child: Stack(
+                  children: <Widget>[for (final path in fileNames) renderCard(path)],
                 ),
               ),
-              ElevatedButton(
-                child: const Text('Refill'),
-                onPressed: () {
-                  setState(() => _resetCards());
-                },
-              ),
-            ],
-          ),
+            ),
+            ElevatedButton(
+              child: const Text('Refill'),
+              onPressed: onRefillPressed,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Widget renderCard(String path) {
+    return SwipeAbleCard(
+      imageAssetName: path,
+      onSwiped: () {
+        fileNames.remove(path);
+        setState(() {});
+      },
+    );
+  }
+
+  onRefillPressed() {
+    setState(() => _resetCards());
   }
 }
 
@@ -92,19 +97,19 @@ class Card extends StatelessWidget {
   }
 }
 
-class SwipeableCard extends StatefulWidget {
+class SwipeAbleCard extends StatefulWidget {
   final String imageAssetName;
   final VoidCallback onSwiped;
 
-  SwipeableCard({
+  SwipeAbleCard({
     required this.onSwiped,
     required this.imageAssetName,
   });
 
-  _SwipeableCardState createState() => _SwipeableCardState();
+  _SwipeAbleCardState createState() => _SwipeAbleCardState();
 }
 
-class _SwipeableCardState extends State<SwipeableCard>
+class _SwipeAbleCardState extends State<SwipeAbleCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _animation;
@@ -170,9 +175,7 @@ class _SwipeableCardState extends State<SwipeableCard>
   void _animate({double velocity = 0}) {
     var description = SpringDescription(mass: 50, stiffness: 1, damping: 1);
     var simulation = SpringSimulation(description, _controller.value, 1, velocity);
-    _controller.animateWith(simulation).then<void>((_) {
-      widget.onSwiped();
-    });
+    _controller.animateWith(simulation).then<void>((_) => widget.onSwiped());
   }
 
   void dispose() {

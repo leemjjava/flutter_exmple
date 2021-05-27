@@ -47,8 +47,8 @@ class _ReactiveScreenState extends State<ReactiveScreen> {
   }
 
   Widget renderObxCount01() {
-    return GetX<ReactiveController>(builder: (_) {
-      return Text('Count 1 : ${_.count1.value}');
+    return GetX<ReactiveController>(builder: (controller) {
+      return Text('Count 1 : ${controller.count1.value}');
     });
   }
 
@@ -63,8 +63,8 @@ class _ReactiveScreenState extends State<ReactiveScreen> {
   Widget renderObxUser() {
     return Obx(
       () => Text(
-        'USER : ${controller.user.value!.id}'
-        '/${controller.user.value!.name}',
+        'USER : ${controller.user.value.id}'
+        '/${controller.user.value.name}',
       ),
     );
   }

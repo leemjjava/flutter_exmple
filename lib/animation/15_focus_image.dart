@@ -20,8 +20,7 @@ class Grid extends StatelessWidget {
     return Scaffold(
       body: GridView.builder(
         itemCount: 40,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
         itemBuilder: (context, index) {
           return (index >= 20)
               ? SmallCard('assets/eat_cape_town_sm.jpg')
@@ -64,23 +63,24 @@ Tween<RelativeRect> _createTween(BuildContext context) {
 class SmallCard extends StatelessWidget {
   final String imageAssetName;
 
-  SmallCard(this.imageAssetName);
+  SmallCard(
+    this.imageAssetName,
+  );
 
   Widget build(BuildContext context) {
     return Card(
       child: Material(
         child: InkWell(
-          onTap: () {
-            var nav = Navigator.of(context);
-            nav.push<void>(_createRoute(context, imageAssetName));
-          },
-          child: Image.asset(
-            imageAssetName,
-            fit: BoxFit.cover,
-          ),
+          onTap: () => onTap(context),
+          child: Image.asset(imageAssetName, fit: BoxFit.cover),
         ),
       ),
     );
+  }
+
+  onTap(BuildContext context) {
+    var nav = Navigator.of(context);
+    nav.push<void>(_createRoute(context, imageAssetName));
   }
 }
 

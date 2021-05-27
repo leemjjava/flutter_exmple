@@ -79,6 +79,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(context) {
     var size = MediaQuery.of(context).size;
+
     return PageView.builder(
       onPageChanged: (value) {
         _pageHasChanged = true;

@@ -110,9 +110,8 @@ class BackdropExampleState extends State<BackdropExample> {
       ),
       onPressed: () {
         frontPanelHeight = height;
-        setState(() {
-          frontPanelVisible.value = !panelOpen;
-        });
+        frontPanelVisible.value = !panelOpen;
+        setState(() {});
       },
     );
   }

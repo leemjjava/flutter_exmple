@@ -9,9 +9,7 @@ class PhysicsCardDragDemo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: DraggableCard(
-        child: FlutterLogo(
-          size: 128,
-        ),
+        child: FlutterLogo(size: 128),
       ),
     );
   }

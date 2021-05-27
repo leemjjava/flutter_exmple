@@ -28,30 +28,32 @@ class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Repeating Animation')),
       body: Center(
         child: AnimatedBuilder(
           animation: _borderRadius,
-          builder: (context, child) {
-            return Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: _borderRadius.value,
-              ),
-            );
-          },
+          builder: (context, child) => renderContainer(_borderRadius.value),
         ),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Widget renderContainer(BorderRadius radius) {
+    return Container(
+      width: 200,
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.deepPurple,
+        borderRadius: _borderRadius.value,
+      ),
+    );
   }
 }
