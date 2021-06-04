@@ -19,6 +19,9 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="[KAKAO_APP_KEY]]"/>
 
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="[GOOGLE_MAP_KEY]"/>
+
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

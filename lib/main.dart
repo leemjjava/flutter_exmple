@@ -5,6 +5,7 @@ import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
 import 'package:navigator/example/01_name_routes_arguments.dart';
 import 'package:navigator/example/20_in_app_web_view.dart';
+import 'package:navigator/example/22_googl_map.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -321,6 +322,11 @@ final examples = [
     name: 'kakao map view body',
     route: MapViewBody.routeName,
     builder: (BuildContext context) => MapViewBody(),
+  ),
+  MyRouts(
+    name: 'googl Map ',
+    route: MapSample.routeName,
+    builder: (BuildContext context) => MapSample(),
   ),
 ];
 
