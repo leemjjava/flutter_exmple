@@ -3,9 +3,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:navigator/animation/20_page_view_fade.dart';
 import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
+import 'package:navigator/animation/30_page_list_view.dart';
 import 'package:navigator/example/01_name_routes_arguments.dart';
 import 'package:navigator/example/20_in_app_web_view.dart';
 import 'package:navigator/example/22_googl_map.dart';
+import 'package:navigator/example/24_signature_example.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -52,6 +54,8 @@ import 'example/17_bubble_list.dart';
 import 'example/18_photo_grid.dart';
 import 'example/19_bar_change_nested.dart';
 import 'example/21_kakao_map.dart';
+import 'example/23_panorama_image.dart';
+import 'example/25_text_scanner.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -210,6 +214,11 @@ final animation = [
     route: PageTapExample.routeName,
     builder: (BuildContext context) => PageTapExample(),
   ),
+  MyRouts(
+    name: 'Page List View',
+    route: PageListViewExample.routeName,
+    builder: (BuildContext context) => PageListViewExample(),
+  ),
 ];
 
 final examples = [
@@ -327,6 +336,21 @@ final examples = [
     name: 'googl Map ',
     route: MapSample.routeName,
     builder: (BuildContext context) => MapSample(),
+  ),
+  MyRouts(
+    name: 'panorama Example',
+    route: PanoramaExample.routeName,
+    builder: (BuildContext context) => PanoramaExample(),
+  ),
+  MyRouts(
+    name: 'Signature Example',
+    route: SignatureExample.routeName,
+    builder: (BuildContext context) => SignatureExample(),
+  ),
+  MyRouts(
+    name: 'Ocr Example',
+    route: OcrTest.routeName,
+    builder: (BuildContext context) => OcrTest(),
   ),
 ];
 
