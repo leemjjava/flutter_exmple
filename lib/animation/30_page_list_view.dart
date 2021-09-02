@@ -28,7 +28,7 @@ class _PageListViewExampleState extends State<PageListViewExample> {
     return DefaultLayout(
       body: Column(
         children: [
-          TopBar(title: 'Page List Example'),
+          TopBar(title: 'Page List Example11'),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 20, right: 20, top: 30),
