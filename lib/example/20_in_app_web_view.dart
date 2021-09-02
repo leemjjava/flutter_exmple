@@ -77,7 +77,7 @@ class _InAppWebViewExampleState extends State<InAppWebViewExample> {
         controller.addJavaScriptHandler(
           handlerName: 'handlerFooWithArgs',
           callback: (args) {
-            print("handlerFooWithArgs : ${args}");
+            print("handlerFooWithArgs : $args");
           },
         );
       },

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tesseract_ocr/android_ios.dart';
 import 'package:image_picker/image_picker.dart';
@@ -81,7 +79,7 @@ class OcrTestState extends State<OcrTest> {
     this.text = null;
     setState(() {});
 
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile == null) return;
 
@@ -99,7 +97,7 @@ class OcrTestState extends State<OcrTest> {
     setState(() {});
 
     final _picker = ImagePicker();
-    final PickedFile? pickedFile = await _picker.getImage(source: ImageSource.camera);
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile == null) return;
 

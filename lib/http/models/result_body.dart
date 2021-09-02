@@ -1,7 +1,7 @@
 class ResultBody<T> {
   final int statusCode;
   final String? message;
-  final dynamic? data;
+  final dynamic data;
 
   ResultBody({
     required this.statusCode,

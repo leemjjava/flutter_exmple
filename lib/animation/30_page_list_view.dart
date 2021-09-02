@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:navigator/components/animation/fade_page_item.dart';
 import 'package:navigator/components/list_view.dart';
 import 'package:navigator/components/topbar/top_bar.dart';
+import 'package:navigator/layouts/default_layout.dart';
+import 'package:navigator/utile/utile.dart';
 
 class PageListViewExample extends StatefulWidget {
   static const String routeName = '/misc/page_list_view_example';
@@ -23,25 +25,26 @@ class _PageListViewExampleState extends State<PageListViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            TopBar(title: 'Page List Example'),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 30),
-                child: PageListView(
-                  itemCount: 100,
-                  onItemTap: _onItemTap,
-                  builderFunction: _pageListViewBuilder,
-                ),
-              ),
+    return DefaultLayout(
+      body: Column(
+        children: [
+          TopBar(title: 'Page List Example'),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 30),
+              child: renderListView(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget renderListView() {
+    return PageListView(
+      itemCount: 100,
+      onItemTap: _onItemTap,
+      builderFunction: _pageListViewBuilder,
     );
   }
 
@@ -57,12 +60,12 @@ class _PageListViewExampleState extends State<PageListViewExample> {
           borderRadius: BorderRadius.all(Radius.circular(4)),
           child: Stack(
             children: <Widget>[
-              Positioned.fill(child: Image.asset(path, fit: BoxFit.cover)),
+              renderImage(path),
               Positioned.fill(
                 child: Container(
                   alignment: Alignment.topLeft,
                   padding: EdgeInsets.all(20),
-                  child: renderTitleText("TITLE : $index", pagePercent),
+                  child: renderTitleText(index, pagePercent),
                 ),
               ),
             ],
@@ -73,32 +76,64 @@ class _PageListViewExampleState extends State<PageListViewExample> {
     );
   }
 
-  _onItemTap(int index) {}
+  Widget renderImage(String path) {
+    return Hero(
+      tag: path,
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(child: Image.asset(path, fit: BoxFit.cover)),
+          Positioned.fill(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0x4d000000),
+                    Color(0x1f545454),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-  // Widget renderImage() {
-  //   return Hero(
-  //     tag: "${tag}_$index",
-  //     child: Image.asset(path, fit: BoxFit.cover),
-  //   );
-  // }
-
-  Widget renderTitleText(String title, double pagePercent) {
-    return Material(
-      type: MaterialType.transparency, // likely needed
-      child: FittedBox(
-        child: Text(
-          title,
-          textAlign: TextAlign.left,
-          textScaleFactor: pagePercent,
-          style: TextStyle(
-            fontSize: 32,
-            height: (36 / 32),
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+  Widget renderTitleText(int index, double pagePercent) {
+    return Hero(
+      tag: "${index}_title",
+      child: Material(
+        type: MaterialType.transparency, // likely needed
+        child: FittedBox(
+          child: Text(
+            "TITLE : $index",
+            textAlign: TextAlign.left,
+            textScaleFactor: pagePercent,
+            style: TextStyle(
+              fontSize: 32,
+              height: (36 / 32),
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  _onItemTap(int index) {
+    final route = createSlideUpRoute(
+      widget: DetailView(
+        path: list[index],
+        title: "TITLE : $index",
+        index: index,
+      ),
+    );
+    Navigator.push(context, route);
   }
 }
 
@@ -106,54 +141,87 @@ class _PageListViewExampleState extends State<PageListViewExample> {
 class DetailView extends StatelessWidget {
   String path;
   String title;
+  int index;
 
   DetailView({
     required this.path,
     required this.title,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            TopBar(title: ''),
-            Container(
-              height: 300,
+    return DefaultLayout(
+      body: Column(
+        children: [
+          TopBar(title: ''),
+          renderMain(),
+        ],
+      ),
+    );
+  }
+
+  Widget renderMain() {
+    return Container(
+      height: 300,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          renderImage(path),
+          Positioned.fill(
+            child: Container(
+              alignment: Alignment.bottomRight,
+              padding: EdgeInsets.all(20),
+              child: titleText(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget renderImage(String path) {
+    return Hero(
+      tag: path,
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(child: Image.asset(path, fit: BoxFit.cover)),
+          Positioned.fill(
+            child: Container(
               width: double.infinity,
-              child: Stack(
-                children: [
-                  Positioned.fill(child: Image.asset(path, fit: BoxFit.cover)),
-                  Positioned.fill(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      padding: EdgeInsets.all(20),
-                      child: titleText(),
-                    ),
-                  ),
-                ],
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0x4d000000),
+                    Color(0x1f545454),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget titleText() {
-    return Material(
-      type: MaterialType.transparency, // likely needed
-      child: FittedBox(
-        child: Text(
-          title,
-          textAlign: TextAlign.left,
-          style: TextStyle(
-            fontSize: 32,
-            height: (36 / 32),
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+    return Hero(
+      tag: "${index}_title",
+      child: Material(
+        type: MaterialType.transparency,
+        child: FittedBox(
+          child: Text(
+            title,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontSize: 32,
+              height: (36 / 32),
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

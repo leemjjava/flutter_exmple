@@ -12,7 +12,6 @@ class MapViewBody extends StatefulWidget {
 
 class MapViewBodyState extends State<MapViewBody> {
   late KakaoMapController mapController;
-  MapPoint _visibleRegion = MapPoint(37.5087553, 127.0632877);
   static final CameraPosition _kInitialPosition = CameraPosition(
     target: MapPoint(37.5087553, 127.0632877),
     zoom: 5,
@@ -29,7 +28,6 @@ class MapViewBodyState extends State<MapViewBody> {
     if (visibleRegion == null) return;
     setState(() {
       mapController = controller;
-      _visibleRegion = visibleRegion;
     });
   }
 
