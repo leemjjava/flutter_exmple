@@ -104,19 +104,19 @@ class PageIndicatorExample extends StatelessWidget {
       children: <Widget>[
         Container(
           color: Colors.white,
-          child: Center(child: Text("사전체크")),
+          child: Center(child: Text("사전체크1")),
         ),
         Container(
           color: Colors.white,
-          child: Center(child: Text("유형선택")),
+          child: Center(child: Text("유형선택2")),
         ),
         Container(
           color: Colors.white,
-          child: Center(child: Text("사진첨부")),
+          child: Center(child: Text("사진첨부3")),
         ),
         Container(
           color: Colors.white,
-          child: Center(child: Text("문의내용")),
+          child: Center(child: Text("문의내용4")),
         ),
       ],
       onPageChanged: (index) {
