@@ -73,12 +73,14 @@ class InkWellCS extends StatelessWidget {
     this.onTap,
     this.backgroundColor = Colors.white,
     this.splashColor,
+    this.highlightColor,
   }) : super(key: key);
 
   final Widget? child;
   final GestureTapCallback? onTap;
   final Color? splashColor;
   final Color? backgroundColor;
+  Color? highlightColor;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,7 @@ class InkWellCS extends StatelessWidget {
       color: backgroundColor,
       child: InkWell(
         splashColor: splashColor,
+        highlightColor: highlightColor,
         child: child,
         onTap: onTap,
       ),
