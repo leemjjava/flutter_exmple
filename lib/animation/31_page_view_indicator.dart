@@ -21,7 +21,7 @@ class PageIndicatorExample extends StatelessWidget {
     return DefaultLayout(
       body: Column(
         children: [
-          TopBar(title: 'Page Indicator Example1'),
+          TopBar(title: 'Page Indicator Example'),
           Expanded(child: renderBody()),
         ],
       ),
