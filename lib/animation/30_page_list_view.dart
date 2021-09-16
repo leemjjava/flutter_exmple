@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:navigator/components/animation/fade_page_item.dart';
 import 'package:navigator/components/list_view.dart';
 import 'package:navigator/components/topbar/top_bar.dart';
 import 'package:navigator/layouts/default_layout.dart';
@@ -48,31 +47,24 @@ class _PageListViewExampleState extends State<PageListViewExample> {
     );
   }
 
-  _pageListViewBuilder(BuildContext context, int index, double scrollPosition) {
-    return FadePageItemCS(
-      pageScrollPosition: scrollPosition,
-      pageNumber: index,
-      builderFunction: (context, pagePercent) {
-        final pathIndex = index % list.length;
-        final path = list[pathIndex];
+  _pageListViewBuilder(BuildContext context, double pagePercent, int index) {
+    final pathIndex = index % list.length;
+    final path = list[pathIndex];
 
-        return ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          child: Stack(
-            children: <Widget>[
-              renderImage(path),
-              Positioned.fill(
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  padding: EdgeInsets.all(20),
-                  child: renderTitleText(index, pagePercent),
-                ),
-              ),
-            ],
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(4)),
+      child: Stack(
+        children: <Widget>[
+          renderImage(path),
+          Positioned.fill(
+            child: Container(
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.all(20),
+              child: renderTitleText(index, pagePercent),
+            ),
           ),
-        );
-      },
-      radius: 4,
+        ],
+      ),
     );
   }
 

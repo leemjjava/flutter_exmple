@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/utile/utile.dart';
 
+import 'animation/fade_page_item.dart';
+
 class PageListView extends StatefulWidget {
   final itemCount;
   final Function(
     BuildContext context,
+    double pagePercent,
     int index,
-    double scrollPosition,
   ) builderFunction;
 
   final Function(int index) onItemTap;
@@ -58,7 +60,8 @@ class PageListViewSate extends State<PageListView> {
           scrollDirection: Axis.vertical,
           itemCount: widget.itemCount,
           itemBuilder: (context, index) {
-            final child = widget.builderFunction(context, index, scrollPosition);
+            final child = _pageListViewBuilder(context, index, scrollPosition);
+
             return InkWellCS(
               child: SizedBox(height: deviceHeight, child: child),
               onTap: () => widget.onItemTap(index),
@@ -66,6 +69,17 @@ class PageListViewSate extends State<PageListView> {
           },
         );
       },
+    );
+  }
+
+  _pageListViewBuilder(BuildContext context, int index, double scrollPosition) {
+    return FadePageItemCS(
+      pageScrollPosition: scrollPosition,
+      pageNumber: index,
+      builderFunction: (context, pagePercent) {
+        return widget.builderFunction(context, pagePercent, index);
+      },
+      radius: 4,
     );
   }
 }

@@ -15,7 +15,12 @@ class FadePageItemCS extends StatelessWidget {
   final pageNumber;
   final minRatio = 0.75;
   double? radius;
-  final Function(BuildContext context, double pagePercent) builderFunction;
+
+  final Function(
+    BuildContext context,
+    double pagePercent,
+  ) builderFunction;
+
   late BuildContext context;
   @override
   Widget build(BuildContext context) {
