@@ -10,7 +10,7 @@ class RepeatingAnimationDemo extends StatefulWidget {
 class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<BorderRadius> _borderRadius;
+  late Animation<BorderRadius?> _borderRadius;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
       body: Center(
         child: AnimatedBuilder(
           animation: _borderRadius,
-          builder: (context, child) => renderContainer(_borderRadius.value),
+          builder: (context, child) => renderContainer(_borderRadius.value!),
         ),
       ),
     );
