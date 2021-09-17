@@ -84,6 +84,8 @@ class PageIndicatorState extends State<PageIndicator> {
   }
 
   Widget pageButton(Widget titleText, int page) {
+    bool isSelect = page <= pageIndex;
+
     return Column(
       children: <Widget>[
         Expanded(child: Center(child: titleText)),
@@ -94,7 +96,7 @@ class PageIndicatorState extends State<PageIndicator> {
 
   Widget renderBackView(double width) {
     if (widget.isSubmit) {
-      return Container(width: double.infinity, color: Color(0xffebebeb));
+      return Container(width: double.infinity, color: Colors.green[100]);
     }
 
     return Container(
@@ -104,7 +106,7 @@ class PageIndicatorState extends State<PageIndicator> {
           topRight: Radius.circular(22),
           bottomRight: Radius.circular(22),
         ),
-        color: Color(0xffebebeb),
+        color: Colors.green[100],
       ),
     );
   }

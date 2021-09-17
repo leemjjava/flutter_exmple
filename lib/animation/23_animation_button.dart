@@ -111,28 +111,23 @@ class _AnimationButtonState extends State<AnimationButton> with TickerProviderSt
                               )
                             : Container(),
                         AnimatedSize(
-                          vsync: this,
                           duration: Duration(milliseconds: 600),
                           child: show ? SizedBox(width: 10.0) : Container(),
                         ),
                         AnimatedSize(
-                          vsync: this,
                           duration: Duration(milliseconds: 200),
                           child: show ? Text("Send") : Container(),
                         ),
                         AnimatedSize(
-                          vsync: this,
                           duration: Duration(milliseconds: 200),
                           child: sent ? Icon(Icons.done) : Container(),
                         ),
                         AnimatedSize(
-                          vsync: this,
                           alignment: Alignment.topLeft,
                           duration: Duration(milliseconds: 600),
                           child: sent ? SizedBox(width: 10.0) : Container(),
                         ),
                         AnimatedSize(
-                          vsync: this,
                           duration: Duration(milliseconds: 200),
                           child: sent ? Text("Done") : Container(),
                         ),

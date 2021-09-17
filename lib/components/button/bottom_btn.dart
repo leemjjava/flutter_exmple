@@ -21,8 +21,8 @@ class BottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWellCS(
-      backgroundColor: isDisable == true ? Color(0x1F000000) : Color(0xff00aeff),
-      splashColor: isDisable == true ? Color(0x1F000000) : Color(0xff057bc7),
+      backgroundColor: isDisable == true ? Color(0x1F000000) : Colors.green,
+      splashColor: isDisable == true ? Color(0x1F000000) : Colors.green[700],
       highlightColor: Colors.white.withOpacity(0),
       child: Container(
         height: 48,

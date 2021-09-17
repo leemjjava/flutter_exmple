@@ -32,7 +32,6 @@ dependencies:
   flutter_inappwebview: ^5.3.2
   panorama: ^0.4.1
   signature: ^4.1.1
-  flutter_tesseract_ocr: ^0.4.6
 
   image_picker: ^0.8.0+4
   google_maps_flutter: 2.0.6

@@ -56,7 +56,6 @@ import 'example/18_photo_grid.dart';
 import 'example/19_bar_change_nested.dart';
 import 'example/21_kakao_map.dart';
 import 'example/23_panorama_image.dart';
-import 'example/25_text_scanner.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -352,11 +351,6 @@ final examples = [
     name: 'Signature Example',
     route: SignatureExample.routeName,
     builder: (BuildContext context) => SignatureExample(),
-  ),
-  MyRouts(
-    name: 'Ocr Example',
-    route: OcrTest.routeName,
-    builder: (BuildContext context) => OcrTest(),
   ),
 ];
 
