@@ -14,81 +14,40 @@ class PageIndicatorExample extends StatelessWidget {
   int pageIndex = 0;
   Submit submit = Submit();
 
-  final tapList = ['Page1', 'Page2', 'Page3', 'Page4', 'Complete'];
+  final tapList = ['Page1', 'Page2', 'Page3', 'Page4'];
 
   @override
   Widget build(BuildContext context) {
     this.context = context;
+
     return ChangeNotifierProvider(
       create: (context) => submit,
       child: DefaultLayout(
-        body: Column(
-          children: [
-            TopBar(title: 'Page Indicator Example'),
-            Expanded(child: renderBody()),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget renderBody() {
-    return WillPopScope(
-      child: Column(
-        children: [
-          Expanded(child: renderMain()),
-          BottomButton(
-            title: '다음',
-            onTap: _onNextBtnTap,
-            secondWidget: Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Colors.white,
-              size: 12,
-            ),
+        body: WillPopScope(
+          onWillPop: () async {
+            _onBackBtnTap();
+            return false;
+          },
+          child: Column(
+            children: [
+              TopBar(title: 'Page Indicator Example'),
+              SizedBox(height: 50, child: renderTopBar()),
+              Expanded(child: renderPageView()),
+              renderBottomBtn(),
+            ],
           ),
-        ],
-      ),
-      onWillPop: () async {
-        _onBackBtnTap();
-        return false;
-      },
-    );
-  }
-
-  Widget renderMain() {
-    return Stack(
-      children: [
-        renderPageView(),
-        Positioned(
-          left: 0,
-          right: 0,
-          top: 0,
-          height: 50,
-          child: renderTopBar(),
         ),
-      ],
+      ),
     );
   }
 
   Widget renderTopBar() {
     return Consumer<Submit>(
       builder: (context, submit, child) {
-        return Row(
-          children: [
-            Container(width: 16, height: double.infinity, color: Colors.green[100]),
-            Expanded(
-              child: PageIndicator(
-                titleList: tapList.map((text) => renderTap(text)).toList(),
-                pageController: pageController,
-                isSubmit: submit.isSubmit,
-              ),
-            ),
-            Container(
-              width: 16,
-              height: double.infinity,
-              color: submit.isSubmit ? Colors.green[100] : Colors.transparent,
-            ),
-          ],
+        return PageIndicator(
+          titleList: tapList.map((text) => renderTap(text)).toList(),
+          pageController: pageController,
+          isSubmit: submit.isSubmit,
         );
       },
     );
@@ -124,7 +83,7 @@ class PageIndicatorExample extends StatelessWidget {
         ),
         Container(
           color: Colors.white,
-          child: Center(child: Text("Complete")),
+          child: Center(child: Text("Page4")),
         ),
       ],
       onPageChanged: (index) {
@@ -139,15 +98,16 @@ class PageIndicatorExample extends StatelessWidget {
     return Consumer<Submit>(
       builder: (context, submit, child) {
         final index = submit.pageCount;
+        final icon = Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: Colors.white,
+          size: 12,
+        );
 
         return BottomButton(
-          title: index == 3 ? '전송' : '다음',
+          title: index == 3 ? 'submit' : 'next',
           onTap: _onNextBtnTap,
-          secondWidget: Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: Colors.white,
-            size: 12,
-          ),
+          secondWidget: index == 3 ? null : icon,
         );
       },
     );

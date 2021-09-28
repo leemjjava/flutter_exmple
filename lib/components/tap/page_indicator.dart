@@ -1,4 +1,3 @@
-// ignore: must_be_immutable
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -8,11 +7,13 @@ class PageIndicator extends StatefulWidget {
     required this.titleList,
     required this.pageController,
     required this.isSubmit,
+    this.indicatorColor = const Color(0xFFC8E6C9),
   }) : super(key: key);
 
   final List<Widget> titleList;
   final PageController pageController;
   bool isSubmit;
+  Color indicatorColor;
   @override
   PageIndicatorState createState() => PageIndicatorState();
 }
@@ -27,7 +28,7 @@ class PageIndicatorState extends State<PageIndicator> {
     super.initState();
     maxCount = widget.titleList.length;
     final initialPage = widget.pageController.initialPage;
-    tLVScrollPercent = (1 / (maxCount - 1)) * initialPage;
+    tLVScrollPercent = (1 / maxCount) * initialPage;
 
     widget.pageController.addListener(_setPagePosition);
   }
@@ -40,63 +41,70 @@ class PageIndicatorState extends State<PageIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double maxWidth = constraints.maxWidth;
-        final width = maxWidth / maxCount;
-
-        final leftWidth = (constraints.maxWidth / maxCount) * (maxCount - 1);
-        final left = (leftWidth - width) * tLVScrollPercent;
-
-        return Container(
-          height: 50,
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 0,
-                top: 0,
-                left: 0,
-                right: widget.isSubmit ? 0 : null,
-                child: renderBackView(width + left),
-              ),
-              Positioned.fill(child: pageButtonLayout()),
-            ],
+    return Row(
+      children: [
+        Container(width: 16, color: widget.indicatorColor),
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, constraints) => renderMainRow(constraints),
           ),
-        );
-      },
+        ),
+        Container(
+          width: 16,
+          height: double.infinity,
+          color: widget.isSubmit ? widget.indicatorColor : Colors.transparent,
+        ),
+      ],
     );
   }
 
-  Widget pageButtonLayout() {
-    return SizedBox(
+  Widget renderMainRow(BoxConstraints constraints) {
+    double maxWidth = constraints.maxWidth;
+    final width = maxWidth / maxCount;
+    final left = (maxWidth - width) * tLVScrollPercent;
+
+    return Container(
       height: 50,
-      child: Row(
-        children: renderButtonList(),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            top: 0,
+            left: 0,
+            right: widget.isSubmit ? 0 : null,
+            child: renderBackView(width + left),
+          ),
+          Positioned.fill(child: pageButtonLayout()),
+        ],
       ),
     );
   }
 
-  List<Widget> renderButtonList() {
-    final listMap = widget.titleList.asMap();
-    return listMap.entries.map((entry) {
-      return Expanded(child: pageButton(entry.value, entry.key));
-    }).toList();
+  Widget pageButtonLayout() {
+    final titleList = widget.titleList;
+
+    return SizedBox(
+      height: 50,
+      child: Row(
+        children: titleList.map((widget) => pageButton(widget)).toList(),
+      ),
+    );
   }
 
-  Widget pageButton(Widget titleText, int page) {
-    bool isSelect = page <= pageIndex;
-
-    return Column(
-      children: <Widget>[
-        Expanded(child: Center(child: titleText)),
-        Container(height: 2, color: Colors.transparent),
-      ],
+  Widget pageButton(Widget titleText) {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          Expanded(child: Center(child: titleText)),
+          Container(height: 2, color: Colors.transparent),
+        ],
+      ),
     );
   }
 
   Widget renderBackView(double width) {
     if (widget.isSubmit) {
-      return Container(width: double.infinity, color: Colors.green[100]);
+      return Container(width: double.infinity, color: widget.indicatorColor);
     }
 
     return Container(
@@ -106,7 +114,7 @@ class PageIndicatorState extends State<PageIndicator> {
           topRight: Radius.circular(22),
           bottomRight: Radius.circular(22),
         ),
-        color: Colors.green[100],
+        color: widget.indicatorColor,
       ),
     );
   }

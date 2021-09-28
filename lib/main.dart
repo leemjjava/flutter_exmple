@@ -9,6 +9,7 @@ import 'package:navigator/example/01_name_routes_arguments.dart';
 import 'package:navigator/example/20_in_app_web_view.dart';
 import 'package:navigator/example/22_googl_map.dart';
 import 'package:navigator/example/24_signature_example.dart';
+import 'package:navigator/example/25_android_intent.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -351,6 +352,11 @@ final examples = [
     name: 'Signature Example',
     route: SignatureExample.routeName,
     builder: (BuildContext context) => SignatureExample(),
+  ),
+  MyRouts(
+    name: 'Android Intent Screen',
+    route: AndroidIntentScreen.routeName,
+    builder: (BuildContext context) => AndroidIntentScreen(),
   ),
 ];
 
