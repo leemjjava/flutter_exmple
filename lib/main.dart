@@ -10,6 +10,7 @@ import 'package:navigator/example/20_in_app_web_view.dart';
 import 'package:navigator/example/22_googl_map.dart';
 import 'package:navigator/example/24_signature_example.dart';
 import 'package:navigator/example/25_android_intent.dart';
+import 'package:navigator/example/26_time_picker.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -57,6 +58,7 @@ import 'example/18_photo_grid.dart';
 import 'example/19_bar_change_nested.dart';
 import 'example/21_kakao_map.dart';
 import 'example/23_panorama_image.dart';
+import 'example/27_socket_io.dart';
 import 'week_of_widget/01_custom_paint_ex.dart';
 import 'week_of_widget/02_backdrop_filter.dart';
 import 'week_of_widget/03_dismissible.dart';
@@ -275,8 +277,8 @@ final examples = [
   ),
   MyRouts(
     name: 'WebSocketView',
-    route: WebSocketView.routeName,
-    builder: (BuildContext context) => WebSocketView(),
+    route: WebSocketExample.routeName,
+    builder: (BuildContext context) => WebSocketExample(),
   ),
   MyRouts(
     name: 'AddressSearch',
@@ -357,6 +359,16 @@ final examples = [
     name: 'Android Intent Screen',
     route: AndroidIntentScreen.routeName,
     builder: (BuildContext context) => AndroidIntentScreen(),
+  ),
+  MyRouts(
+    name: 'Time Picker',
+    route: TimePicker.routeName,
+    builder: (BuildContext context) => TimePicker(),
+  ),
+  MyRouts(
+    name: 'socket io',
+    route: Chat.routeName,
+    builder: (BuildContext context) => Chat(),
   ),
 ];
 
@@ -468,9 +480,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
       home: HomePage(),
       routes: allRoutes,
       onGenerateRoute: (RouteSettings settings) {
@@ -530,9 +539,7 @@ class DemoTile extends StatelessWidget {
     return ListTile(
       title: Text(
         demo.name,
-        style: TextStyle(
-          fontSize: 15,
-        ),
+        style: TextStyle(fontSize: 15),
       ),
       onTap: () {
         Navigator.pushNamed(context, demo.route);
