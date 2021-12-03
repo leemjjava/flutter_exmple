@@ -40,7 +40,7 @@ class ChatState extends State<Chat> {
 
   void initSocket() {
     print('Connecting to chat service');
-    socket = IO.io('https://ff847a462e9a.ngrok.io', <String, dynamic>{
+    socket = IO.io('http://211.218.24.94:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -48,13 +48,19 @@ class ChatState extends State<Chat> {
     socket.onConnect((_) {
       print('connected to websocket');
     });
-    socket.on('chat', (message) {
-      print("chat : $message");
+    socket.onDisconnect((data) {
+      print('onDisconnect ${data.toString()}');
+    });
+    socket.on('messages', (message) {
+      print("messages : $message");
       setState(() => messages.add(message));
     });
-    socket.on('allChats', (messages) {
+    socket.on(' ', (messages) {
       print("allChats : $messages");
       setState(() => this.messages.addAll(messages));
+    });
+    socket.onError((data) {
+      print("onError : ${data.toString()}");
     });
   }
 
@@ -200,7 +206,7 @@ class ChatState extends State<Chat> {
         'recipient': 'chat',
         'time': DateTime.now().toUtc().toString().substring(0, 16)
       };
-      socket.emit('chat', messagePost);
+      socket.emit('send', messagePost);
       setState(() => messages.add(messagePost));
     }
   }
