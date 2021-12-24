@@ -11,6 +11,7 @@ import 'package:navigator/example/22_googl_map.dart';
 import 'package:navigator/example/24_signature_example.dart';
 import 'package:navigator/example/25_android_intent.dart';
 import 'package:navigator/example/26_time_picker.dart';
+import 'package:navigator/example/28_photo_page_screen.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -369,6 +370,11 @@ final examples = [
     name: 'socket io',
     route: Chat.routeName,
     builder: (BuildContext context) => Chat(),
+  ),
+  MyRouts(
+    name: 'Image Page View',
+    route: Chat.routeName,
+    builder: (BuildContext context) => PhotoPageScreen(),
   ),
 ];
 

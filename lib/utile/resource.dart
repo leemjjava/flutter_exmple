@@ -175,3 +175,18 @@ final urCard = CardModel(
   color: Color(0xFF0067AC),
   cardNumber: '우리카드 Deep Dream Card',
 );
+
+final pageImage01 =
+    "https://cdn.pixabay.com/photo/2021/12/11/15/06/northern-lights-6862969_960_720.jpg";
+final pageImage02 =
+    "https://cdn.pixabay.com/photo/2021/12/18/17/11/flower-6879399_960_720.jpg";
+final pageImage03 =
+    "https://cdn.pixabay.com/photo/2021/10/25/07/03/eagle-6740066_960_720.jpg";
+final pageImage04 =
+    "https://cdn.pixabay.com/photo/2021/09/28/19/42/uskudar-6665402_960_720.jpg";
+final pageImage05 =
+    "https://cdn.pixabay.com/photo/2020/06/15/05/44/cologne-5300430_960_720.jpg";
+final pageImage06 =
+    "https://cdn.pixabay.com/photo/2021/12/18/07/55/cup-6878196_960_720.jpg";
+final pageImage07 =
+    "https://cdn.pixabay.com/photo/2021/09/25/19/22/animal-6655641_960_720.jpg";
