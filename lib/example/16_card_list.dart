@@ -18,7 +18,7 @@ class CardListState extends State<CardList> {
   @override
   void initState() {
     super.initState();
-    list.addAll([bcCard, bnkCard, ctCard, dgbCard, ehCard]);
+    list.addAll([bcCard, ctCard, dgbCard, ehCard]);
     list.addAll([gjCard, hdCard, hnCard, ibkCard, jbCard]);
     list.addAll([kakaoCard, kbCard, kBankCard, kdbCard, lotteCard]);
     list.addAll([nhCard, sbiCard, scCard, shCard, sinhCard]);
@@ -29,40 +29,38 @@ class CardListState extends State<CardList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: renderMain(),
-      ),
-    );
-  }
-
-  Widget renderMain() {
-    return Column(
-      children: [
-        TopBar(title: 'Card List'),
-        SizedBox(
-          width: double.infinity,
-          height: 130,
-          child: renderListView(220),
-        ),
-        Expanded(
-          child: Center(
-            child: CreditCard(
-              width: 320,
-              height: 200,
-              model: list[nowIndex],
+        child: Column(
+          children: [
+            TopBar(title: 'Card List'),
+            SizedBox(
+              width: double.infinity,
+              height: 130,
+              child: renderListView(220),
             ),
-          ),
+            Expanded(
+              child: Center(
+                child: CreditCard(
+                  width: 320,
+                  height: 200,
+                  model: list[nowIndex],
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
   Widget renderListView(double itemExtent) {
     int index = 0;
+
     return NotificationListener<ScrollNotification>(
       child: RotatedBox(
         quarterTurns: 3,
         child: ListWheelScrollView(
           controller: _scrollController,
+          physics: FixedExtentScrollPhysics(),
           itemExtent: itemExtent,
           children: list.map((item) => renderListItem(item, index++)).toList(),
           onSelectedItemChanged: (int index) => nowIndex = index,
@@ -98,7 +96,6 @@ class CardListState extends State<CardList> {
 
   bool _onScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification == false) return true;
-
     _scrollAnimation(nowIndex);
     return true;
   }
