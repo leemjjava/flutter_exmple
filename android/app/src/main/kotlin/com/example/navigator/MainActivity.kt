@@ -16,8 +16,8 @@ class MainActivity: FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-
         GeneratedPluginRegistrant.registerWith(flutterEngine)
+
         MethodChannel(flutterEngine.dartExecutor, CHANNEL).setMethodCallHandler { call, result ->
             when (call.method) {
                 "app_intent" -> {
