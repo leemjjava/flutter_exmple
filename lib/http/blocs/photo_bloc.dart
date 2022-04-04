@@ -11,15 +11,16 @@ class PhotoBloc {
   }
 
   void getLocalPhoto() async {
-    var result = await PhotoManager.requestPermission();
+    var result = await PhotoManager.requestPermissionExtend();
 
-    if (result) {
+    if (result.isAuth) {
       List<AssetPathEntity> list =
           await PhotoManager.getAssetPathList(type: RequestType.image);
       List<AssetEntity> allImageList = [];
 
       for (AssetPathEntity data in list) {
-        List<AssetEntity> imageList = await data.assetList;
+        final assetCount = data.assetCount;
+        List<AssetEntity> imageList = await data.getAssetListRange(start: 0, end: assetCount);
         allImageList.addAll(imageList);
       }
       _assetEntityFetcher.sink.add(allImageList);

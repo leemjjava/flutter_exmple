@@ -57,10 +57,7 @@ class AssetImageCS extends StatelessWidget {
           return _buildContainer();
         }
       },
-      future: selectEntity.entity.thumbDataWithSize(
-        width.toInt(),
-        height.toInt(),
-      ),
+      future: selectEntity.entity.thumbnailDataWithSize(ThumbnailSize.square(200)),
     );
   }
 
