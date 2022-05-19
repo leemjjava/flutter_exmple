@@ -10,7 +10,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="navigator"
+        android:label="MJ Example"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">

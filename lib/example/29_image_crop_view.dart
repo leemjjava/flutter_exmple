@@ -147,6 +147,8 @@ class _ImageCropViewState extends State<ImageCropView> {
   }
 
   Widget resizebleWidget() {
+    if (cropFile != null) return Container();
+
     final mediaQuery = MediaQuery.of(context);
     final topPadding = mediaQuery.padding.top;
     final bottomPadding = mediaQuery.padding.bottom;
