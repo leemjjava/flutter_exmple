@@ -8,6 +8,7 @@ import 'package:navigator/utile/resource.dart';
 
 // ignore: must_be_immutable
 class PhotoPageScreen extends StatefulWidget {
+  static const String routeName = '/examples/photo_page_screen';
   int initIndex;
   PhotoPageScreen({this.initIndex = 0});
 

@@ -12,6 +12,7 @@ import 'package:navigator/example/24_signature_example.dart';
 import 'package:navigator/example/25_android_intent.dart';
 import 'package:navigator/example/26_time_picker.dart';
 import 'package:navigator/example/28_photo_page_screen.dart';
+import 'package:navigator/example/29_image_crop_view.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -119,7 +120,10 @@ final animation = [
       name: 'Animation Controller',
       route: AnimationControllerDemo.routeName,
       builder: (context) => AnimationControllerDemo()),
-  MyRouts(name: 'Tweens', route: TweenDemo.routeName, builder: (context) => TweenDemo()),
+  MyRouts(
+      name: 'Tweens',
+      route: TweenDemo.routeName,
+      builder: (context) => TweenDemo()),
   MyRouts(
       name: 'AnimatedBuilder',
       route: AnimatedBuilderDemo.routeName,
@@ -247,7 +251,8 @@ final examples = [
     builder: (BuildContext context) => TodoScreen(
       todoList: List.generate(
         20,
-        (i) => Todo('Todo $i', 'a description of what needs to be done for Todo $i'),
+        (i) => Todo(
+            'Todo $i', 'a description of what needs to be done for Todo $i'),
       ),
     ),
   ),
@@ -373,8 +378,13 @@ final examples = [
   ),
   MyRouts(
     name: 'Image Page View',
-    route: Chat.routeName,
+    route: PhotoPageScreen.routeName,
     builder: (BuildContext context) => PhotoPageScreen(),
+  ),
+  MyRouts(
+    name: 'Image Crop View',
+    route: ImageCropView.routeName,
+    builder: (BuildContext context) => ImageCropView(),
   ),
 ];
 
@@ -462,11 +472,11 @@ final boxConstraints = [
       builder: (BuildContext context) => BoxConstraintEx()),
 ];
 
-final animationMap =
-    Map.fromEntries(animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
+final animationMap = Map.fromEntries(
+    animation.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
-final examplesMap =
-    Map.fromEntries(examples.map((MyRouts item) => MapEntry(item.route, item.builder)));
+final examplesMap = Map.fromEntries(
+    examples.map((MyRouts item) => MapEntry(item.route, item.builder)));
 
 final weekOfWidgetMap = Map.fromEntries(
     weekOfWidgets.map((MyRouts item) => MapEntry(item.route, item.builder)));
