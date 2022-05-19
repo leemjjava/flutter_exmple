@@ -256,7 +256,7 @@ StatefulWidget 을 Screen 으로 사용하는 경우 route animation 이 종료�
             SizedBox(height: 32),
             SizedBox(height: 53, child: renderMid()),
             SizedBox(height: 16),
-            Container(color: nidoGreyF5, height: 8),
+            Container(color: greyF5, height: 8),
             MyList(),
           ],
         ),
@@ -320,21 +320,21 @@ Consumer 를 이용해서 Widget 을 Update 한다.
 
 ### Color Scheme
 공통적으로 사용되는 컬러값의 경우 resource 파일에서 선언해서 관리한다.
-변수명은 nido + ColorName + hexcode 2자리로 한다.
-퍼센트 값을 사용하는 회색의 경우 변수명은 nido + ColorName + 퍼센트 + p 로 한다.
+변수명은 ColorName + hexcode 2자리로 한다.
+퍼센트 값을 사용하는 회색의 경우 변수명은 ColorName + 퍼센트 + p 로 한다.
 
 **예제**
 ```
-const Color nidoBlue05 = Color(0xff057bc7);
-const Color nidoBlue03 = Color(0xff03a0f0);
-const Color nidoBlue00 = Color(0xff00aeff);
-const Color nidoBlue0023p = Color(0x3b00aeff);
+const Color blue05 = Color(0xff057bc7);
+const Color blue03 = Color(0xff03a0f0);
+const Color blue00 = Color(0xff00aeff);
+const Color blue0023p = Color(0x3b00aeff);
 
-const Color nidoGrey04p = Color(0x0A000000);
-const Color nidoGrey12p = Color(0x1F000000);
-const Color nidoGrey23p = Color(0x3B000000);
-const Color nidoGrey34p = Color(0x57000000);
-const Color nidoGrey38p = Color(0x61000000);
+const Color grey04p = Color(0x0A000000);
+const Color grey12p = Color(0x1F000000);
+const Color grey23p = Color(0x3B000000);
+const Color grey34p = Color(0x57000000);
+const Color grey38p = Color(0x61000000);
 
 ```
 
