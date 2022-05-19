@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class AnimatedListSample extends StatefulWidget {
   static const String routeName = '/week_of_widget/animated_list';
@@ -13,7 +12,8 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late ListModel<int> _list;
   int? _selectedItem;
-  int _nextItem = 3; // The next item inserted when the user presses the '+' button.
+  int _nextItem =
+      3; // The next item inserted when the user presses the '+' button.
   bool isEndAdd = false;
 
   @override
@@ -44,7 +44,8 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     }
   }
 
-  Widget _buildItem(BuildContext context, int index, Animation<double> animation) {
+  Widget _buildItem(
+      BuildContext context, int index, Animation<double> animation) {
     printAnimation(animation.status);
 
 //    if(_selectedItem == null) scrollEnd();
@@ -61,7 +62,8 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
     );
   }
 
-  Widget _buildRemovedItem(BuildContext context, int item, Animation<double> animation) {
+  Widget _buildRemovedItem(
+      BuildContext context, int item, Animation<double> animation) {
     return CardItem(
       animation: animation,
       item: item,
@@ -71,7 +73,8 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
   }
 
   void _insert() {
-    int index = _selectedItem == null ? _list.length : _list.indexOf(_selectedItem!);
+    int index =
+        _selectedItem == null ? _list.length : _list.indexOf(_selectedItem!);
     _list.insert(index, _nextItem++);
   }
 
@@ -178,7 +181,8 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline4!;
-    if (selected) textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
+    if (selected)
+      textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: getSlideTransition(child: getCardBody(textStyle: textStyle)),

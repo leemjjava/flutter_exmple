@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NestedScrollViewExample extends StatefulWidget {
@@ -56,7 +55,8 @@ class NestedScrollViewExampleState extends State<NestedScrollViewExample> {
     );
   }
 
-  List<Widget> headerSliverBuilder(BuildContext context, bool innerBoxIsScrolled) {
+  List<Widget> headerSliverBuilder(
+      BuildContext context, bool innerBoxIsScrolled) {
     return <Widget>[
       SliverOverlapAbsorber(
         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -236,11 +236,14 @@ class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
 
-    return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed).clamp(0, 1).toDouble();
+    return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed)
+        .clamp(0, 1)
+        .toDouble();
   }
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     width = MediaQuery.of(context).size.width;
     visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
     animationVal = scrollAnimationValue(shrinkOffset);
@@ -274,7 +277,8 @@ class SliverHeaderDelegateCS extends SliverPersistentHeaderDelegate {
   Widget getMinTop() {
     return Opacity(
       opacity: 1 - animationVal,
-      child: Container(height: visibleMainHeight, width: width, child: minChild),
+      child:
+          Container(height: visibleMainHeight, width: width, child: minChild),
     );
   }
 }

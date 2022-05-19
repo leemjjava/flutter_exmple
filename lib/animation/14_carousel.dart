@@ -3,8 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 class CarouselDemo extends StatelessWidget {
   static String routeName = '/misc/carousel';
@@ -91,7 +89,8 @@ class _CarouselState extends State<Carousel> {
       itemBuilder: (context, index) => AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          double result = _pageHasChanged ? _controller.page! : _currentPage * 1.0;
+          double result =
+              _pageHasChanged ? _controller.page! : _currentPage * 1.0;
 
           var value = result - index;
           value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);

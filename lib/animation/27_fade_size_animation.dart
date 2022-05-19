@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FadeSizeAnimationExample extends StatefulWidget {
   static const String routeName = '/misc/fade_size_animation';
 
   @override
-  _FadeSizeAnimationExampleState createState() => _FadeSizeAnimationExampleState();
+  _FadeSizeAnimationExampleState createState() =>
+      _FadeSizeAnimationExampleState();
 }
 
 class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
@@ -74,17 +74,20 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
   }
 
   void _insert() {
-    int index = _selectedItem == -1 ? items.length : items.indexOf(_selectedItem);
+    int index =
+        _selectedItem == -1 ? items.length : items.indexOf(_selectedItem);
     bool isLast = index == items.length;
     items.insert(index, _nextItem);
     ++_nextItem;
 
-    _listKey.currentState!.insertItem(index, duration: Duration(milliseconds: 300));
+    _listKey.currentState!
+        .insertItem(index, duration: Duration(milliseconds: 300));
     if (isLast) _scrollEnd();
   }
 
   void _remove() {
-    int index = _selectedItem == -1 ? items.length - 1 : items.indexOf(_selectedItem);
+    int index =
+        _selectedItem == -1 ? items.length - 1 : items.indexOf(_selectedItem);
     if (index < 0) return;
 
     int item = items[index];
@@ -128,7 +131,8 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline4!;
-    if (selected) textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
+    if (selected)
+      textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
 
     return Padding(
       padding: const EdgeInsets.all(2.0),

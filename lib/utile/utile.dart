@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-final String host = "https://ggvpuf5kd9.execute-api.ap-northeast-2.amazonaws.com";
-final String authHost = "https://23fay7fefe.execute-api.ap-northeast-2.amazonaws.com";
+final String host =
+    "https://ggvpuf5kd9.execute-api.ap-northeast-2.amazonaws.com";
+final String authHost =
+    "https://23fay7fefe.execute-api.ap-northeast-2.amazonaws.com";
 
 // ProgressDialog getProgressDialog(BuildContext context, String title) {
 //   ProgressDialog pr = new ProgressDialog(context,

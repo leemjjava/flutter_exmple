@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -55,7 +54,8 @@ class TransformExampleState extends State<TransformExample>
                   child: RedContainer(),
                   builder: (context, child) {
                     return Transform.rotate(
-                      angle: (180 / (180 / math.pi)) * _animationController.value,
+                      angle:
+                          (180 / (180 / math.pi)) * _animationController.value,
                       child: child,
                     );
                   },

@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LayoutExample extends StatefulWidget{
+class LayoutExample extends StatefulWidget {
   static const String routeName = '/week_of_widget/layout_example';
 
   @override
-  LayoutExampleState createState() =>LayoutExampleState();
-
+  LayoutExampleState createState() => LayoutExampleState();
 }
 
-class LayoutExampleState extends State<LayoutExample>{
+class LayoutExampleState extends State<LayoutExample> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,30 +18,36 @@ class LayoutExampleState extends State<LayoutExample>{
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Icon(Icons.phone,
+                  Icon(
+                    Icons.phone,
                     color: Colors.blue,
                   ),
-                  Text("CALL",
+                  Text(
+                    "CALL",
                     style: TextStyle(color: Colors.blue),
                   )
                 ],
               ),
               Column(
                 children: <Widget>[
-                  Icon(Icons.near_me,
+                  Icon(
+                    Icons.near_me,
                     color: Colors.blue,
                   ),
-                  Text("ROUTE",
+                  Text(
+                    "ROUTE",
                     style: TextStyle(color: Colors.blue),
                   )
                 ],
               ),
               Column(
                 children: <Widget>[
-                  Icon(Icons.share,
+                  Icon(
+                    Icons.share,
                     color: Colors.blue,
                   ),
-                  Text("SHARE",
+                  Text(
+                    "SHARE",
                     style: TextStyle(color: Colors.blue),
                   )
                 ],

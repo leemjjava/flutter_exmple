@@ -5,7 +5,6 @@ import 'package:navigator/http/models/auth_token.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:navigator/http/models/result_body.dart';
-import 'dart:convert' show utf8;
 import 'package:logger/logger.dart';
 import 'resources/login_api_provider.dart';
 import 'resources/member_api_provider.dart';

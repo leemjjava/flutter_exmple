@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/components/animation/animated_liner_indicator.dart';
 import 'package:navigator/components/card/circle_network_image.dart';
@@ -14,7 +13,8 @@ class AnimationIndicatorExample extends StatefulWidget {
   static const String routeName = '/misc/animation_indicator_example';
 
   @override
-  AnimationIndicatorExampleState createState() => AnimationIndicatorExampleState();
+  AnimationIndicatorExampleState createState() =>
+      AnimationIndicatorExampleState();
 }
 
 class AnimationIndicatorExampleState extends State<AnimationIndicatorExample> {

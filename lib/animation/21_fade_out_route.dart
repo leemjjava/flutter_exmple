@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FadeOutRoute extends StatefulWidget {
@@ -7,7 +6,8 @@ class FadeOutRoute extends StatefulWidget {
   FadeOutRouteState createState() => FadeOutRouteState();
 }
 
-class FadeOutRouteState extends State<FadeOutRoute> with SingleTickerProviderStateMixin {
+class FadeOutRouteState extends State<FadeOutRoute>
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
   final duration = Duration(milliseconds: 500);

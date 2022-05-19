@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnimationAlert extends StatefulWidget {
@@ -22,14 +21,17 @@ class AnimationAlertState extends State<AnimationAlert> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              inputButton('Center',
+                  () => showDialog(context, '버튼이 터치되었습니다.', centerBuild)),
+              SizedBox(height: 20),
               inputButton(
-                  'Center', () => showDialog(context, '버튼이 터치되었습니다.', centerBuild)),
+                  'Down', () => showDialog(context, '버튼이 터치되었습니다.', downBuild)),
               SizedBox(height: 20),
-              inputButton('Down', () => showDialog(context, '버튼이 터치되었습니다.', downBuild)),
+              inputButton(
+                  'Up', () => showDialog(context, '버튼이 터치되었습니다.', upBuilder)),
               SizedBox(height: 20),
-              inputButton('Up', () => showDialog(context, '버튼이 터치되었습니다.', upBuilder)),
-              SizedBox(height: 20),
-              inputButton('Side', () => showDialog(context, '버튼이 터치되었습니다.', sideBuilder)),
+              inputButton('Side',
+                  () => showDialog(context, '버튼이 터치되었습니다.', sideBuilder)),
             ],
           ),
         ),
@@ -70,7 +72,8 @@ class AnimationAlertState extends State<AnimationAlert> {
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: true,
       barrierLabel: '',
-      pageBuilder: (context, animation1, animation2) => dialogContainer(message),
+      pageBuilder: (context, animation1, animation2) =>
+          dialogContainer(message),
       transitionBuilder: transitionBuilder,
     );
   }

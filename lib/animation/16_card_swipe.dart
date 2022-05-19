@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
@@ -47,7 +45,9 @@ class _CardSwipeDemoState extends State<CardSwipeDemo> {
             Expanded(
               child: ClipRect(
                 child: Stack(
-                  children: <Widget>[for (final path in fileNames) renderCard(path)],
+                  children: <Widget>[
+                    for (final path in fileNames) renderCard(path)
+                  ],
                 ),
               ),
             ),
@@ -161,7 +161,8 @@ class _SwipeAbleCardState extends State<SwipeAbleCard>
   /// Runs the fling / spring animation using the final velocity of the drag
   /// gesture.
   void _dragEnd(DragEndDetails details) {
-    var velocity = (details.velocity.pixelsPerSecond.dx / context.size!.width).abs();
+    var velocity =
+        (details.velocity.pixelsPerSecond.dx / context.size!.width).abs();
     _animate(velocity: velocity);
   }
 
@@ -174,7 +175,8 @@ class _SwipeAbleCardState extends State<SwipeAbleCard>
 
   void _animate({double velocity = 0}) {
     var description = SpringDescription(mass: 50, stiffness: 1, damping: 1);
-    var simulation = SpringSimulation(description, _controller.value, 1, velocity);
+    var simulation =
+        SpringSimulation(description, _controller.value, 1, velocity);
     _controller.animateWith(simulation).then<void>((_) => widget.onSwiped());
   }
 

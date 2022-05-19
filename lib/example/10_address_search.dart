@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator/components/topbar/top_bar.dart';
 import 'package:navigator/http/blocs/address_bloc.dart';
@@ -165,9 +164,11 @@ class SearchAddressState extends State<SearchAddress> {
   }
 
   Widget listItem(Juso address) {
-    final roadLast = address.buldSlno == '0' ? '' : '-' + (address.buldSlno ?? '');
+    final roadLast =
+        address.buldSlno == '0' ? '' : '-' + (address.buldSlno ?? '');
     final rodaTitle = '${address.rn} ${address.buldMnnm}$roadLast';
-    final String title = address.bdNm?.isEmpty == true ? rodaTitle : address.bdNm!;
+    final String title =
+        address.bdNm?.isEmpty == true ? rodaTitle : address.bdNm!;
 
     return Container(
       padding: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15),

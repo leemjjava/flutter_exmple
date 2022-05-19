@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class AnimatedListExample extends StatefulWidget {
   static const String routeName = '/week_of_widget/animated_list_example';
@@ -75,17 +74,21 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
   }
 
   void _insert() {
-    int index = _selectedItem == null ? items.length : items.indexOf(_selectedItem!);
+    int index =
+        _selectedItem == null ? items.length : items.indexOf(_selectedItem!);
     if (index == items.length) _scrollEnd();
 
     items.insert(index, _nextItem);
     ++_nextItem;
 
-    _listKey.currentState!.insertItem(index, duration: Duration(milliseconds: 300));
+    _listKey.currentState!
+        .insertItem(index, duration: Duration(milliseconds: 300));
   }
 
   void _remove() {
-    int index = _selectedItem == null ? items.length - 1 : items.indexOf(_selectedItem!);
+    int index = _selectedItem == null
+        ? items.length - 1
+        : items.indexOf(_selectedItem!);
     if (index < 0) return;
 
     final currentState = _listKey.currentState;
@@ -102,7 +105,8 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
     _selectedItem = -1;
   }
 
-  Widget _buildRemovedItem(BuildContext context, int item, Animation<double> animation) {
+  Widget _buildRemovedItem(
+      BuildContext context, int item, Animation<double> animation) {
     return CardItem(animation: animation, item: item, selected: false);
   }
 }
@@ -124,7 +128,8 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.headline4!;
-    if (selected) textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
+    if (selected)
+      textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
 
     return Padding(
       padding: const EdgeInsets.all(2.0),

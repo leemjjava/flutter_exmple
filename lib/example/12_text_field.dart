@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:navigator/utile/utile.dart';
@@ -11,8 +10,10 @@ class TextFieldDemo extends StatefulWidget {
 }
 
 class TextFieldDemoState extends State<TextFieldDemo> {
-  final nameTec = TextEditingController(), citizenNumberTec = TextEditingController();
-  final phoneTec = TextEditingController(), accountNumberTec = TextEditingController();
+  final nameTec = TextEditingController(),
+      citizenNumberTec = TextEditingController();
+  final phoneTec = TextEditingController(),
+      accountNumberTec = TextEditingController();
   final etcInfoTec = TextEditingController(), etcTec = TextEditingController();
 
   List<String?> errorList = [null, null, null, null, null, null];
@@ -268,7 +269,8 @@ class TextFieldDemoState extends State<TextFieldDemo> {
           borderSide: BorderSide(color: Colors.grey),
         ),
         suffixIcon: icon,
-        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       ),
     );
   }
