@@ -65,10 +65,7 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
     // 저장된 위치를 반영해서 View 를 그려준다.
     final widgetsBinding = WidgetsBinding.instance;
     if (widgetsBinding == null) return;
-    widgetsBinding.addPostFrameCallback((_) {
-      // 화면 가운데를 기본값으로 세팅
-      widget.onDrag(Size(this.width, this.height), Offset(left, top));
-    });
+    widgetsBinding.addPostFrameCallback((_) => setDefaultBox());
   }
 
   @override
@@ -245,6 +242,53 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
     );
   }
 
+  void setDefaultBox() {
+    final parentContext = widget.parentKey?.currentContext;
+    final parentSize = widget.parentKey?.currentContext?.size;
+    final basicSize = Size(width, height);
+    final basicPos = Offset(left, top);
+
+    if (parentContext == null || parentSize == null) {
+      widget.onDrag(basicSize, basicPos);
+      return;
+    }
+
+    final parentPos = _getPosition(parentContext);
+    final mePos = _getPosition(context);
+    if (parentPos == null || mePos == null) {
+      widget.onDrag(basicSize, basicPos);
+      return;
+    }
+
+    final parentH = parentSize.height;
+    final parentW = parentSize.width;
+    final setSize = parentH > parentW ? parentW : parentH;
+
+    if (ratio == -1) {
+      width = parentW;
+      height = parentH;
+    } else if (ratio == 1) {
+      width = setSize;
+      height = setSize;
+    } else if (parentH > parentW) {
+      width = setSize;
+      height = setSize * ratio;
+    } else {
+      height = setSize;
+      width = setSize / ratio;
+    }
+
+    final centerH = parentH + (parentPos.dy * 2);
+    final centerW = parentW + (parentPos.dx * 2);
+
+    // 화면 가운데를 기본값으로 세팅
+    top = (((centerH / 2) - (height / 2)) - mePos.dy).ceilToDouble();
+    left = (((centerW / 2) - (width / 2)) - mePos.dx).ceilToDouble();
+
+    widget.onDrag(Size(width, height), Offset(left, top));
+    setState(() {});
+  }
+
   /// box Widget 드래그 시작 callback
   void _onBoxDragStart(DragStartDetails details) {
     // 현재 사용자가 터치한 값과 기존 Box Position 의 차이를 저장한다.
@@ -417,10 +461,7 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
 
   void _setRatio(double ratio) {
     this.ratio = ratio;
-    if (ratio != -1) {
-      width = 100.0;
-      height = width * ratio;
-    }
+    setDefaultBox();
   }
 
   /// 배경이 되는 Widget 의 크기와 높이를 가져와서 위치와 크기의 Limit 을 계산하는 함수
@@ -459,12 +500,12 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
     final yLimit = hLimit - (height + widget.padding.top);
 
     return LimitPosition(
-      xStart: xStart,
-      xLimit: xLimit,
-      wLimit: wLimit,
-      yStart: yStart,
-      yLimit: yLimit,
-      hLimit: hLimit,
+      xStart: xStart.ceilToDouble(),
+      xLimit: xLimit.ceilToDouble(),
+      wLimit: wLimit.ceilToDouble(),
+      yStart: yStart.ceilToDouble(),
+      yLimit: yLimit.ceilToDouble(),
+      hLimit: hLimit.ceilToDouble(),
     );
   }
 

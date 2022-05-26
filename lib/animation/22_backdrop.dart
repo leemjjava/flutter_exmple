@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 class BackdropExample extends StatefulWidget {
@@ -201,7 +200,8 @@ class Backdrop extends StatefulWidget {
   createState() => _BackdropState();
 }
 
-class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin {
+class _BackdropState extends State<Backdrop>
+    with SingleTickerProviderStateMixin {
   final _backdropKey = GlobalKey(debugLabel: 'Backdrop');
   late AnimationController _controller;
 
@@ -220,7 +220,8 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
 
     if (panelBodyHeight == 0) return maxHeight;
 
-    panelBodyHeight = panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
+    panelBodyHeight =
+        panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
 
     return panelBodyHeight + widget.frontHeaderHeight;
   }
@@ -308,7 +309,8 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
         final bodyHeight = widget.frontPanelHeight;
 
         final closedPercentage = getClosedPercentage(maxHeight);
-        final openPercentage = bodyHeight == 0 ? 0.0 : getOpenPercentage(maxHeight);
+        final openPercentage =
+            bodyHeight == 0 ? 0.0 : getOpenPercentage(maxHeight);
 
         final panelDetailsPosition = Tween<Offset>(
           begin: Offset(0.0, closedPercentage),
@@ -346,7 +348,8 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
 
   double getOpenPercentage(double maxHeight) {
     double panelBodyHeight = widget.frontPanelHeight;
-    panelBodyHeight = panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
+    panelBodyHeight =
+        panelBodyHeight > 0 ? panelBodyHeight : maxHeight + panelBodyHeight;
 
     final panelHeight = panelBodyHeight + widget.frontHeaderHeight;
     return (maxHeight - panelHeight) / maxHeight;
