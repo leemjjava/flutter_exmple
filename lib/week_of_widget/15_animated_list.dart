@@ -62,8 +62,6 @@ class _AnimatedListExampleState extends State<AnimatedListExample> {
 
   void _scrollEnd() {
     final widgetBinding = WidgetsBinding.instance;
-    if (widgetBinding == null) return;
-
     widgetBinding.addPostFrameCallback((_) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,

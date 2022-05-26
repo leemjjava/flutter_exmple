@@ -32,7 +32,6 @@ class _ImageCropViewState extends State<ImageCropView> {
   final cropKey = GlobalKey();
   Size cropSize = Size(100, 100);
   DartImage.Image? cropImage;
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -61,7 +60,6 @@ class _ImageCropViewState extends State<ImageCropView> {
               Positioned.fill(child: imageLayout()),
               resizebleWidget(),
               Positioned(left: 0, top: 0, right: 0, child: topBar()),
-              if (isLoading) Center(child: CircularProgressIndicator()),
             ],
           ),
         ),
