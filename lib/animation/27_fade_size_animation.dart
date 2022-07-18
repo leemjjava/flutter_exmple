@@ -62,8 +62,6 @@ class _FadeSizeAnimationExampleState extends State<FadeSizeAnimationExample> {
 
   void _scrollEnd() async {
     final widgetBinding = WidgetsBinding.instance;
-    if (widgetBinding == null) return;
-
     widgetBinding.addPostFrameCallback((_) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,

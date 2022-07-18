@@ -155,7 +155,6 @@ class _BubbleListExampleState extends State<BubbleListExample> {
 
     if (isBottomShow == false) return;
     final widgetBinding = WidgetsBinding.instance;
-    if (widgetBinding == null) return;
     widgetBinding.addPostFrameCallback((_) => node.requestFocus());
   }
 }

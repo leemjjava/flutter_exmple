@@ -27,7 +27,7 @@ class ChatState extends State<Chat> {
     _messageController = TextEditingController();
     _controller = ScrollController();
     initSocket();
-    WidgetsBinding.instance!.addPostFrameCallback(
+    WidgetsBinding.instance.addPostFrameCallback(
       (_) => {
         _controller.animateTo(
           0.0,

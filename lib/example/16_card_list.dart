@@ -83,7 +83,7 @@ class CardListState extends State<CardList> {
   }
 
   _scrollAnimation(int index) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateToItem(
         index,
         duration: Duration(milliseconds: 200),

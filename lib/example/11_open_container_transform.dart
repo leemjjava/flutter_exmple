@@ -45,10 +45,12 @@ class OpenContainerTransformDemo extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OpenContainerTransformDemoState createState() => _OpenContainerTransformDemoState();
+  _OpenContainerTransformDemoState createState() =>
+      _OpenContainerTransformDemoState();
 }
 
-class _OpenContainerTransformDemoState extends State<OpenContainerTransformDemo> {
+class _OpenContainerTransformDemoState
+    extends State<OpenContainerTransformDemo> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ContainerTransitionType _transitionType = ContainerTransitionType.fade;
 
@@ -138,7 +140,10 @@ class Page extends StatelessWidget {
             Text('컨테이너 변환'),
             Text(
               '(Cards, Lists & FAB)',
-              style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2!
+                  .copyWith(color: Colors.white),
             ),
           ],
         ),

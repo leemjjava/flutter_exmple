@@ -24,8 +24,10 @@ class UserInputExState extends State<UserInputEx> {
   bool _allowMailing = false;
   bool _allowMessage = false;
 
-  void _mailChanged(bool? value) => setState(() => _allowMailing = value ?? false);
-  void _messageChanged(bool? value) => setState(() => _allowMessage = value ?? false);
+  void _mailChanged(bool? value) =>
+      setState(() => _allowMailing = value ?? false);
+  void _messageChanged(bool? value) =>
+      setState(() => _allowMessage = value ?? false);
 
   @override
   void initState() {
@@ -142,7 +144,7 @@ class UserInputExState extends State<UserInputEx> {
           message = resultBody.message!;
         }
 
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           if (message == null) return;
           showAlertDialog(context, message);
         });

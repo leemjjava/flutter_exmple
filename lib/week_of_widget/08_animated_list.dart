@@ -79,7 +79,7 @@ class _AnimatedListSampleState extends State<AnimatedListSample> {
   }
 
   void scrollEnd() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
     });
