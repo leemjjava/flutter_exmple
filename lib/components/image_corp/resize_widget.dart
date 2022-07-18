@@ -53,6 +53,9 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
   /// control Padding
   final controlPadding = 3;
 
+  /// 가장 작은 박스의 크기
+  final minSize = 100.0;
+
   @override
   void initState() {
     super.initState();
@@ -222,19 +225,12 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
           SizedBox(
             height: 32,
             width: 32,
-            child: Icon(
-              data,
-              size: 32,
-              color: color,
-            ),
+            child: Icon(data, size: 32, color: color),
           ),
           SizedBox(height: 2),
           Text(
             title,
-            style: TextStyle(
-              fontSize: 10,
-              color: color,
-            ),
+            style: TextStyle(fontSize: 10, color: color),
           ),
         ],
       ),
@@ -361,14 +357,13 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
     }
 
     if (_stopCheckLeftTop(x, y)) return;
-    final minWidth = 100.0;
-    final minHeight = ratio == -1 ? 100.0 : minWidth * ratio;
+    final minWidth = minSize;
+    final minHeight = ratio == -1 ? minSize : minWidth * ratio;
 
-    w = w > 100.0 ? w : minWidth;
-    h = h > 100.0 ? h : minHeight;
+    w = w > minSize ? w : minWidth;
+    h = h > minSize ? h : minHeight;
 
-    if (ratio != -1) return _ratioBoxSet(w, h, x, y, type);
-    _normalBoxSet(w, h, x, y, type);
+    _boxSet(w, h, x, y, type);
   }
 
   /// 터치 영역이 부모 영역을 벗어나면 box 를 그리지 않음
@@ -388,46 +383,30 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
   }
 
   /// 비율이 지정되어 있는 경우 위치/크기 처리
-  void _ratioBoxSet(double w, double h, double x, double y, ScaleType type) {
-    h = w * ratio;
-    if (top != y) y = top + (height - h);
+  void _boxSet(double w, double h, double x, double y, ScaleType type) {
+    if (ratio != -1) {
+      h = w * ratio;
+      if (top != y) y = top + (height - h);
+    }
 
-    final parentContext = widget.parentKey?.currentContext;
-    if (parentContext == null) return _setBoxRectangle(w, h, x, y, type);
+    final parent = widget.parentKey?.currentContext;
+    if (parent == null) {
+      return _setBoxRectangle(Size(w, h), Offset(x, y), type);
+    }
 
-    bool isStop = _checkBoxStop(parentContext, Size(w, h), Offset(x, y));
-    if (isStop) return;
+    if (_checkBoxStop(parent, Size(w, h), Offset(x, y))) return;
 
-    final offset = _parentOffset(parentContext, x, y, w, h, type: type);
-    final size = _parentSizeCheck(parentContext, w, h, x, y);
+    final offset = _parentOffset(parent, x, y, w, h, type: type);
+    final size = _parentSizeCheck(parent, w, h, x, y);
 
-    isStop = _checkBoxStop(parentContext, size, offset);
-    if (isStop) return;
+    if (_checkBoxStop(parent, size, offset)) return;
 
-    _setBoxRectangle(size.width, size.height, offset.dx, offset.dy, type);
-  }
-
-  /// 비율이 지정되지 않은 경우 위치/높이 처리
-  void _normalBoxSet(double w, double h, double x, double y, ScaleType type) {
-    final parentContext = widget.parentKey?.currentContext;
-    if (parentContext == null) return _setBoxRectangle(w, h, x, y, type);
-
-    final offset = _parentOffset(parentContext, x, y, w, h, type: type);
-    final size = _parentSizeCheck(parentContext, w, h, x, y);
-
-    final isStop = _checkBoxStop(parentContext, size, offset);
-    if (isStop) return;
-
-    _setBoxRectangle(size.width, size.height, offset.dx, offset.dy, type);
+    _setBoxRectangle(size, offset, type);
   }
 
   /// 비율이 지정된 경우 크기가 더이상 커질 수 없는지? 위치가 더이상 바뀔 수 없는지? 검사하는 함수
-  bool _checkBoxStop(
-    BuildContext parentContext,
-    Size boxSize,
-    Offset boxOffset,
-  ) {
-    final limit = _getLimit(parentContext, boxSize.width, boxSize.height);
+  bool _checkBoxStop(BuildContext parent, Size boxSize, Offset boxOffset) {
+    final limit = _getLimit(parent, boxSize.width, boxSize.height);
     final position = _getPosition(context);
 
     if (position == null) return false;
@@ -445,39 +424,40 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
   }
 
   /// 최종적으로 크기와 위치를 지정하는 함수
-  void _setBoxRectangle(
-    double w,
-    double h,
-    double dx,
-    double dy,
-    ScaleType type,
-  ) {
-    final minWidth = 100.0;
-    final minHeight = ratio == -1 ? 100.0 : minWidth * ratio;
+  void _setBoxRectangle(Size boxSize, Offset boxOffset, ScaleType type) {
+    final minWidth = minSize;
+    final minHeight = ratio == -1 ? minSize : minWidth * ratio;
 
-    if (h > minHeight) top = dy;
-    if (w > minWidth) left = dx;
+    if (boxSize.height > minHeight) top = boxOffset.dy;
+    if (boxSize.width > minWidth) left = boxOffset.dx;
 
-    setTopScale(h, w, type);
+    setTopScale(boxSize, type);
 
-    width = w;
-    height = h;
+    width = boxSize.width;
+    height = boxSize.height;
 
     setState(
       () => widget.onDrag(Size(width, height), Offset(left, top)),
     );
   }
 
-  void setTopScale(double h, double w, ScaleType type) {
+  /// 가장 작아졌을때의 box top, left 값을 비율에 맞게 조정한다.
+  void setTopScale(Size boxSize, ScaleType type) {
     if (type == ScaleType.bottomLeft) return;
     if (type == ScaleType.bottomRight) return;
 
-    final minWidth = 100.0;
-    final minHeight = ratio == -1 ? 100.0 : minWidth * ratio;
+    final minWidth = minSize;
+    final minHeight = ratio == -1 ? minSize : minWidth * ratio;
 
-    if (h == minHeight && height != minHeight) top = (top + height) - minHeight;
+    if (boxSize.height == minHeight && height != minHeight) {
+      top = (top + height) - minHeight;
+    }
+
     if (type != ScaleType.topLeft) return;
-    if (w == minWidth && width != minWidth) left = (left + width) - minWidth;
+
+    if (boxSize.width == minWidth && width != minWidth) {
+      left = (left + width) - minWidth;
+    }
   }
 
   /// 부모 위젯이 있는 경우 해당 범위를 넘어서지 않도록 dx, dy를 제한하는 함수
@@ -567,8 +547,6 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
     // Box dx의 limit 은 너비 Limit - 자신의 너비 만큼 갈 수 있다.
     final xLimit = wLimit - nowWidth;
 
-    // // resizeWidget 이 현재 SafeArea 에 있기 때문에 top Padding 을 빼줘야 한다.
-    // final topPadding = mediaQuery.padding.top;
     // Box dy의 시작점은 배경 Widget 의 dy + topPadding 이다.
     final yStart = parentOffset.dy - widget.padding.top;
     // Box dy의 시작점 + 높이는 배경이 되는 Widget 의 시작점 + 높이 만큼 커질수 있다.
