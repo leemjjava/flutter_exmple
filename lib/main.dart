@@ -13,6 +13,7 @@ import 'package:navigator/example/25_android_intent.dart';
 import 'package:navigator/example/26_time_picker.dart';
 import 'package:navigator/example/28_photo_page_screen.dart';
 import 'package:navigator/example/29_image_crop_view.dart';
+import 'package:navigator/example/29_image_rotate_view.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -385,6 +386,11 @@ final examples = [
     name: 'Image Crop View',
     route: ImageCropView.routeName,
     builder: (BuildContext context) => ImageCropView(),
+  ),
+  MyRouts(
+    name: 'Image Rotate View',
+    route: ImageRotateView.routeName,
+    builder: (BuildContext context) => ImageRotateView(),
   ),
 ];
 
