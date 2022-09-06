@@ -38,7 +38,8 @@ class _ScaleControlState extends State<ScaleControl> {
     var dy = details.globalPosition.dy - initY;
     initX = details.globalPosition.dx;
     initY = details.globalPosition.dy;
-    widget.onDrag(dx, dy);
+
+    widget.onDrag(dx, dy, widget.type);
   }
 
   @override

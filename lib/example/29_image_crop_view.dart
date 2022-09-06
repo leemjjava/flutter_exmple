@@ -33,6 +33,8 @@ class _ImageCropViewState extends State<ImageCropView> {
   Size cropSize = Size(100, 100);
   DartImage.Image? cropImage;
 
+  EdgeInsets padding = EdgeInsets.symmetric(vertical: 0, horizontal: 0);
+
   @override
   void initState() {
     super.initState();
@@ -54,15 +56,20 @@ class _ImageCropViewState extends State<ImageCropView> {
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Positioned.fill(child: imageLayout()),
-              resizebleWidget(),
-              Positioned(left: 0, top: 0, right: 0, child: topBar()),
-            ],
-          ),
-        ),
+        body: SafeArea(child: mainView()),
+      ),
+    );
+  }
+
+  Widget mainView() {
+    return Container(
+      padding: padding,
+      child: Stack(
+        children: [
+          Positioned.fill(child: imageLayout()),
+          resizebleWidget(),
+          Positioned(left: 0, top: 0, right: 0, child: topBar()),
+        ],
       ),
     );
   }
@@ -146,17 +153,18 @@ class _ImageCropViewState extends State<ImageCropView> {
 
   Widget resizebleWidget() {
     if (cropFile != null) return Container();
+    if (basicImage == null) return Container();
 
     final mediaQuery = MediaQuery.of(context);
-    final topPadding = mediaQuery.padding.top;
-    final bottomPadding = mediaQuery.padding.bottom;
 
     return RepaintBoundary(
       key: cropKey,
       child: ResizebleWidget(
-        parentKey: imageKey,
-        onDrag: (size, offset) => insidePositionUpdate(size, offset),
-        padding: EdgeInsets.only(top: topPadding, bottom: bottomPadding),
+        limitBoxKey: imageKey,
+        onDrag: (rect) => insidePositionUpdate(
+          rect.size,
+          Offset(rect.top, rect.left),
+        ),
         screenSize: Size(mediaQuery.size.width, mediaQuery.size.height),
         child: Container(
           width: double.infinity,
