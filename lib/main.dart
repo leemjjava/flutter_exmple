@@ -5,6 +5,7 @@ import 'package:navigator/animation/24_animation_alert.dart';
 import 'package:navigator/animation/25_transform_example.dart';
 import 'package:navigator/animation/30_page_list_view.dart';
 import 'package:navigator/animation/31_page_view_indicator.dart';
+import 'package:navigator/animation/32_expansion_view.dart';
 import 'package:navigator/example/01_name_routes_arguments.dart';
 import 'package:navigator/example/20_in_app_web_view.dart';
 import 'package:navigator/example/22_googl_map.dart';
@@ -232,6 +233,11 @@ final animation = [
     name: 'Page Indicator Example',
     route: PageIndicatorExample.routeName,
     builder: (BuildContext context) => PageIndicatorExample(),
+  ),
+  MyRouts(
+    name: 'Expansion View Example',
+    route: ExpansionViewExample.routeName,
+    builder: (BuildContext context) => ExpansionViewExample(),
   ),
 ];
 
