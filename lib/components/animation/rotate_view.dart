@@ -18,10 +18,8 @@ class RotateView extends StatefulWidget {
 
 class _RotateViewState extends State<RotateView>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
+  final Animatable<double> _halfTween = Tween<double>(begin: 2.0, end: 1.5);
 
   late AnimationController _controller;
 

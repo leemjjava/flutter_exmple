@@ -28,8 +28,8 @@ class _ExpansionViewState extends State<ExpansionView>
       CurveTween(curve: Curves.easeIn);
 
   late Animation<double> _heightFactor;
-
   late AnimationController _controller;
+
   bool _isExpanded = false;
 
   @override
@@ -70,7 +70,6 @@ class _ExpansionViewState extends State<ExpansionView>
   void _reverse() {
     _controller.reverse().then<void>((void value) {
       if (!mounted) return;
-      // Rebuild without widget.children.
       setState(() {});
     });
   }
