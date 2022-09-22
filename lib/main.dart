@@ -16,6 +16,7 @@ import 'package:navigator/example/28_photo_page_screen.dart';
 import 'package:navigator/example/29_image_crop_view.dart';
 import 'package:navigator/example/29_image_rotate_view.dart';
 import 'package:navigator/example/30_nesting_routes.dart';
+import 'package:navigator/example/31_drag_select_example.dart';
 import 'package:navigator/week_of_widget/16_nested_scroll_view.dart';
 import 'package:navigator/week_of_widget/17_layout_example.dart';
 import 'package:navigator/week_of_widget/18_Asynchronous.dart';
@@ -403,6 +404,11 @@ final examples = [
     name: 'Nesting Routes',
     route: NestingRoutes.routeName,
     builder: (BuildContext context) => NestingRoutes(),
+  ),
+  MyRouts(
+    name: 'Drag Select Example',
+    route: DragSelectExample.routeName,
+    builder: (BuildContext context) => DragSelectExample(),
   ),
 ];
 
