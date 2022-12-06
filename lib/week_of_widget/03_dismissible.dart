@@ -35,7 +35,7 @@ class DismissibleExState extends State<DismissibleEx> {
                 });
 
                 // ignore: deprecated_member_use
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('$item dismiss'),
                   ),

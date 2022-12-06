@@ -62,8 +62,8 @@ class _ReactiveScreenState extends State<ReactiveScreen> {
   Widget renderObxUser() {
     return Obx(
       () => Text(
-        'USER : ${controller.user.value.id}'
-        '/${controller.user.value.name}',
+        'USER : ${controller.user.value?.id}'
+        '/${controller.user.value?.name}',
       ),
     );
   }
