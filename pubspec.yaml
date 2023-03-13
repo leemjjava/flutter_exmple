@@ -39,6 +39,8 @@ dependencies:
 
   image_picker: ^0.8.0+4
   google_maps_flutter: 2.0.6
+  animated_list_plus: ^0.4.3
+  flutter_slidable: ^2.0.0
 
   #local plugin
   flutter_kakao_map:
